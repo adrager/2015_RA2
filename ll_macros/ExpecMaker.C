@@ -140,7 +140,7 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
   tExpectation_->Branch("Jets_chargedEmEnergyFraction", Jets_chargedEmEnergyFraction, "Jets_chargedEmEnergyFraction[JetsNum]/F");
   tExpectation_->Branch("Jets_chargedHadronEnergyFraction", Jets_chargedHadronEnergyFraction, "Jets_chargedHadronEnergyFraction[JetsNum]/F");
   tExpectation_->Branch("Jets_chargedHadronMultiplicity", Jets_chargedHadronMultiplicity, "Jets_chargedHadronMultiplicity[JetsNum]/I");
-  tExpectation_->Branch("Jets_electronMultiplicity", Jets_electronMultiplicity, "Jets_electronMultiplicity[JetsNum]/F");
+  tExpectation_->Branch("Jets_electronMultiplicity", Jets_electronMultiplicity, "Jets_electronMultiplicity[JetsNum]/I");
   tExpectation_->Branch("Jets_jetArea", Jets_jetArea, "Jets_jetArea[JetsNum]/F");
   tExpectation_->Branch("Jets_muonEnergyFraction", Jets_muonEnergyFraction, "Jets_muonEnergyFraction[JetsNum]/F");
   tExpectation_->Branch("Jets_muonMultiplicity", Jets_muonMultiplicity, "Jets_muonMultiplicity[JetsNum]/I");
@@ -148,6 +148,15 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
   tExpectation_->Branch("Jets_neutralHadronMultiplicity", Jets_neutralHadronMultiplicity, "Jets_neutralHadronMultiplicity[JetsNum]/I");
   tExpectation_->Branch("Jets_photonEnergyFraction", Jets_photonEnergyFraction, "Jets_photonEnergyFraction[JetsNum]/F");
   tExpectation_->Branch("Jets_photonMultiplicity", Jets_photonMultiplicity, "Jets_photonMultiplicity[JetsNum]/I");
+  // di lep contribution
+  tExpectation_->Branch("ExpectationDiLep",&ExpectationDiLep_,"ExpectationDiLep/s");
+  tExpectation_->Branch("MuDiLepControlSample",&MuDiLepControlSample_,"MuDiLepControlSample/s");
+  tExpectation_->Branch("ElecDiLepControlSample",&ElecDiLepControlSample_,"ElecDiLepControlSample/s");
+  // stand alone isotrack prediction code  
+  tExpectation_->Branch("StandAloneGenMuIsoTrackMatched",&StandAloneGenMuIsoTrackMatched_,"StandAloneGenMuIsoTrackMatched/s");
+  tExpectation_->Branch("StandAloneIsoTrackToMuMatched",&StandAloneIsoTrackToMuMatched_,"StandAloneIsoTrackToMuMatched/s");
+  tExpectation_->Branch("StandAloneGenElecIsoTrackMatched",&StandAloneGenElecIsoTrackMatched_,"StandAloneGenElecIsoTrackMatched/s");
+  tExpectation_->Branch("StandAloneIsoTrackToElecMatched",&StandAloneIsoTrackToElecMatched_,"StandAloneIsoTrackToElecMatched/s");
   
   
   GetOutputList()->Add(tExpectation_);
@@ -203,6 +212,7 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 	      muIsoMatched[i]=1;
 	      Expectation=2;
 	      mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoMuonsPt[ii], selectedIDIsoMuonsPhi[ii]);
+	      MuDiLepControlSample_=2;
 	    }
 	  }
 	  if(IsoNotMatched)
@@ -263,6 +273,7 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 	      elecIsoMatched[i]=1;
 	      Expectation=2;
 	      mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoElectronsPt[ii], selectedIDIsoElectronsPhi[ii]);
+	      ElecDiLepControlSample_=2;
 	    }
 	  }
 	  if(IsoNotMatched)
@@ -286,13 +297,16 @@ Bool_t ExpecMaker::Process(Long64_t entry)
     if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==0)
     {
       Expectation=1;
+      ExpectationDiLep_=1;
     }
     if(selectedIDIsoMuonsNum==1 && selectedIDIsoElectronsNum==0)
     {
       mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoMuonsPt[0], selectedIDIsoMuonsPhi[0]);
+      MuDiLepControlSample_=0;
     }
     if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==1)
     {
+      ElecDiLepControlSample_=0;
       mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoElectronsPt[0], selectedIDIsoElectronsPhi[0]);
     }
   }
@@ -482,7 +496,7 @@ Bool_t ExpecMaker::Process(Long64_t entry)
       RecoIsoElecPromtMatchedRelPt[i]=-100;
     }
   }
-  // check if falls lepton veto will be applied
+  // check if false lepton veto will be applied
   temp=0;
   for(unsigned int i=0; i< selectedIDIsoElectronsNum;i++)
   {
@@ -493,6 +507,68 @@ Bool_t ExpecMaker::Process(Long64_t entry)
     if(RecoIsoMuonPromtMatched[i]==0)temp=1;
   }
   if(temp==1)FallsVetoLep=1;
+  
+  // new version for stand alone iso track
+  // go for single lepton decay first
+  if(GenMuNum==1 && GenElecNum==0)
+  {
+    bool IsoTrackNotMached=true;
+    for (unsigned int i=0; i < IsolatedTracksNum; i++)
+    {
+      if( deltaR(GenMuEta[0],GenMuPhi[0],IsolatedTracksEta[i],IsolatedTracksPhi[i])<maxDeltaRGenToRecoIsoTrack_ && std::abs(GenMuPt[0]-IsolatedTracksPt[i])/GenMuPt[0] <maxDiffPtGenToRecoIsoTrack_) 
+      {
+	IsoTrackNotMached=false;
+	StandAloneGenMuIsoTrackMatched_++;
+	bool IsoTrackIsoMuonNotMachted=true;
+	for (unsigned int ii=0; ii < selectedIDIsoMuonsNum;ii++)
+	{
+	  if(deltaR(IsolatedTracksEta[i],IsolatedTracksPhi[i],selectedIDIsoMuonsEta[i],selectedIDIsoMuonsPhi[i])<maxDeltaRIsoTrackToMu_ && std::abs(IsolatedTracksPt[i]-selectedIDIsoMuonsPt[ii])/IsolatedTracksPt[i] <maxDiffPtIsoTrackToMu_)
+	  {
+	  IsoTrackIsoMuonNotMachted=false;
+	  StandAloneIsoTrackToMuMatched_++;
+	  }
+	}
+	if(IsoTrackIsoMuonNotMachted)
+	{
+	  StandAloneIsoTrackToMuMatched_=0;
+	}
+      }
+    }
+    if(IsoTrackNotMached)
+    {
+      StandAloneGenMuIsoTrackMatched_=0;
+    }
+  }
+  // single gen electron
+  if(GenMuNum==0 && GenElecNum==1)
+  {
+    bool IsoTrackNotMached=true;
+    for (unsigned int i=0; i < IsolatedTracksNum; i++)
+    {
+      if(deltaR(GenElecEta[0],GenElecPhi[0],IsolatedTracksEta[i],IsolatedTracksPhi[i])<maxDeltaRGenToRecoIsoTrack_ && std::abs(GenElecPt[0]-IsolatedTracksPt[i])/GenElecPt[0] <maxDiffPtGenToRecoIsoTrack_)
+      {
+	IsoTrackNotMached=false;
+	StandAloneGenElecIsoTrackMatched_++;
+	bool IsoTrackIsoEleconNotMachted=true;
+	for (unsigned int ii=0; ii < selectedIDIsoElectronsNum;ii++)
+	{
+	  if(deltaR(IsolatedTracksEta[i],IsolatedTracksPhi[i],selectedIDIsoElectronsEta[i],selectedIDIsoElectronsPhi[i])<maxDeltaRIsoTrackToElec_ && std::abs(IsolatedTracksPt[i]-selectedIDIsoElectronsPt[ii])/IsolatedTracksPt[i] <maxDiffPtIsoTrackToElec_)
+	  {
+	    IsoTrackIsoEleconNotMachted=false;
+	    StandAloneIsoTrackToElecMatched_++;
+	  }
+	}
+	if(IsoTrackIsoEleconNotMachted)
+	{
+	  StandAloneIsoTrackToElecMatched_=0;
+	}
+      }
+    }
+    if(IsoTrackNotMached)
+    {
+      StandAloneGenElecIsoTrackMatched_=0;
+    }
+  }
   
   tExpectation_->Fill();
   return kTRUE;
@@ -534,6 +610,16 @@ void ExpecMaker::resetValues()
   FallsVetoIsoTrackPT10=0;
   FallsVetoIsoTrackPT10IsoCut08=0;
   FallsVetoIsoTrackPT10IsoCut12=0;
+  // di lep
+  ExpectationDiLep_=0;
+  MuDiLepControlSample_=1;
+  ElecDiLepControlSample_=1;
+  
+  //stand alone isolatedtrack studies
+  StandAloneGenMuIsoTrackMatched_=1;
+  StandAloneIsoTrackToMuMatched_=1;
+  StandAloneGenElecIsoTrackMatched_=1;
+  StandAloneIsoTrackToElecMatched_=1;
   for(unsigned int i=0; i<20;i++)
   {
     muIsoMatched[i]=0;
@@ -617,4 +703,15 @@ double ExpecMaker::MTWCalculator(double metPt,double  metPhi,double  lepPt,doubl
 {
   double deltaPhi =TVector2::Phi_mpi_pi(lepPhi-metPhi);
   return sqrt(2*lepPt*metPt*(1-cos(deltaPhi)) );
+}
+double ExpecMaker::MuActivity( double muEta, double muPhi)
+{
+  double result =0;
+  for (unsigned int i=0; i < JetsNum ; i++)
+  {
+    if(deltaR(muEta,muPhi,JetsEta[i],JetsPhi[i])>maxDeltaRMuActivity_ ) continue;
+    result+=JetsPt[i] * (Jets_chargedEmEnergyFraction[i] + Jets_chargedHadronEnergyFraction[i]);
+  }
+  return result;
+ 
 }

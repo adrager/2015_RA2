@@ -317,6 +317,223 @@ void EffMaker::SlaveBegin(TTree * /*tree*/)
   ElecMTWMHTFail_->SetName("ElecMTWMHT1DFail");
   GetOutputList()->Add(ElecMTWMHTFail_); 
   
+  // di lep
+  
+  // mtw
+  //muon
+  //1D
+  MuDiLepBTag_ = new TH1F("MuDiLepBTag1D","MuDiLepBTag1D",oneDBJets_-1,OneDBJets_);
+  GetOutputList()->Add(MuDiLepBTag_);
+  MuDiLepBTagFail_ = (TH1F*)MuDiLepBTag_->Clone();
+  MuDiLepBTagFail_->SetName("MuDiLepBTag1DFail");
+  GetOutputList()->Add(MuDiLepBTagFail_); 
+  
+  MuDiLepNJets_ = new TH1F("MuDiLepNJets1D","MuDiLepNJets1D",oneDNJets_-1,OneDNJets_);
+  GetOutputList()->Add(MuDiLepNJets_);
+  MuDiLepNJetsFail_ = (TH1F*)MuDiLepNJets_->Clone();
+  MuDiLepNJetsFail_->SetName("MuDiLepNJets1DFail");
+  GetOutputList()->Add(MuDiLepNJetsFail_); 
+  
+  MuDiLepHT_ = new TH1F("MuDiLepHT1D","MuDiLepHT1D",oneDHT_-1,OneDHT_);
+  GetOutputList()->Add(MuDiLepHT_);
+  MuDiLepHTFail_ = (TH1F*)MuDiLepHT_->Clone();
+  MuDiLepHTFail_->SetName("MuDiLepHT1DFail");
+  GetOutputList()->Add(MuDiLepHTFail_); 
+  
+  MuDiLepMHT_ = new TH1F("MuDiLepMHT1D","MuDiLepMHT1D",oneDMHT_-1,OneDMHT_);
+  GetOutputList()->Add(MuDiLepMHT_);
+  MuDiLepMHTFail_ = (TH1F*)MuDiLepMHT_->Clone();
+  MuDiLepMHTFail_->SetName("MuDiLepMHT1DFail");
+  GetOutputList()->Add(MuDiLepMHTFail_); 
+  
+  //muon
+  //1D
+  ElecDiLepBTag_ = new TH1F("ElecDiLepBTag1D","ElecDiLepBTag1D",oneDBJets_-1,OneDBJets_);
+  GetOutputList()->Add(ElecDiLepBTag_);
+  ElecDiLepBTagFail_ = (TH1F*)ElecDiLepBTag_->Clone();
+  ElecDiLepBTagFail_->SetName("ElecDiLepBTag1DFail");
+  GetOutputList()->Add(ElecDiLepBTagFail_); 
+  
+  ElecDiLepNJets_ = new TH1F("ElecDiLepNJets1D","ElecDiLepNJets1D",oneDNJets_-1,OneDNJets_);
+  GetOutputList()->Add(ElecDiLepNJets_);
+  ElecDiLepNJetsFail_ = (TH1F*)ElecDiLepNJets_->Clone();
+  ElecDiLepNJetsFail_->SetName("ElecDiLepNJets1DFail");
+  GetOutputList()->Add(ElecDiLepNJetsFail_); 
+  
+  ElecDiLepHT_ = new TH1F("ElecDiLepHT1D","ElecDiLepHT1D",oneDHT_-1,OneDHT_);
+  GetOutputList()->Add(ElecDiLepHT_);
+  ElecDiLepHTFail_ = (TH1F*)ElecDiLepHT_->Clone();
+  ElecDiLepHTFail_->SetName("ElecDiLepHT1DFail");
+  GetOutputList()->Add(ElecDiLepHTFail_); 
+  
+  ElecDiLepMHT_ = new TH1F("ElecDiLepMHT1D","ElecDiLepMHT1D",oneDMHT_-1,OneDMHT_);
+  GetOutputList()->Add(ElecDiLepMHT_);
+  ElecDiLepMHTFail_ = (TH1F*)ElecDiLepMHT_->Clone();
+  ElecDiLepMHTFail_->SetName("ElecDiLepMHT1DFail");
+  GetOutputList()->Add(ElecDiLepMHTFail_); 
+  
+  
+  // mtw
+  //muon
+  //1D
+  MuDiLepMTWBTag_ = new TH1F("MuDiLepMTWBTag1D","MuDiLepMTWBTag1D",oneDBJets_-1,OneDBJets_);
+  GetOutputList()->Add(MuDiLepMTWBTag_);
+  MuDiLepMTWBTagFail_ = (TH1F*)MuDiLepMTWBTag_->Clone();
+  MuDiLepMTWBTagFail_->SetName("MuDiLepMTWBTag1DFail");
+  GetOutputList()->Add(MuDiLepMTWBTagFail_); 
+  
+  MuDiLepMTWNJets_ = new TH1F("MuDiLepMTWNJets1D","MuDiLepMTWNJets1D",oneDNJets_-1,OneDNJets_);
+  GetOutputList()->Add(MuDiLepMTWNJets_);
+  MuDiLepMTWNJetsFail_ = (TH1F*)MuDiLepMTWNJets_->Clone();
+  MuDiLepMTWNJetsFail_->SetName("MuDiLepMTWNJets1DFail");
+  GetOutputList()->Add(MuDiLepMTWNJetsFail_); 
+  
+  MuDiLepMTWHT_ = new TH1F("MuDiLepMTWHT1D","MuDiLepMTWHT1D",oneDHT_-1,OneDHT_);
+  GetOutputList()->Add(MuDiLepMTWHT_);
+  MuDiLepMTWHTFail_ = (TH1F*)MuDiLepMTWHT_->Clone();
+  MuDiLepMTWHTFail_->SetName("MuDiLepMTWHT1DFail");
+  GetOutputList()->Add(MuDiLepMTWHTFail_); 
+  
+  MuDiLepMTWMHT_ = new TH1F("MuDiLepMTWMHT1D","MuDiLepMTWMHT1D",oneDMHT_-1,OneDMHT_);
+  GetOutputList()->Add(MuDiLepMTWMHT_);
+  MuDiLepMTWMHTFail_ = (TH1F*)MuDiLepMTWMHT_->Clone();
+  MuDiLepMTWMHTFail_->SetName("MuDiLepMTWMHT1DFail");
+  GetOutputList()->Add(MuDiLepMTWMHTFail_); 
+  
+  //muon
+  //1D
+  ElecDiLepMTWBTag_ = new TH1F("ElecDiLepMTWBTag1D","ElecDiLepMTWBTag1D",oneDBJets_-1,OneDBJets_);
+  GetOutputList()->Add(ElecDiLepMTWBTag_);
+  ElecDiLepMTWBTagFail_ = (TH1F*)ElecDiLepMTWBTag_->Clone();
+  ElecDiLepMTWBTagFail_->SetName("ElecDiLepMTWBTag1DFail");
+  GetOutputList()->Add(ElecDiLepMTWBTagFail_); 
+  
+  ElecDiLepMTWNJets_ = new TH1F("ElecDiLepMTWNJets1D","ElecDiLepMTWNJets1D",oneDNJets_-1,OneDNJets_);
+  GetOutputList()->Add(ElecDiLepMTWNJets_);
+  ElecDiLepMTWNJetsFail_ = (TH1F*)ElecDiLepMTWNJets_->Clone();
+  ElecDiLepMTWNJetsFail_->SetName("ElecDiLepMTWNJets1DFail");
+  GetOutputList()->Add(ElecDiLepMTWNJetsFail_); 
+  
+  ElecDiLepMTWHT_ = new TH1F("ElecDiLepMTWHT1D","ElecDiLepMTWHT1D",oneDHT_-1,OneDHT_);
+  GetOutputList()->Add(ElecDiLepMTWHT_);
+  ElecDiLepMTWHTFail_ = (TH1F*)ElecDiLepMTWHT_->Clone();
+  ElecDiLepMTWHTFail_->SetName("ElecDiLepMTWHT1DFail");
+  GetOutputList()->Add(ElecDiLepMTWHTFail_); 
+  
+  ElecDiLepMTWMHT_ = new TH1F("ElecDiLepMTWMHT1D","ElecDiLepMTWMHT1D",oneDMHT_-1,OneDMHT_);
+  GetOutputList()->Add(ElecDiLepMTWMHT_);
+  ElecDiLepMTWMHTFail_ = (TH1F*)ElecDiLepMTWMHT_->Clone();
+  ElecDiLepMTWMHTFail_->SetName("ElecDiLepMTWMHT1DFail");
+  GetOutputList()->Add(ElecDiLepMTWMHTFail_); 
+  
+  
+  // mtw
+  //muon
+  //1D
+  MuDiLepContributionBTag_ = new TH1F("MuDiLepContributionBTag1D","MuDiLepContributionBTag1D",oneDBJets_-1,OneDBJets_);
+  GetOutputList()->Add(MuDiLepContributionBTag_);
+  MuDiLepContributionBTagFail_ = (TH1F*)MuDiLepContributionBTag_->Clone();
+  MuDiLepContributionBTagFail_->SetName("MuDiLepContributionBTag1DFail");
+  GetOutputList()->Add(MuDiLepContributionBTagFail_); 
+  
+  MuDiLepContributionNJets_ = new TH1F("MuDiLepContributionNJets1D","MuDiLepContributionNJets1D",oneDNJets_-1,OneDNJets_);
+  GetOutputList()->Add(MuDiLepContributionNJets_);
+  MuDiLepContributionNJetsFail_ = (TH1F*)MuDiLepContributionNJets_->Clone();
+  MuDiLepContributionNJetsFail_->SetName("MuDiLepContributionNJets1DFail");
+  GetOutputList()->Add(MuDiLepContributionNJetsFail_); 
+  
+  MuDiLepContributionHT_ = new TH1F("MuDiLepContributionHT1D","MuDiLepContributionHT1D",oneDHT_-1,OneDHT_);
+  GetOutputList()->Add(MuDiLepContributionHT_);
+  MuDiLepContributionHTFail_ = (TH1F*)MuDiLepContributionHT_->Clone();
+  MuDiLepContributionHTFail_->SetName("MuDiLepContributionHT1DFail");
+  GetOutputList()->Add(MuDiLepContributionHTFail_); 
+  
+  MuDiLepContributionMHT_ = new TH1F("MuDiLepContributionMHT1D","MuDiLepContributionMHT1D",oneDMHT_-1,OneDMHT_);
+  GetOutputList()->Add(MuDiLepContributionMHT_);
+  MuDiLepContributionMHTFail_ = (TH1F*)MuDiLepContributionMHT_->Clone();
+  MuDiLepContributionMHTFail_->SetName("MuDiLepContributionMHT1DFail");
+  GetOutputList()->Add(MuDiLepContributionMHTFail_); 
+  
+  //muon
+  //1D
+  ElecDiLepContributionBTag_ = new TH1F("ElecDiLepContributionBTag1D","ElecDiLepContributionBTag1D",oneDBJets_-1,OneDBJets_);
+  GetOutputList()->Add(ElecDiLepContributionBTag_);
+  ElecDiLepContributionBTagFail_ = (TH1F*)ElecDiLepContributionBTag_->Clone();
+  ElecDiLepContributionBTagFail_->SetName("ElecDiLepContributionBTag1DFail");
+  GetOutputList()->Add(ElecDiLepContributionBTagFail_); 
+  
+  ElecDiLepContributionNJets_ = new TH1F("ElecDiLepContributionNJets1D","ElecDiLepContributionNJets1D",oneDNJets_-1,OneDNJets_);
+  GetOutputList()->Add(ElecDiLepContributionNJets_);
+  ElecDiLepContributionNJetsFail_ = (TH1F*)ElecDiLepContributionNJets_->Clone();
+  ElecDiLepContributionNJetsFail_->SetName("ElecDiLepContributionNJets1DFail");
+  GetOutputList()->Add(ElecDiLepContributionNJetsFail_); 
+  
+  ElecDiLepContributionHT_ = new TH1F("ElecDiLepContributionHT1D","ElecDiLepContributionHT1D",oneDHT_-1,OneDHT_);
+  GetOutputList()->Add(ElecDiLepContributionHT_);
+  ElecDiLepContributionHTFail_ = (TH1F*)ElecDiLepContributionHT_->Clone();
+  ElecDiLepContributionHTFail_->SetName("ElecDiLepContributionHT1DFail");
+  GetOutputList()->Add(ElecDiLepContributionHTFail_); 
+  
+  ElecDiLepContributionMHT_ = new TH1F("ElecDiLepContributionMHT1D","ElecDiLepContributionMHT1D",oneDMHT_-1,OneDMHT_);
+  GetOutputList()->Add(ElecDiLepContributionMHT_);
+  ElecDiLepContributionMHTFail_ = (TH1F*)ElecDiLepContributionMHT_->Clone();
+  ElecDiLepContributionMHTFail_->SetName("ElecDiLepContributionMHT1DFail");
+  GetOutputList()->Add(ElecDiLepContributionMHTFail_); 
+  
+  
+  // mtw
+  //muon
+  //1D
+  MuDiLepContributionMTWBTag_ = new TH1F("MuDiLepContributionMTWBTag1D","MuDiLepContributionMTWBTag1D",oneDBJets_-1,OneDBJets_);
+  GetOutputList()->Add(MuDiLepContributionMTWBTag_);
+  MuDiLepContributionMTWBTagFail_ = (TH1F*)MuDiLepContributionMTWBTag_->Clone();
+  MuDiLepContributionMTWBTagFail_->SetName("MuDiLepContributionMTWBTag1DFail");
+  GetOutputList()->Add(MuDiLepContributionMTWBTagFail_); 
+  
+  MuDiLepContributionMTWNJets_ = new TH1F("MuDiLepContributionMTWNJets1D","MuDiLepContributionMTWNJets1D",oneDNJets_-1,OneDNJets_);
+  GetOutputList()->Add(MuDiLepContributionMTWNJets_);
+  MuDiLepContributionMTWNJetsFail_ = (TH1F*)MuDiLepContributionMTWNJets_->Clone();
+  MuDiLepContributionMTWNJetsFail_->SetName("MuDiLepContributionMTWNJets1DFail");
+  GetOutputList()->Add(MuDiLepContributionMTWNJetsFail_); 
+  
+  MuDiLepContributionMTWHT_ = new TH1F("MuDiLepContributionMTWHT1D","MuDiLepContributionMTWHT1D",oneDHT_-1,OneDHT_);
+  GetOutputList()->Add(MuDiLepContributionMTWHT_);
+  MuDiLepContributionMTWHTFail_ = (TH1F*)MuDiLepContributionMTWHT_->Clone();
+  MuDiLepContributionMTWHTFail_->SetName("MuDiLepContributionMTWHT1DFail");
+  GetOutputList()->Add(MuDiLepContributionMTWHTFail_); 
+  
+  MuDiLepContributionMTWMHT_ = new TH1F("MuDiLepContributionMTWMHT1D","MuDiLepContributionMTWMHT1D",oneDMHT_-1,OneDMHT_);
+  GetOutputList()->Add(MuDiLepContributionMTWMHT_);
+  MuDiLepContributionMTWMHTFail_ = (TH1F*)MuDiLepContributionMTWMHT_->Clone();
+  MuDiLepContributionMTWMHTFail_->SetName("MuDiLepContributionMTWMHT1DFail");
+  GetOutputList()->Add(MuDiLepContributionMTWMHTFail_); 
+  
+  //muon
+  //1D
+  ElecDiLepContributionMTWBTag_ = new TH1F("ElecDiLepContributionMTWBTag1D","ElecDiLepContributionMTWBTag1D",oneDBJets_-1,OneDBJets_);
+  GetOutputList()->Add(ElecDiLepContributionMTWBTag_);
+  ElecDiLepContributionMTWBTagFail_ = (TH1F*)ElecDiLepContributionMTWBTag_->Clone();
+  ElecDiLepContributionMTWBTagFail_->SetName("ElecDiLepContributionMTWBTag1DFail");
+  GetOutputList()->Add(ElecDiLepContributionMTWBTagFail_); 
+  
+  ElecDiLepContributionMTWNJets_ = new TH1F("ElecDiLepContributionMTWNJets1D","ElecDiLepContributionMTWNJets1D",oneDNJets_-1,OneDNJets_);
+  GetOutputList()->Add(ElecDiLepContributionMTWNJets_);
+  ElecDiLepContributionMTWNJetsFail_ = (TH1F*)ElecDiLepContributionMTWNJets_->Clone();
+  ElecDiLepContributionMTWNJetsFail_->SetName("ElecDiLepContributionMTWNJets1DFail");
+  GetOutputList()->Add(ElecDiLepContributionMTWNJetsFail_); 
+  
+  ElecDiLepContributionMTWHT_ = new TH1F("ElecDiLepContributionMTWHT1D","ElecDiLepContributionMTWHT1D",oneDHT_-1,OneDHT_);
+  GetOutputList()->Add(ElecDiLepContributionMTWHT_);
+  ElecDiLepContributionMTWHTFail_ = (TH1F*)ElecDiLepContributionMTWHT_->Clone();
+  ElecDiLepContributionMTWHTFail_->SetName("ElecDiLepContributionMTWHT1DFail");
+  GetOutputList()->Add(ElecDiLepContributionMTWHTFail_); 
+  
+  ElecDiLepContributionMTWMHT_ = new TH1F("ElecDiLepContributionMTWMHT1D","ElecDiLepContributionMTWMHT1D",oneDMHT_-1,OneDMHT_);
+  GetOutputList()->Add(ElecDiLepContributionMTWMHT_);
+  ElecDiLepContributionMTWMHTFail_ = (TH1F*)ElecDiLepContributionMTWMHT_->Clone();
+  ElecDiLepContributionMTWMHTFail_->SetName("ElecDiLepContributionMTWMHT1DFail");
+  GetOutputList()->Add(ElecDiLepContributionMTWMHTFail_); 
+  
   // Isolated Track
   
   //Mu
@@ -683,6 +900,131 @@ Bool_t EffMaker::Process(Long64_t entry)
     ElecMTWNJetsFail_->Fill(NJets,Weight);
     ElecMTWHTFail_->Fill(HT,Weight);
     ElecMTWMHTFail_->Fill(MHT,Weight);
+  }
+  // di lep contribution
+  if(MuDiLepControlSample==2)
+  {
+    // 1D
+    MuDiLepBTag_->Fill(BTags,Weight);
+    MuDiLepNJets_->Fill(NJets,Weight);
+    MuDiLepHT_->Fill(HT,Weight);
+    MuDiLepMHT_->Fill(MHT,Weight);
+    if(mtw <mtwCut_)
+    {
+      // 1D
+      MuDiLepMTWBTag_->Fill(BTags,Weight);
+      MuDiLepMTWNJets_->Fill(NJets,Weight);
+      MuDiLepMTWHT_->Fill(HT,Weight);
+      MuDiLepMTWMHT_->Fill(MHT,Weight);
+    }
+    // 1D
+    MuDiLepContributionBTag_->Fill(BTags,Weight);
+    MuDiLepContributionNJets_->Fill(NJets,Weight);
+    MuDiLepContributionHT_->Fill(HT,Weight);
+    MuDiLepContributionMHT_->Fill(MHT,Weight);
+    if(mtw <mtwCut_)
+    {
+      // 1D
+      MuDiLepContributionMTWBTag_->Fill(BTags,Weight);
+      MuDiLepContributionMTWNJets_->Fill(NJets,Weight);
+      MuDiLepContributionMTWHT_->Fill(HT,Weight);
+      MuDiLepContributionMTWMHT_->Fill(MHT,Weight);
+    }
+    
+  }
+  if(MuDiLepControlSample==0)
+  {
+
+    // 1D
+    MuDiLepContributionBTagFail_->Fill(BTags,Weight);
+    MuDiLepContributionNJetsFail_->Fill(NJets,Weight);
+    MuDiLepContributionHTFail_->Fill(HT,Weight);
+    MuDiLepContributionMHTFail_->Fill(MHT,Weight);
+    if(mtw <mtwCut_)
+    {
+      // 1D
+      MuDiLepContributionMTWBTagFail_->Fill(BTags,Weight);
+      MuDiLepContributionMTWNJetsFail_->Fill(NJets,Weight);
+      MuDiLepContributionMTWHTFail_->Fill(HT,Weight);
+      MuDiLepContributionMTWMHTFail_->Fill(MHT,Weight);
+    }
+  }
+  if(MuDiLepControlSample==0)
+  {
+    // 1D
+    MuDiLepBTagFail_->Fill(BTags,Weight);
+    MuDiLepNJetsFail_->Fill(NJets,Weight);
+    MuDiLepHTFail_->Fill(HT,Weight);
+    MuDiLepMHTFail_->Fill(MHT,Weight);
+    
+    // 1D
+    MuDiLepMTWBTagFail_->Fill(BTags,Weight);
+    MuDiLepMTWNJetsFail_->Fill(NJets,Weight);
+    MuDiLepMTWHTFail_->Fill(HT,Weight);
+    MuDiLepMTWMHTFail_->Fill(MHT,Weight);
+  }
+  
+  if(ElecDiLepControlSample==2)
+  {
+    // 1D
+    ElecDiLepBTag_->Fill(BTags,Weight);
+    ElecDiLepNJets_->Fill(NJets,Weight);
+    ElecDiLepHT_->Fill(HT,Weight);
+    ElecDiLepMHT_->Fill(MHT,Weight);
+    if(mtw <mtwCut_)
+    {
+      // 1D
+      ElecDiLepMTWBTag_->Fill(BTags,Weight);
+      ElecDiLepMTWNJets_->Fill(NJets,Weight);
+      ElecDiLepMTWHT_->Fill(HT,Weight);
+      ElecDiLepMTWMHT_->Fill(MHT,Weight);
+    }
+    // 1D
+    ElecDiLepContributionBTag_->Fill(BTags,Weight);
+    ElecDiLepContributionNJets_->Fill(NJets,Weight);
+    ElecDiLepContributionHT_->Fill(HT,Weight);
+    ElecDiLepContributionMHT_->Fill(MHT,Weight);
+    if(mtw <mtwCut_)
+    {
+      // 1D
+      ElecDiLepContributionMTWBTag_->Fill(BTags,Weight);
+      ElecDiLepContributionMTWNJets_->Fill(NJets,Weight);
+      ElecDiLepContributionMTWHT_->Fill(HT,Weight);
+      ElecDiLepContributionMTWMHT_->Fill(MHT,Weight);
+    }
+    
+  }
+  if(ElecDiLepControlSample==0)
+  {
+    
+    // 1D
+    ElecDiLepContributionBTagFail_->Fill(BTags,Weight);
+    ElecDiLepContributionNJetsFail_->Fill(NJets,Weight);
+    ElecDiLepContributionHTFail_->Fill(HT,Weight);
+    ElecDiLepContributionMHTFail_->Fill(MHT,Weight);
+    if(mtw <mtwCut_)
+    {
+      // 1D
+      ElecDiLepContributionMTWBTagFail_->Fill(BTags,Weight);
+      ElecDiLepContributionMTWNJetsFail_->Fill(NJets,Weight);
+      ElecDiLepContributionMTWHTFail_->Fill(HT,Weight);
+      ElecDiLepContributionMTWMHTFail_->Fill(MHT,Weight);
+    }
+  }
+  
+  if(ElecDiLepControlSample==0)
+  {
+    // 1D
+    ElecDiLepBTagFail_->Fill(BTags,Weight);
+    ElecDiLepNJetsFail_->Fill(NJets,Weight);
+    ElecDiLepHTFail_->Fill(HT,Weight);
+    ElecDiLepMHTFail_->Fill(MHT,Weight);
+    
+    // 1D
+    ElecDiLepMTWBTagFail_->Fill(BTags,Weight);
+    ElecDiLepMTWNJetsFail_->Fill(NJets,Weight);
+    ElecDiLepMTWHTFail_->Fill(HT,Weight);
+    ElecDiLepMTWMHTFail_->Fill(MHT,Weight);
   }
   
   // isoalted track
@@ -1150,6 +1492,124 @@ void EffMaker::Terminate()
   MuMTWMHT_->Write();
   SaveEfficiency(MuMTWMHT_);
   
+  //muon
+  //1D
+  MuDiLepBTag_ = ratioCalculator(MuDiLepBTag_,MuDiLepBTagFail_);   
+  MuDiLepBTag_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV #mu di lep; B_{Tags}");
+  MuDiLepBTag_->SetMarkerSize(2.0);
+  MuDiLepBTag_->UseCurrentStyle();
+  MuDiLepBTag_->Write();
+  SaveEfficiency(MuDiLepBTag_);
+  
+  MuDiLepNJets_ = ratioCalculator(MuDiLepNJets_,MuDiLepNJetsFail_);   
+  MuDiLepNJets_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV #mu di lep; N_{Jets}");
+  MuDiLepNJets_->SetMarkerSize(2.0);
+  MuDiLepNJets_->UseCurrentStyle();
+  MuDiLepNJets_->Write();
+  SaveEfficiency(MuDiLepNJets_);
+  
+  MuDiLepHT_ = ratioCalculator(MuDiLepHT_,MuDiLepHTFail_);   
+  MuDiLepHT_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV #mu di lep; H_{T} [GeV]");
+  MuDiLepHT_->SetMarkerSize(2.0);
+  MuDiLepHT_->UseCurrentStyle();
+  MuDiLepHT_->Write();
+  SaveEfficiency(MuDiLepHT_);
+  
+  MuDiLepMHT_ = ratioCalculator(MuDiLepMHT_,MuDiLepMHTFail_);   
+  MuDiLepMHT_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV #mu di lep; #slash{H}_{T} [GeV]");
+  MuDiLepMHT_->SetMarkerSize(2.0);
+  MuDiLepMHT_->UseCurrentStyle();
+  MuDiLepMHT_->Write();
+  SaveEfficiency(MuDiLepMHT_);
+  
+  MuDiLepMTWBTag_ = ratioCalculator(MuDiLepMTWBTag_,MuDiLepMTWBTagFail_);   
+  MuDiLepMTWBTag_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV #mu di lep; B_{Tags}");
+  MuDiLepMTWBTag_->SetMarkerSize(2.0);
+  MuDiLepMTWBTag_->UseCurrentStyle();
+  MuDiLepMTWBTag_->Write();
+  SaveEfficiency(MuDiLepMTWBTag_);
+  
+  MuDiLepMTWNJets_ = ratioCalculator(MuDiLepMTWNJets_,MuDiLepMTWNJetsFail_);   
+  MuDiLepMTWNJets_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV #mu di lep; N_{Jets}");
+  MuDiLepMTWNJets_->SetMarkerSize(2.0);
+  MuDiLepMTWNJets_->UseCurrentStyle();
+  MuDiLepMTWNJets_->Write();
+  SaveEfficiency(MuDiLepMTWNJets_);
+  
+  MuDiLepMTWHT_ = ratioCalculator(MuDiLepMTWHT_,MuDiLepMTWHTFail_);   
+  MuDiLepMTWHT_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV #mu di lep; H_{T} [GeV]");
+  MuDiLepMTWHT_->SetMarkerSize(2.0);
+  MuDiLepMTWHT_->UseCurrentStyle();
+  MuDiLepMTWHT_->Write();
+  SaveEfficiency(MuDiLepMTWHT_);
+  
+  MuDiLepMTWMHT_ = ratioCalculator(MuDiLepMTWMHT_,MuDiLepMTWMHTFail_);   
+  MuDiLepMTWMHT_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV #mu di lep; #slash{H}_{T} [GeV]");
+  MuDiLepMTWMHT_->SetMarkerSize(2.0);
+  MuDiLepMTWMHT_->UseCurrentStyle();
+  MuDiLepMTWMHT_->Write();
+  SaveEfficiency(MuDiLepMTWMHT_);
+  
+  //muon
+  //1D
+  MuDiLepContributionBTag_ = ratioCalculator(MuDiLepContributionBTag_,MuDiLepContributionBTagFail_);   
+  MuDiLepContributionBTag_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV #mu di lep contri contri; B_{Tags}");
+  MuDiLepContributionBTag_->SetMarkerSize(2.0);
+  MuDiLepContributionBTag_->UseCurrentStyle();
+  MuDiLepContributionBTag_->Write();
+  SaveEfficiency(MuDiLepContributionBTag_);
+  
+  MuDiLepContributionNJets_ = ratioCalculator(MuDiLepContributionNJets_,MuDiLepContributionNJetsFail_);   
+  MuDiLepContributionNJets_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV #mu di lep contri contri; N_{Jets}");
+  MuDiLepContributionNJets_->SetMarkerSize(2.0);
+  MuDiLepContributionNJets_->UseCurrentStyle();
+  MuDiLepContributionNJets_->Write();
+  SaveEfficiency(MuDiLepContributionNJets_);
+  
+  MuDiLepContributionHT_ = ratioCalculator(MuDiLepContributionHT_,MuDiLepContributionHTFail_);   
+  MuDiLepContributionHT_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV #mu di lep contri contri; H_{T} [GeV]");
+  MuDiLepContributionHT_->SetMarkerSize(2.0);
+  MuDiLepContributionHT_->UseCurrentStyle();
+  MuDiLepContributionHT_->Write();
+  SaveEfficiency(MuDiLepContributionHT_);
+  
+  MuDiLepContributionMHT_ = ratioCalculator(MuDiLepContributionMHT_,MuDiLepContributionMHTFail_);   
+  MuDiLepContributionMHT_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV #mu di lep contri contri; #slash{H}_{T} [GeV]");
+  MuDiLepContributionMHT_->SetMarkerSize(2.0);
+  MuDiLepContributionMHT_->UseCurrentStyle();
+  MuDiLepContributionMHT_->Write();
+  SaveEfficiency(MuDiLepContributionMHT_);
+  
+  MuDiLepContributionMTWBTag_ = ratioCalculator(MuDiLepContributionMTWBTag_,MuDiLepContributionMTWBTagFail_);   
+  MuDiLepContributionMTWBTag_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV #mu di lep contri contri; B_{Tags}");
+  MuDiLepContributionMTWBTag_->SetMarkerSize(2.0);
+  MuDiLepContributionMTWBTag_->UseCurrentStyle();
+  MuDiLepContributionMTWBTag_->Write();
+  SaveEfficiency(MuDiLepContributionMTWBTag_);
+  
+  MuDiLepContributionMTWNJets_ = ratioCalculator(MuDiLepContributionMTWNJets_,MuDiLepContributionMTWNJetsFail_);   
+  MuDiLepContributionMTWNJets_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV #mu di lep contri contri; N_{Jets}");
+  MuDiLepContributionMTWNJets_->SetMarkerSize(2.0);
+  MuDiLepContributionMTWNJets_->UseCurrentStyle();
+  MuDiLepContributionMTWNJets_->Write();
+  SaveEfficiency(MuDiLepContributionMTWNJets_);
+  
+  MuDiLepContributionMTWHT_ = ratioCalculator(MuDiLepContributionMTWHT_,MuDiLepContributionMTWHTFail_);   
+  MuDiLepContributionMTWHT_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV #mu di lep contri contri; H_{T} [GeV]");
+  MuDiLepContributionMTWHT_->SetMarkerSize(2.0);
+  MuDiLepContributionMTWHT_->UseCurrentStyle();
+  MuDiLepContributionMTWHT_->Write();
+  SaveEfficiency(MuDiLepContributionMTWHT_);
+  
+  MuDiLepContributionMTWMHT_ = ratioCalculator(MuDiLepContributionMTWMHT_,MuDiLepContributionMTWMHTFail_);   
+  MuDiLepContributionMTWMHT_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV #mu di lep contri contri; #slash{H}_{T} [GeV]");
+  MuDiLepContributionMTWMHT_->SetMarkerSize(2.0);
+  MuDiLepContributionMTWMHT_->UseCurrentStyle();
+  MuDiLepContributionMTWMHT_->Write();
+  SaveEfficiency(MuDiLepContributionMTWMHT_);
+  
+  
+  
   //elec
   //1D
   ElecMTWBTag_ = ratioCalculator(ElecMTWBTag_,ElecMTWBTagFail_);   
@@ -1180,6 +1640,119 @@ void EffMaker::Terminate()
   ElecMTWMHT_->Write();
   SaveEfficiency(ElecMTWMHT_);
   
+  ElecDiLepBTag_ = ratioCalculator(ElecDiLepBTag_,ElecDiLepBTagFail_);   
+  ElecDiLepBTag_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV e di lep; B_{Tags}");
+  ElecDiLepBTag_->SetMarkerSize(2.0);
+  ElecDiLepBTag_->UseCurrentStyle();
+  ElecDiLepBTag_->Write();
+  SaveEfficiency(ElecDiLepBTag_);
+  
+  ElecDiLepNJets_ = ratioCalculator(ElecDiLepNJets_,ElecDiLepNJetsFail_);   
+  ElecDiLepNJets_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV e di lep; N_{Jets}");
+  ElecDiLepNJets_->SetMarkerSize(2.0);
+  ElecDiLepNJets_->UseCurrentStyle();
+  ElecDiLepNJets_->Write();
+  SaveEfficiency(ElecDiLepNJets_);
+  
+  ElecDiLepHT_ = ratioCalculator(ElecDiLepHT_,ElecDiLepHTFail_);   
+  ElecDiLepHT_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV e di lep; H_{T} [GeV]");
+  ElecDiLepHT_->SetMarkerSize(2.0);
+  ElecDiLepHT_->UseCurrentStyle();
+  ElecDiLepHT_->Write();
+  SaveEfficiency(ElecDiLepHT_);
+  
+  ElecDiLepMHT_ = ratioCalculator(ElecDiLepMHT_,ElecDiLepMHTFail_);   
+  ElecDiLepMHT_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV e di lep; #slash{H}_{T} [GeV]");
+  ElecDiLepMHT_->SetMarkerSize(2.0);
+  ElecDiLepMHT_->UseCurrentStyle();
+  ElecDiLepMHT_->Write();
+  SaveEfficiency(ElecDiLepMHT_);
+  
+  ElecDiLepMTWBTag_ = ratioCalculator(ElecDiLepMTWBTag_,ElecDiLepMTWBTagFail_);   
+  ElecDiLepMTWBTag_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV e di lep; B_{Tags}");
+  ElecDiLepMTWBTag_->SetMarkerSize(2.0);
+  ElecDiLepMTWBTag_->UseCurrentStyle();
+  ElecDiLepMTWBTag_->Write();
+  SaveEfficiency(ElecDiLepMTWBTag_);
+  
+  ElecDiLepMTWNJets_ = ratioCalculator(ElecDiLepMTWNJets_,ElecDiLepMTWNJetsFail_);   
+  ElecDiLepMTWNJets_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV e di lep; N_{Jets}");
+  ElecDiLepMTWNJets_->SetMarkerSize(2.0);
+  ElecDiLepMTWNJets_->UseCurrentStyle();
+  ElecDiLepMTWNJets_->Write();
+  SaveEfficiency(ElecDiLepMTWNJets_);
+  
+  ElecDiLepMTWHT_ = ratioCalculator(ElecDiLepMTWHT_,ElecDiLepMTWHTFail_);   
+  ElecDiLepMTWHT_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV e di lep; H_{T} [GeV]");
+  ElecDiLepMTWHT_->SetMarkerSize(2.0);
+  ElecDiLepMTWHT_->UseCurrentStyle();
+  ElecDiLepMTWHT_->Write();
+  SaveEfficiency(ElecDiLepMTWHT_);
+  
+  ElecDiLepMTWMHT_ = ratioCalculator(ElecDiLepMTWMHT_,ElecDiLepMTWMHTFail_);   
+  ElecDiLepMTWMHT_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV e di lep; #slash{H}_{T} [GeV]");
+  ElecDiLepMTWMHT_->SetMarkerSize(2.0);
+  ElecDiLepMTWMHT_->UseCurrentStyle();
+  ElecDiLepMTWMHT_->Write();
+  SaveEfficiency(ElecDiLepMTWMHT_);
+  
+  //muon
+  //1D
+  ElecDiLepContributionBTag_ = ratioCalculator(ElecDiLepContributionBTag_,ElecDiLepContributionBTagFail_);   
+  ElecDiLepContributionBTag_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV e di lep contri contri; B_{Tags}");
+  ElecDiLepContributionBTag_->SetMarkerSize(2.0);
+  ElecDiLepContributionBTag_->UseCurrentStyle();
+  ElecDiLepContributionBTag_->Write();
+  SaveEfficiency(ElecDiLepContributionBTag_);
+  
+  ElecDiLepContributionNJets_ = ratioCalculator(ElecDiLepContributionNJets_,ElecDiLepContributionNJetsFail_);   
+  ElecDiLepContributionNJets_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV e di lep contri contri; N_{Jets}");
+  ElecDiLepContributionNJets_->SetMarkerSize(2.0);
+  ElecDiLepContributionNJets_->UseCurrentStyle();
+  ElecDiLepContributionNJets_->Write();
+  SaveEfficiency(ElecDiLepContributionNJets_);
+  
+  ElecDiLepContributionHT_ = ratioCalculator(ElecDiLepContributionHT_,ElecDiLepContributionHTFail_);   
+  ElecDiLepContributionHT_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV e di lep contri contri; H_{T} [GeV]");
+  ElecDiLepContributionHT_->SetMarkerSize(2.0);
+  ElecDiLepContributionHT_->UseCurrentStyle();
+  ElecDiLepContributionHT_->Write();
+  SaveEfficiency(ElecDiLepContributionHT_);
+  
+  ElecDiLepContributionMHT_ = ratioCalculator(ElecDiLepContributionMHT_,ElecDiLepContributionMHTFail_);   
+  ElecDiLepContributionMHT_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV e di lep contri contri; #slash{H}_{T} [GeV]");
+  ElecDiLepContributionMHT_->SetMarkerSize(2.0);
+  ElecDiLepContributionMHT_->UseCurrentStyle();
+  ElecDiLepContributionMHT_->Write();
+  SaveEfficiency(ElecDiLepContributionMHT_);
+  
+  ElecDiLepContributionMTWBTag_ = ratioCalculator(ElecDiLepContributionMTWBTag_,ElecDiLepContributionMTWBTagFail_);   
+  ElecDiLepContributionMTWBTag_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV e di lep contri contri; B_{Tags}");
+  ElecDiLepContributionMTWBTag_->SetMarkerSize(2.0);
+  ElecDiLepContributionMTWBTag_->UseCurrentStyle();
+  ElecDiLepContributionMTWBTag_->Write();
+  SaveEfficiency(ElecDiLepContributionMTWBTag_);
+  
+  ElecDiLepContributionMTWNJets_ = ratioCalculator(ElecDiLepContributionMTWNJets_,ElecDiLepContributionMTWNJetsFail_);   
+  ElecDiLepContributionMTWNJets_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV e di lep contri contri; N_{Jets}");
+  ElecDiLepContributionMTWNJets_->SetMarkerSize(2.0);
+  ElecDiLepContributionMTWNJets_->UseCurrentStyle();
+  ElecDiLepContributionMTWNJets_->Write();
+  SaveEfficiency(ElecDiLepContributionMTWNJets_);
+  
+  ElecDiLepContributionMTWHT_ = ratioCalculator(ElecDiLepContributionMTWHT_,ElecDiLepContributionMTWHTFail_);   
+  ElecDiLepContributionMTWHT_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV e di lep contri contri; H_{T} [GeV]");
+  ElecDiLepContributionMTWHT_->SetMarkerSize(2.0);
+  ElecDiLepContributionMTWHT_->UseCurrentStyle();
+  ElecDiLepContributionMTWHT_->Write();
+  SaveEfficiency(ElecDiLepContributionMTWHT_);
+  
+  ElecDiLepContributionMTWMHT_ = ratioCalculator(ElecDiLepContributionMTWMHT_,ElecDiLepContributionMTWMHTFail_);   
+  ElecDiLepContributionMTWMHT_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV e di lep contri contri; #slash{H}_{T} [GeV]");
+  ElecDiLepContributionMTWMHT_->SetMarkerSize(2.0);
+  ElecDiLepContributionMTWMHT_->UseCurrentStyle();
+  ElecDiLepContributionMTWMHT_->Write();
+  SaveEfficiency(ElecDiLepContributionMTWMHT_);
   
   
   // isoalted track

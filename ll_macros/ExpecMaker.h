@@ -28,6 +28,9 @@ const double mtwCut_=100;
 const double minTauPt_=10;
 const double maxTauEta_=2.4;
 
+// actity around lepton
+const double maxDeltaRMuActivity_=0.3;
+
 // lepton matching
 const double maxDeltaRGenToRecoMu_ =0.3;
 const double maxDiffPtGenToRecoMu_ =0.3;
@@ -60,12 +63,20 @@ const double maxDiffPtGenTauToTack_ = 0.5;
 const double maxDeltaRGenToRecoIsoTrack_= 0.3;
 const double maxDiffPtGenToRecoIsoTrack_=0.5;
 
+// stand alone isolated track prediction
+
+const double maxDeltaRIsoTrackToMu_= 0.3;
+const double maxDiffPtIsoTrackToMu_= 0.5;
+
+const double maxDeltaRIsoTrackToElec_= 0.3;
+const double maxDiffPtIsoTrackToElec_= 0.5;
 class ExpecMaker : public TSelector {
 public :
 	void resetValues();
 	bool FiltersPass();
 	double deltaR(double eta1, double phi1, double eta2, double phi2);
 	double MTWCalculator(double metPt,double  metPhi,double  lepPt,double  lepPhi);
+	double MuActivity(double muEta, double muPhi);
 	
 	TTree          *fChain;   //!pointer to the analyzed TTree or TChain
 	// Storing stuff
@@ -116,6 +127,15 @@ public :
 	UShort_t IsolatedTracksPT10IsoCut12MatchedToGenLepton[20], IsolatedTracksPT10IsoCut12MatchedToRecoIsoLepton[20];
 	Float_t IsolatedTracksPT10IsoCut12MatchedToGenDeltaR[20], IsolatedTracksPT10IsoCut12MatchedToGenRelPT[20];
 	Float_t IsolatedTracksPT10IsoCut12MatchedToRecoIsoDeltaR[20], IsolatedTracksPT10IsoCut12MatchedToRecoIsoRelPT[20];
+	// di lep
+	UShort_t ExpectationDiLep_, MuDiLepControlSample_, ElecDiLepControlSample_;
+	// stand alone isolated track prediction
+	UShort_t StandAloneGenMuIsoTrackMatched_, StandAloneIsoTrackToMuMatched_;
+	UShort_t StandAloneGenElecIsoTrackMatched_, StandAloneIsoTrackToElecMatched_;
+	
+	// activity resetValues
+	Float_t         RecoIsoMuonActivity[20], RecoMuonActivity[20];
+	Float_t         RecoIsoElectronActivity[20], RecoElectronActivity[20];
 	
 	
 	

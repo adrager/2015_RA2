@@ -142,6 +142,66 @@ public :
 	TH1F *ElecMTWHT_, *ElecMTWHTFail_;
 	TH1F *ElecMTWMHT_, *ElecMTWMHTFail_;
 	
+	// Di lep control sample
+	// mu 
+	//1D
+	TH1F *MuDiLepBTag_, *MuDiLepBTagFail_;
+	TH1F *MuDiLepNJets_, *MuDiLepNJetsFail_;
+	TH1F *MuDiLepHT_, *MuDiLepHTFail_;
+	TH1F *MuDiLepMHT_, *MuDiLepMHTFail_;
+	
+	// elec
+	//1D
+	TH1F *ElecDiLepBTag_, *ElecDiLepBTagFail_;
+	TH1F *ElecDiLepNJets_, *ElecDiLepNJetsFail_;
+	TH1F *ElecDiLepHT_, *ElecDiLepHTFail_;
+	TH1F *ElecDiLepMHT_, *ElecDiLepMHTFail_;
+	
+	// di lep mtw cut applied
+	// mu 
+	//1D
+	TH1F *MuDiLepMTWBTag_, *MuDiLepMTWBTagFail_;
+	TH1F *MuDiLepMTWNJets_, *MuDiLepMTWNJetsFail_;
+	TH1F *MuDiLepMTWHT_, *MuDiLepMTWHTFail_;
+	TH1F *MuDiLepMTWMHT_, *MuDiLepMTWMHTFail_;
+	
+	// elec
+	//1D
+	TH1F *ElecDiLepMTWBTag_, *ElecDiLepMTWBTagFail_;
+	TH1F *ElecDiLepMTWNJets_, *ElecDiLepMTWNJetsFail_;
+	TH1F *ElecDiLepMTWHT_, *ElecDiLepMTWHTFail_;
+	TH1F *ElecDiLepMTWMHT_, *ElecDiLepMTWMHTFail_;
+	
+	
+	// mu 
+	//1D
+	TH1F *MuDiLepContributionBTag_, *MuDiLepContributionBTagFail_;
+	TH1F *MuDiLepContributionNJets_, *MuDiLepContributionNJetsFail_;
+	TH1F *MuDiLepContributionHT_, *MuDiLepContributionHTFail_;
+	TH1F *MuDiLepContributionMHT_, *MuDiLepContributionMHTFail_;
+	
+	// elec
+	//1D
+	TH1F *ElecDiLepContributionBTag_, *ElecDiLepContributionBTagFail_;
+	TH1F *ElecDiLepContributionNJets_, *ElecDiLepContributionNJetsFail_;
+	TH1F *ElecDiLepContributionHT_, *ElecDiLepContributionHTFail_;
+	TH1F *ElecDiLepContributionMHT_, *ElecDiLepContributionMHTFail_;
+	
+	// di lep mtw cut applied
+	// mu 
+	//1D
+	TH1F *MuDiLepContributionMTWBTag_, *MuDiLepContributionMTWBTagFail_;
+	TH1F *MuDiLepContributionMTWNJets_, *MuDiLepContributionMTWNJetsFail_;
+	TH1F *MuDiLepContributionMTWHT_, *MuDiLepContributionMTWHTFail_;
+	TH1F *MuDiLepContributionMTWMHT_, *MuDiLepContributionMTWMHTFail_;
+	
+	// elec
+	//1D
+	TH1F *ElecDiLepContributionMTWBTag_, *ElecDiLepContributionMTWBTagFail_;
+	TH1F *ElecDiLepContributionMTWNJets_, *ElecDiLepContributionMTWNJetsFail_;
+	TH1F *ElecDiLepContributionMTWHT_, *ElecDiLepContributionMTWHTFail_;
+	TH1F *ElecDiLepContributionMTWMHT_, *ElecDiLepContributionMTWMHTFail_;
+	
 	// single isolated track from mu or electron
 	// muon
 	TH1F *IsoTrackMuBTag_, *IsoTrackMuBTagFail_;
@@ -279,6 +339,14 @@ public :
 	Float_t         Jets_photonEnergyFraction[31];   //[JetsNum]
 	Int_t           Jets_photonMultiplicity[31];   //[JetsNum]
 	
+	UShort_t        ExpectationDiLep;
+	UShort_t        MuDiLepControlSample;
+	UShort_t        ElecDiLepControlSample;
+	UShort_t        StandAloneGenMuIsoTrackMatched;
+	UShort_t        StandAloneIsoTrackToMuMatched;
+	UShort_t        StandAloneGenElecIsoTrackMatched;
+	UShort_t        StandAloneIsoTrackToElecMatched;
+	
 	// List of branches
 	TBranch        *b_HT;   //!
 	TBranch        *b_MHT;   //!
@@ -382,6 +450,14 @@ public :
 	TBranch        *b_Jets_neutralHadronMultiplicity;   //!
 	TBranch        *b_Jets_photonEnergyFraction;   //!
 	TBranch        *b_Jets_photonMultiplicity;   //!
+	
+	TBranch        *b_ExpectationDiLep;
+	TBranch        *b_MuDiLepControlSample;
+	TBranch        *b_ElecDiLepControlSample;
+	TBranch        *b_StandAloneGenMuIsoTrackMatched;
+	TBranch        *b_StandAloneIsoTrackToMuMatched;
+	TBranch        *b_StandAloneGenElecIsoTrackMatched;
+	TBranch        *b_StandAloneIsoTrackToElecMatched;
 	
 	EffMaker(TTree * /*tree*/ =0) : fChain(0) { }
 	virtual ~EffMaker() { }
@@ -522,6 +598,14 @@ void EffMaker::Init(TTree *tree)
 	fChain->SetBranchAddress("Jets_neutralHadronMultiplicity", Jets_neutralHadronMultiplicity, &b_Jets_neutralHadronMultiplicity);
 	fChain->SetBranchAddress("Jets_photonEnergyFraction", Jets_photonEnergyFraction, &b_Jets_photonEnergyFraction);
 	fChain->SetBranchAddress("Jets_photonMultiplicity", Jets_photonMultiplicity, &b_Jets_photonMultiplicity);
+	
+	fChain->SetBranchAddress("ExpectationDiLep", &ExpectationDiLep, &b_ExpectationDiLep);
+	fChain->SetBranchAddress("MuDiLepControlSample", &MuDiLepControlSample, &b_MuDiLepControlSample);
+	fChain->SetBranchAddress("ElecDiLepControlSample", &ElecDiLepControlSample, &b_ElecDiLepControlSample);
+	fChain->SetBranchAddress("StandAloneGenMuIsoTrackMatched", &StandAloneGenMuIsoTrackMatched, &b_StandAloneGenMuIsoTrackMatched);
+	fChain->SetBranchAddress("StandAloneIsoTrackToMuMatched", &StandAloneIsoTrackToMuMatched, &b_StandAloneIsoTrackToMuMatched);
+	fChain->SetBranchAddress("StandAloneGenElecIsoTrackMatched", &StandAloneGenElecIsoTrackMatched, &b_StandAloneGenElecIsoTrackMatched);
+	fChain->SetBranchAddress("StandAloneIsoTrackToElecMatched", &StandAloneIsoTrackToElecMatched, &b_StandAloneIsoTrackToElecMatched);
 }
 
 Bool_t EffMaker::Notify()
