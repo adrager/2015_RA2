@@ -29,7 +29,9 @@ const double minTauPt_=10;
 const double maxTauEta_=2.4;
 
 // actity around lepton
-const double maxDeltaRMuActivity_=0.3;
+const double maxDeltaRMuActivity_=1.0;
+const double maxDeltaRElecActivity_=1.0;
+const double maxDeltaRIsoTrackActivity_=1.0;
 
 // lepton matching
 const double maxDeltaRGenToRecoMu_ =0.3;
@@ -77,6 +79,8 @@ public :
 	double deltaR(double eta1, double phi1, double eta2, double phi2);
 	double MTWCalculator(double metPt,double  metPhi,double  lepPt,double  lepPhi);
 	double MuActivity(double muEta, double muPhi);
+	double ElecActivity( double elecEta, double elecPhi);
+	double IsoTrackActivityCalc( double isoTrackEta, double isoTrackPhi);
 	
 	TTree          *fChain;   //!pointer to the analyzed TTree or TChain
 	// Storing stuff
@@ -132,10 +136,14 @@ public :
 	// stand alone isolated track prediction
 	UShort_t StandAloneGenMuIsoTrackMatched_, StandAloneIsoTrackToMuMatched_;
 	UShort_t StandAloneGenElecIsoTrackMatched_, StandAloneIsoTrackToElecMatched_;
+	UShort_t StandAloneIsoTrackToRecoMuMatched_, StandAloneIsoTrackToRecoElecMatched_;
+	UShort_t IsoTrackDiLepControlSampleElec_, IsoTrackDiLepControlSampleMu_, IsoTrackDiLepElec_, IsoTrackDiLepMu_;
 	
 	// activity resetValues
-	Float_t         RecoIsoMuonActivity[20], RecoMuonActivity[20];
-	Float_t         RecoIsoElectronActivity[20], RecoElectronActivity[20];
+	Float_t         RecoIsoMuonActivity[20], RecoMuonActivity[20], GenMuonActivity[20];
+	Float_t         RecoIsoElectronActivity[20], RecoElectronActivity[20], GenElecActivity[20];
+	
+	Float_t IsoTrackActivity[20], GenTauActivity[20];
 	
 	
 	
