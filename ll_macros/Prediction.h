@@ -63,29 +63,38 @@ public :
    // output variables
    TTree *tPrediction_;
    Float_t mtw;
-   Float_t muMTWEff_, mtwCorrectedWeight_;
+	 Float_t muMTWEff_, elecMTWEff_, mtwCorrectedWeight_;
    Float_t muDiLepContributionMTWAppliedEff_, mtwDiLepCorrectedWeight_;
    Float_t muIsoEff_, muIsoWeight_;
    Float_t muRecoEff_, muRecoWeight_;
    Float_t muAccEff_, muAccWeight_;
    Float_t muTotalWeight_, totalMuons_;
+	 Float_t elecPurityCorrection_, purityCorrectedWeight_, elecDiLepContributionMTWAppliedEff_;
    Float_t elecIsoEff_, elecIsoWeight_;
    Float_t elecRecoEff_, elecRecoWeight_;
    Float_t elecAccEff_, elecAccWeight_;
-   Float_t elecTotalWeight_;
+   Float_t elecTotalWeight_, totalElectrons_;
    Float_t totalWeight_;
-   Float_t         selectedIDIsoMuonsActivity[3];   //[selectedIDIsoMuonsNum]
+   Float_t         selectedIDIsoMuonsActivity[5];   //[selectedIDIsoMuonsNum]
+   Float_t         selectedIDIsoElectronsActivity[5];   //[selectedIDIsoMuonsNum]
    
    // Effiecineices
-   TH1F *MuMTWActivity_;
+   TH2F *MuMTWPTActivity_;
    TH1F *MuDiLepContributionMTWAppliedNJets_;
    TH2F *MuIsoPTActivity_;
    TH1F *MuRecoActivitiy_;
-   TH2F *MuAccHTNJets_;
+//    TH2F *MuRecoPTActivity_;
+//    TH2F *MuAccHTNJets_;
+	 TH2F *MuAccBTagNJets_;
    
    TH2F *ElecIsoPTActivity_;
    TH1F *ElecRecoActivity_;
-   TH2F *ElecAccHTNJets_;
+// 	 TH2F *ElecRecoPTActivity_;
+//    TH2F *ElecAccHTNJets_;
+	 TH2F *ElecAccBTagNJets_;
+	 TH2F *ElecPurityMHTNJets_;
+	 TH2F *ElecMTWPTActivity_;
+	 TH1F *ElecDiLepContributionMTWAppliedNJets_;
 
    // Declaration of leaf types
    UInt_t          RunNum;

@@ -48,14 +48,22 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
 
   TFile *effInput = new TFile("/afs/desy.de/user/a/adraeger/xxl-af-cms/2015/2015_RA2/ll_macros/Efficiencies.root","UPDATE");
    TDirectory *EffInputFolder =   (TDirectory*)effInput->Get("Efficiencies");
-   MuMTWActivity_ = (TH1F*) EffInputFolder->Get("MuMTWActivity");
+   MuMTWPTActivity_ = (TH2F*) EffInputFolder->Get("MuMTWPTActivity");
    MuDiLepContributionMTWAppliedNJets_ = (TH1F*) EffInputFolder->Get("MuDiLepContributionMTWNJets1D");
    MuIsoPTActivity_ = (TH2F*)EffInputFolder->Get("MuIsoPTActivity");
-   MuRecoActivitiy_ = (TH1F*)EffInputFolder->Get("MuRecoActivity");
-   MuAccHTNJets_ = (TH2F*)EffInputFolder->Get("MuAccHTNJets");
+    MuRecoActivitiy_ = (TH1F*)EffInputFolder->Get("MuRecoActivity");
+// 	 MuRecoPTActivity_= (TH2F*)EffInputFolder->Get("MuRecoPTActivity");
+//    MuAccHTNJets_ = (TH2F*)EffInputFolder->Get("MuAccHTNJets");
+	 MuAccBTagNJets_ = (TH2F*)EffInputFolder->Get("MuAccBTagNJets");
    ElecIsoPTActivity_ = (TH2F*)EffInputFolder->Get("ElecIsoPTActivity");
-   ElecRecoActivity_ = (TH1F*)EffInputFolder->Get("ElecRecoActivity");
-   ElecAccHTNJets_ = (TH2F*)EffInputFolder->Get("ElecAccHTNJets");
+    ElecRecoActivity_ = (TH1F*)EffInputFolder->Get("ElecRecoActivity");
+// 	 ElecRecoPTActivity_= (TH2F*)EffInputFolder->Get("ElecRecoPTActivity");
+//    ElecAccHTNJets_ = (TH2F*)EffInputFolder->Get("ElecAccHTNJets");
+	 ElecAccBTagNJets_ = (TH2F*)EffInputFolder->Get("ElecAccBTagNJets");
+	 
+	 ElecPurityMHTNJets_ = (TH2F*)EffInputFolder->Get("ElecPurity");
+	 ElecMTWPTActivity_ = (TH2F*)EffInputFolder->Get("ElecMTWPTActivity");
+	 ElecDiLepContributionMTWAppliedNJets_ = (TH1F*) EffInputFolder->Get("ElecDiLepContributionMTWNJets1D");
 
 
   
@@ -83,6 +91,7 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
 	 tPrediction_->Branch("RecoIsoElecEta", selectedIDIsoElectronsEta, "RecoIsoElecEta[selectedIDIsoElectronsNum]/F");
 	 tPrediction_->Branch("RecoIsoElecPhi", selectedIDIsoElectronsPhi, "RecoIsoElecPhi[selectedIDIsoElectronsNum]/F");
 	 tPrediction_->Branch("RecoIsoElecE", selectedIDIsoElectronsE, "RecoIsoElecE[selectedIDIsoElectronsNum]/F");
+	 tPrediction_->Branch("selectedIDIsoElectronsActivity", selectedIDIsoElectronsActivity, "selectedIDIsoElectronsActivity[selectedIDIsoElectronsNum]/F");
    tPrediction_->Branch("MTW",&mtw,"MTW/F");
    tPrediction_->Branch("muMTWEff",&muMTWEff_,"muMTWEff/F");
    tPrediction_->Branch("mtwCorrectedWeight",&mtwCorrectedWeight_,"mtwCorrectedWeight/F");
@@ -103,6 +112,7 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
    tPrediction_->Branch("elecIsoWeight",&elecIsoWeight_,"elecIsoWeight/F");
    tPrediction_->Branch("elecIsoEff",&elecIsoEff_,"elecIsoEff/F");
    tPrediction_->Branch("elecTotalWeight",&elecTotalWeight_,"elecTotalWeight/F");
+	 tPrediction_->Branch("totalElectrons",&totalElectrons_,"totalElectrons/F");
    tPrediction_->Branch("totalWeight",&totalWeight_,"totalWeight/F");
    GetOutputList()->Add(tPrediction_);
 }
@@ -113,27 +123,33 @@ Bool_t Prediction::Process(Long64_t entry)
 	fChain->GetTree()->GetEntry(entry);
 	if(HT<minHT_ || MHT< minMHT_ || NJets < minNJets_||  DeltaPhi1 < deltaPhi1_ || DeltaPhi2 < deltaPhi2_ || DeltaPhi3 < deltaPhi3_ ) return kTRUE;
 	if(applyFilters_ &&  !FiltersPass() ) return kTRUE;
+// 	if((GenMuNum+GenElecNum)!=1) return kTRUE;
 	if(selectedIDIsoMuonsNum==1 && selectedIDIsoElectronsNum==0)
 	{
 	  mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoMuonsPt[0], selectedIDIsoMuonsPhi[0]);
 	  selectedIDIsoMuonsActivity[0]=MuActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0]);
-	  muMTWEff_ = getEff(MuMTWActivity_,selectedIDIsoMuonsActivity[0]);
+		muMTWEff_ = getEff(MuMTWPTActivity_,selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
 	  mtwCorrectedWeight_ = Weight / muMTWEff_;
 	  muDiLepContributionMTWAppliedEff_ = getEff(MuDiLepContributionMTWAppliedNJets_,NJets);
 	  mtwDiLepCorrectedWeight_ = mtwCorrectedWeight_ * muDiLepContributionMTWAppliedEff_;
 	  muIsoEff_ = getEff(MuIsoPTActivity_, selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
-	  muIsoWeight_ = mtwDiLepCorrectedWeight_* (1 - muIsoEff_)/muIsoEff_;
-	  muRecoEff_ = getEff(MuRecoActivitiy_,selectedIDIsoMuonsActivity[0]);
+ 	  muIsoWeight_ = mtwDiLepCorrectedWeight_* (1 - muIsoEff_)/muIsoEff_;
+// 		muIsoWeight_ = Weight* (1 - muIsoEff_)/muIsoEff_;
+ 	  muRecoEff_ = getEff(MuRecoActivitiy_,selectedIDIsoMuonsActivity[0]);
+// 		muRecoEff_ = getEff(MuRecoPTActivity_,selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
 	  muRecoWeight_ = mtwDiLepCorrectedWeight_* 1 / muIsoEff_ * (1-muRecoEff_)/muRecoEff_;
-	  muAccEff_ = getEff(MuAccHTNJets_,HT,NJets);
+// 	  muAccEff_ = getEff(MuAccHTNJets_,HT,NJets);
+		muAccEff_ = getEff(MuAccBTagNJets_,BTags,NJets);
 	  muAccWeight_ = mtwDiLepCorrectedWeight_* 1 / muIsoEff_ * 1 / muRecoEff_ * (1-muAccEff_)/muAccEff_;
 	  
 	  muTotalWeight_ = muIsoWeight_ + muRecoWeight_ + muAccWeight_;
 	  totalMuons_ = mtwDiLepCorrectedWeight_ / ( muIsoEff_ * muRecoEff_ * muAccEff_);
 	  
-	  elecAccEff_ = getEff(ElecAccHTNJets_,HT,NJets);
+// 	  elecAccEff_ = getEff(ElecAccHTNJets_,HT,NJets);
+		elecAccEff_ = getEff(ElecAccBTagNJets_,BTags,NJets);
 	  elecAccWeight_ = totalMuons_ * (1 - elecAccEff_);
-	  elecRecoEff_ = getEff(ElecRecoActivity_,ElecActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0]));
+ 	  elecRecoEff_ = getEff(ElecRecoActivity_,ElecActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0]));
+// 		elecRecoEff_ = getEff(ElecRecoPTActivity_,selectedIDIsoMuonsPt[0],ElecActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0]));
 	  elecRecoWeight_ = totalMuons_ * (elecAccEff_) * (1-elecRecoEff_);
 	  elecIsoEff_ = getEff(ElecIsoPTActivity_,selectedIDIsoMuonsPt[0],ElecActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0]));
 	  elecIsoWeight_ = totalMuons_ * (elecAccEff_) * (elecRecoEff_) * (1-elecIsoEff_);
@@ -141,13 +157,41 @@ Bool_t Prediction::Process(Long64_t entry)
 	  totalWeight_ = elecTotalWeight_ + muTotalWeight_;
 	  
 	}	
-	if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==1)
+	else if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==1)
 	{
 	  mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoElectronsPt[0], selectedIDIsoElectronsPhi[0]);
 	  selectedIDIsoElectronsActivity[0]=ElecActivity(selectedIDIsoElectronsEta[0], selectedIDIsoElectronsPhi[0]);
+		elecPurityCorrection_ =  getEff(ElecPurityMHTNJets_,MHT,NJets);
+		elecMTWEff_ = getEff(ElecMTWPTActivity_,selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
+		elecIsoEff_ =  getEff(ElecIsoPTActivity_,selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
+ 		elecRecoEff_ = getEff(ElecRecoActivity_,selectedIDIsoElectronsActivity[0]);
+// 		elecRecoEff_ = getEff(ElecRecoPTActivity_,selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
+// 		elecAccEff_ = getEff(ElecAccHTNJets_,HT,NJets);
+		elecAccEff_ = getEff(ElecAccBTagNJets_,BTags,NJets);
+		
+// 		muAccEff_ = getEff(MuAccHTNJets_,HT,NJets);
+		muAccEff_ = getEff(MuAccBTagNJets_,BTags,NJets);
+ 		muRecoEff_ = getEff(MuRecoActivitiy_,selectedIDIsoElectronsActivity[0]);
+// 		muRecoEff_ = getEff(MuRecoPTActivity_, selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
+		muIsoEff_ = getEff(MuIsoPTActivity_, selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
+		purityCorrectedWeight_ = Weight * elecPurityCorrection_;
+		mtwCorrectedWeight_ =  purityCorrectedWeight_ / elecMTWEff_;
+		elecDiLepContributionMTWAppliedEff_ = getEff(ElecDiLepContributionMTWAppliedNJets_,NJets);
+		mtwDiLepCorrectedWeight_ = mtwCorrectedWeight_ * elecDiLepContributionMTWAppliedEff_;
+ 		elecIsoWeight_= mtwDiLepCorrectedWeight_ * (1 - elecIsoEff_)/elecIsoEff_;
+// 		elecIsoWeight_= Weight * (1 - elecIsoEff_)/elecIsoEff_;
+		elecRecoWeight_ = mtwDiLepCorrectedWeight_* 1 / elecIsoEff_ * (1-elecRecoEff_)/elecRecoEff_;
+		elecAccWeight_ = mtwDiLepCorrectedWeight_* 1 / elecIsoEff_ * 1 / elecRecoEff_ * (1-elecAccEff_)/elecAccEff_;
+		elecTotalWeight_ = elecIsoWeight_ + elecRecoWeight_ + elecAccWeight_;
+		totalElectrons_ = mtwDiLepCorrectedWeight_ / ( elecIsoEff_ * elecRecoEff_ * elecAccEff_);
+		muAccWeight_ = totalElectrons_ * (1-muAccEff_);
+		muRecoWeight_ = totalElectrons_ * (muAccEff_) * (1-muRecoEff_);
+		muIsoWeight_ = totalElectrons_ * (muAccEff_) * (muRecoEff_) * (1-muIsoEff_);
+		muTotalWeight_ = muIsoWeight_ + muRecoWeight_ + muAccWeight_;
+		totalWeight_ = elecTotalWeight_ + muTotalWeight_;
 	}
 
-	else return kTRUE;
+	if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==0) return kTRUE;
 	tPrediction_->Fill();
    return kTRUE;
 }
@@ -192,6 +236,7 @@ void Prediction::resetValues()
 	elecAccEff_=0;
 	elecAccWeight_=0;
 	elecTotalWeight_=0;
+	totalElectrons_=0.;
 	totalWeight_=0.;
 
 }

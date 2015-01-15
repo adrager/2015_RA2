@@ -59,17 +59,34 @@ const int elecpurityNJet_ = 5;
 double elecPurityNJet_[elecpurityNJet_] ={2,3,4,5,22};
 // mu acceptance
 // 2D
-const int muaccHT_ = 5;
-double muAccHT_ [muaccHT_] = {500,600,800,1000,2500};
-const int muaccNJets_ = 5;
-double muAccNJets_ [muaccNJets_] = {2,3,4,7,20};
+const int muaccHT_ = 3;
+double muAccHT_ [muaccHT_] = {500,1400,2500};
+const int muaccBTags_ = 5;
+double muAccBTags_[muaccBTags_] = {0,1,2,3,10};
+const int muaccNJets_ = 7;
+double muAccNJets_ [muaccNJets_] = {2,3,4,5,6,9,20};
 
 // elec acceptance
 // 2D
-const int elecaccHT_ = 5;
-double elecAccHT_ [elecaccHT_] = {500,600,800,1000,2500};
-const int elecaccNJets_ = 5;
-double elecAccNJets_ [elecaccNJets_] = {2,3,4,7,20};
+const int elecaccHT_ = 3;
+double elecAccHT_ [elecaccHT_] = {500,1300,2500};
+const int elecaccBTags_ = 5;
+double elecAccBTags_[elecaccBTags_] = {0,1,2,3,10};
+const int elecaccNJets_ = 8;
+double elecAccNJets_ [elecaccNJets_] = {2,3,4,5,6,8,11,20};
+
+// mtw
+// 2D
+const int muMTWPT2D_=9;
+double MuMTWPT2D_[muMTWPT2D_]={10,30,40,50,60,70,90,110,1900};
+const int muMTWActivity2D_=9;
+double MuMTWActivity2D_[muMTWActivity2D_]={0,5,10,20,40,60,80,100,1600};
+
+const int elecMTWPT2D_=9;
+double ElecMTWPT2D_[elecMTWPT2D_]={10,30,40,50,60,70,90,110,1900};
+const int elecMTWActivity2D_=9;
+double ElecMTWActivity2D_[elecMTWActivity2D_]={0,5,10,20,40,60,80,100,1600};
+
 class EffMaker : public TSelector {
 public :	
 	TH2F* ratioCalculator(TH2F* passTH2, TH2F* failTH2);
@@ -114,6 +131,7 @@ public :
 	TH1F *MuAccActivity_, *MuAccActivityFail_;
 	// 2D
 	TH2F *MuAccHTNJets_, *MuAccHTNJetsFail_; 
+	TH2F *MuAccBTagNJets_, *MuAccBTagNJetsFail_;
 	
 	// elec
 	//1D
@@ -126,6 +144,7 @@ public :
 	
 	// 2D
 	TH2F *ElecAccHTNJets_, *ElecAccHTNJetsFail_; 
+	TH2F *ElecAccBTagNJets_, *ElecAccBTagNJetsFail_;
 	
 	// Recoeptance
 	// mu 
@@ -175,6 +194,8 @@ public :
 	TH1F *MuMTWMHT_, *MuMTWMHTFail_;
 	TH1F *MuMTWPT_, *MuMTWPTFail_;
 	TH1F *MuMTWActivity_, *MuMTWActivityFail_;
+	// 2D
+	TH2F *MuMTWPTActivity_, *MuMTWPTActivityFail_;
 	
 	// elec
 	//1D
@@ -184,6 +205,8 @@ public :
 	TH1F *ElecMTWMHT_, *ElecMTWMHTFail_;
 	TH1F *ElecMTWPT_, *ElecMTWPTFail_;
 	TH1F *ElecMTWActivity_, *ElecMTWActivityFail_;
+	// 2D
+	TH2F *ElecMTWPTActivity_, *ElecMTWPTActivityFail_;
 	
 	
 	// Di lep control sample
@@ -317,8 +340,10 @@ public :
 	
 	// 2D efficiencies
 	TH2F *MuIsoPTActivity_, *MuIsoPTActivityFail_;
+	TH2F *MuRecoPTActivity_, *MuRecoPTActivityFail_;
 	
 	TH2F *ElecIsoPTActivity_, *ElecIsoPTActivityFail_;
+	TH2F *ElecRecoPTActivity_, *ElecRecoPTActivityFail_;
 	
 	// Declaration of leaf types
 	Float_t         HT;
