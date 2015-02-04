@@ -355,6 +355,7 @@ public :
 	Float_t         DeltaPhi1;
 	Float_t         DeltaPhi2;
 	Float_t         DeltaPhi3;
+	Float_t         minDeltaPhiN;
 	Float_t         Weight;
 	Float_t         MET;
 	Float_t         METPhi;
@@ -480,6 +481,7 @@ public :
 	TBranch        *b_DeltaPhi1;   //!
 	TBranch        *b_DeltaPhi2;   //!
 	TBranch        *b_DeltaPhi3;   //!
+	TBranch        *b_minDeltaPhiN;   //!
 	TBranch        *b_Weight;   //!
 	TBranch        *b_MET;   //!
 	TBranch        *b_METPhi;   //!
@@ -641,6 +643,7 @@ void EffMaker::Init(TTree *tree)
   fChain->SetBranchAddress("DeltaPhi1", &DeltaPhi1, &b_DeltaPhi1);
   fChain->SetBranchAddress("DeltaPhi2", &DeltaPhi2, &b_DeltaPhi2);
   fChain->SetBranchAddress("DeltaPhi3", &DeltaPhi3, &b_DeltaPhi3);
+  fChain->SetBranchAddress("minDeltaPhiN", &minDeltaPhiN, &b_minDeltaPhiN);
   fChain->SetBranchAddress("Weight", &Weight, &b_Weight);
   fChain->SetBranchAddress("MET", &MET, &b_MET);
   fChain->SetBranchAddress("METPhi", &METPhi, &b_METPhi);

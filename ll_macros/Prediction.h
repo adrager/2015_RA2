@@ -74,7 +74,8 @@ public :
    Float_t elecRecoEff_, elecRecoWeight_;
    Float_t elecAccEff_, elecAccWeight_;
    Float_t elecTotalWeight_, totalElectrons_;
-   Float_t totalWeight_;
+	 Float_t muDiLepEffMTWAppliedEff_, elecDiLepEffMTWAppliedEff_;
+   Float_t totalWeight_, totalWeightDiLep_;
    Float_t         selectedIDIsoMuonsActivity[5];   //[selectedIDIsoMuonsNum]
    Float_t         selectedIDIsoElectronsActivity[5];   //[selectedIDIsoMuonsNum]
    
@@ -82,19 +83,21 @@ public :
    TH2F *MuMTWPTActivity_;
    TH1F *MuDiLepContributionMTWAppliedNJets_;
    TH2F *MuIsoPTActivity_;
-   TH1F *MuRecoActivitiy_;
-//    TH2F *MuRecoPTActivity_;
+//    TH1F *MuRecoActivitiy_;
+   TH2F *MuRecoPTActivity_;
 //    TH2F *MuAccHTNJets_;
 	 TH2F *MuAccBTagNJets_;
+	 TH1F *MuDiLepEffMTWAppliedNJets_;
    
    TH2F *ElecIsoPTActivity_;
-   TH1F *ElecRecoActivity_;
-// 	 TH2F *ElecRecoPTActivity_;
+//    TH1F *ElecRecoActivity_;
+ 	 TH2F *ElecRecoPTActivity_;
 //    TH2F *ElecAccHTNJets_;
 	 TH2F *ElecAccBTagNJets_;
 	 TH2F *ElecPurityMHTNJets_;
 	 TH2F *ElecMTWPTActivity_;
 	 TH1F *ElecDiLepContributionMTWAppliedNJets_;
+	 TH1F *ElecDiLepEffMTWAppliedNJets_;
 
    // Declaration of leaf types
    UInt_t          RunNum;

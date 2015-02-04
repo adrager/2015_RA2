@@ -53,6 +53,10 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	tExpectation_->Branch("DeltaPhi1",&DeltaPhi1,"DeltaPhi1/F");
 	tExpectation_->Branch("DeltaPhi2",&DeltaPhi2,"DeltaPhi2/F");
 	tExpectation_->Branch("DeltaPhi3",&DeltaPhi3,"DeltaPhi3/F");
+	tExpectation_->Branch("minDeltaPhiN",&minDeltaPhiN,"minDeltaPhiN/F");
+	tExpectation_->Branch("DeltaPhiN1",&DeltaPhiN1,"DeltaPhiN1/F");
+	tExpectation_->Branch("DeltaPhiN2",&DeltaPhiN2,"DeltaPhiN2/F");
+	tExpectation_->Branch("DeltaPhiN3",&DeltaPhiN3,"DeltaPhiN3/F");
 	tExpectation_->Branch("Weight", &Weight, "Weight/F");
 	tExpectation_->Branch("MET",&METPt,"MET/F");
 	tExpectation_->Branch("METPhi",&METPhi,"METPhi/F");
@@ -179,7 +183,9 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 {
 	resetValues();
 	fChain->GetTree()->GetEntry(entry);
-	if(HT<minHT_ || MHT< minMHT_ || NJets < minNJets_||  DeltaPhi1 < deltaPhi1_ || DeltaPhi2 < deltaPhi2_ || DeltaPhi3 < deltaPhi3_ ) return kTRUE;
+	if(HT<minHT_ || MHT< minMHT_ || NJets < minNJets_  ) return kTRUE;
+// 	if(DeltaPhi1 < deltaPhi1_ || DeltaPhi2 < deltaPhi2_ || DeltaPhi3 < deltaPhi3_ )return kTRUE;
+	if(minDeltaPhiN>minDeltaPhiN_) return kTRUE;
 	if(applyFilters_ &&  !FiltersPass() ) return kTRUE;
 	// compute efficiencies 1 lepton
 	if(GenMuNum==1 && GenElecNum==0)
