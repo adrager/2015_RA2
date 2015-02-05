@@ -139,6 +139,12 @@ void EffMaker::SlaveBegin(TTree * /*tree*/)
   MuAccHTNJetsFail_->SetName("MuAccHTNJetsFail");
   GetOutputList()->Add(MuAccHTNJetsFail_); 
 	
+	MuAccMHTNJets_ = new TH2F("MuAccMHTNJets","MuAccMHTNJets",muaccMHT_-1,muAccMHT_, muaccNJets_-1, muAccNJets_);
+	GetOutputList()->Add(MuAccMHTNJets_);
+	MuAccMHTNJetsFail_ = (TH2F*)MuAccMHTNJets_->Clone();
+	MuAccMHTNJetsFail_->SetName("MuAccMHTNJetsFail");
+	GetOutputList()->Add(MuAccMHTNJetsFail_); 
+	
 	MuAccBTagNJets_ = new TH2F("MuAccBTagNJets","MuAccBTagNJets",muaccBTags_-1,muAccBTags_, muaccNJets_-1, muAccNJets_);
 	GetOutputList()->Add(MuAccBTagNJets_);
 	MuAccBTagNJetsFail_ = (TH2F*)MuAccBTagNJets_->Clone();
@@ -177,6 +183,12 @@ void EffMaker::SlaveBegin(TTree * /*tree*/)
   ElecAccHTNJetsFail_ = (TH2F*)ElecAccHTNJets_->Clone();
   ElecAccHTNJetsFail_->SetName("ElecAccHTNJetsFail");
   GetOutputList()->Add(ElecAccHTNJetsFail_); 
+	
+	ElecAccMHTNJets_ = new TH2F("ElecAccMHTNJets","ElecAccMHTNJets",elecaccMHT_-1,elecAccMHT_, elecaccNJets_-1, elecAccNJets_);
+	GetOutputList()->Add(ElecAccMHTNJets_);
+	ElecAccMHTNJetsFail_ = (TH2F*)ElecAccMHTNJets_->Clone();
+	ElecAccMHTNJetsFail_->SetName("ElecAccMHTNJetsFail");
+	GetOutputList()->Add(ElecAccMHTNJetsFail_); 
 	
 	ElecAccBTagNJets_ = new TH2F("ElecAccBTagNJets","ElecAccBTagNJets",elecaccBTags_-1,elecAccBTags_, elecaccNJets_-1, elecAccNJets_);
 	GetOutputList()->Add(ElecAccBTagNJets_);
@@ -1006,6 +1018,7 @@ Bool_t EffMaker::Process(Long64_t entry)
     MuAccActivity_->Fill(GenMuonActivity[0],Weight);
     //2D
     MuAccHTNJets_->Fill(HT,NJets,Weight);
+		MuAccMHTNJets_->Fill(MHT,NJets,Weight);
 		MuAccBTagNJets_->Fill(BTags,NJets,Weight);
   }
   if(muAcc==0)
@@ -1019,6 +1032,7 @@ Bool_t EffMaker::Process(Long64_t entry)
     MuAccActivityFail_->Fill(GenMuonActivity[0],Weight);
     //2D
     MuAccHTNJetsFail_->Fill(HT,NJets,Weight);
+		MuAccMHTNJetsFail_->Fill(MHT,NJets,Weight);
 		MuAccBTagNJetsFail_->Fill(BTags,NJets,Weight);
   }
   
@@ -1034,6 +1048,7 @@ Bool_t EffMaker::Process(Long64_t entry)
     ElecAccActivity_->Fill(GenElecActivity[0],Weight);
     //2D
     ElecAccHTNJets_->Fill(HT,NJets,Weight);
+		ElecAccMHTNJets_->Fill(MHT,NJets,Weight);
 		ElecAccBTagNJets_->Fill(BTags,NJets,Weight);
   }
   if(elecAcc==0)
@@ -1047,6 +1062,7 @@ Bool_t EffMaker::Process(Long64_t entry)
     ElecAccActivityFail_->Fill(GenElecActivity[0],Weight);
     //2D
     ElecAccHTNJetsFail_->Fill(HT,NJets,Weight);
+		ElecAccMHTNJetsFail_->Fill(MHT,NJets,Weight);
 		ElecAccBTagNJetsFail_->Fill(BTags,NJets,Weight);
   }
   
@@ -1644,6 +1660,13 @@ void EffMaker::Terminate()
   MuAccHTNJets_->Write();
   SaveEfficiency(MuAccHTNJets_);
 	
+	MuAccMHTNJets_ = ratioCalculator(MuAccMHTNJets_,MuAccMHTNJetsFail_);   
+	MuAccMHTNJets_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV #mu acc; #slash{H}_{T} [GeV]; N_{Jets}");
+	MuAccMHTNJets_->SetMarkerSize(2.0);
+	MuAccMHTNJets_->UseCurrentStyle();
+	MuAccMHTNJets_->Write();
+	SaveEfficiency(MuAccMHTNJets_);
+	
 	MuAccBTagNJets_ = ratioCalculator(MuAccBTagNJets_,MuAccBTagNJetsFail_);   
 	MuAccBTagNJets_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV #mu acc; B_{Tags}; N_{Jets}");
 	MuAccBTagNJets_->SetMarkerSize(2.0);
@@ -1688,6 +1711,13 @@ void EffMaker::Terminate()
   ElecAccHTNJets_->UseCurrentStyle();
   ElecAccHTNJets_->Write();
   SaveEfficiency(ElecAccHTNJets_);
+	
+	ElecAccMHTNJets_ = ratioCalculator(ElecAccMHTNJets_,ElecAccMHTNJetsFail_);   
+	ElecAccMHTNJets_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV e acc; #slash{H}_{T} [GeV]; N_{Jets}");
+	ElecAccMHTNJets_->SetMarkerSize(2.0);
+	ElecAccMHTNJets_->UseCurrentStyle();
+	ElecAccMHTNJets_->Write();
+	SaveEfficiency(ElecAccMHTNJets_);
 	
 	ElecAccBTagNJets_ = ratioCalculator(ElecAccBTagNJets_,ElecAccBTagNJetsFail_);   
 	ElecAccBTagNJets_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV e acc; B_{Tags}; N_{Jets}");

@@ -29,6 +29,7 @@ const double minNJets_=2.5;
 const double deltaPhi1_=0.5;
 const double deltaPhi2_=0.5;
 const double deltaPhi3_=0.3;
+const double minDeltaPhiN_=4.0;
 const bool applyFilters_=false;
 const bool applyDiLepCorrection_=true;
 
@@ -86,14 +87,16 @@ public :
 //    TH1F *MuRecoActivitiy_;
    TH2F *MuRecoPTActivity_;
 //    TH2F *MuAccHTNJets_;
-	 TH2F *MuAccBTagNJets_;
+// 	 TH2F *MuAccBTagNJets_;
+	 TH2F *MuAccMHTNJets_;
 	 TH1F *MuDiLepEffMTWAppliedNJets_;
    
    TH2F *ElecIsoPTActivity_;
 //    TH1F *ElecRecoActivity_;
  	 TH2F *ElecRecoPTActivity_;
 //    TH2F *ElecAccHTNJets_;
-	 TH2F *ElecAccBTagNJets_;
+// 	 TH2F *ElecAccBTagNJets_;
+	 TH2F *ElecAccMHTNJets_;
 	 TH2F *ElecPurityMHTNJets_;
 	 TH2F *ElecMTWPTActivity_;
 	 TH1F *ElecDiLepContributionMTWAppliedNJets_;
@@ -115,6 +118,10 @@ public :
    Float_t         DeltaPhi1;
    Float_t         DeltaPhi2;
    Float_t         DeltaPhi3;
+	 Float_t         minDeltaPhiN;
+	 Float_t         DeltaPhiN1;
+	 Float_t         DeltaPhiN2;
+	 Float_t         DeltaPhiN3;
    UShort_t        selectedIDIsoMuonsNum;
    Float_t         selectedIDIsoMuonsPt[3];   //[selectedIDIsoMuonsNum]
    Float_t         selectedIDIsoMuonsEta[3];   //[selectedIDIsoMuonsNum]
@@ -208,6 +215,10 @@ public :
    TBranch        *b_DeltaPhi1;   //!
    TBranch        *b_DeltaPhi2;   //!
    TBranch        *b_DeltaPhi3;   //!
+   TBranch        *b_minDeltaPhiN;   //!
+   TBranch        *b_DeltaPhiN1;   //!
+   TBranch        *b_DeltaPhiN2;   //!
+   TBranch        *b_DeltaPhiN3;   //!
    TBranch        *b_selectedIDIsoMuonsNum;   //!
    TBranch        *b_selectedIDIsoMuonsPt;   //!
    TBranch        *b_selectedIDIsoMuonsEta;   //!
@@ -337,6 +348,10 @@ void Prediction::Init(TTree *tree)
   fChain->SetBranchAddress("DeltaPhi1", &DeltaPhi1, &b_DeltaPhi1);
   fChain->SetBranchAddress("DeltaPhi2", &DeltaPhi2, &b_DeltaPhi2);
   fChain->SetBranchAddress("DeltaPhi3", &DeltaPhi3, &b_DeltaPhi3);
+	fChain->SetBranchAddress("minDeltaPhiN", &minDeltaPhiN, &b_minDeltaPhiN);
+	fChain->SetBranchAddress("DeltaPhiN1", &DeltaPhiN1, &b_DeltaPhiN1);
+	fChain->SetBranchAddress("DeltaPhiN2", &DeltaPhiN2, &b_DeltaPhiN2);
+	fChain->SetBranchAddress("DeltaPhiN3", &DeltaPhiN3, &b_DeltaPhiN3);
   fChain->SetBranchAddress("selectedIDIsoMuonsNum", &selectedIDIsoMuonsNum, &b_selectedIDIsoMuonsNum);
   fChain->SetBranchAddress("selectedIDIsoMuonsPt", selectedIDIsoMuonsPt, &b_selectedIDIsoMuonsPt);
   fChain->SetBranchAddress("selectedIDIsoMuonsEta", selectedIDIsoMuonsEta, &b_selectedIDIsoMuonsEta);

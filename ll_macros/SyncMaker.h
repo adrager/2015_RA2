@@ -23,7 +23,8 @@ public :
    void ResetVariables();
    TTree	*tOut_;
 	 int all, nJetcut, htcut, mhtcut, muveto, elecveto, deltaphiNcut, isotrakveto, btag0, btag1,btag2,btag3;
-
+	 double alld, nJetcutd, htcutd, mhtcutd, muvetod, elecvetod, deltaphiNcutd, isotrakvetod, btag0d, btag1d,btag2d,btag3d;
+	 
    // Declaration of leaf types
    UInt_t          RunNum;
    UInt_t          LumiBlockNum;

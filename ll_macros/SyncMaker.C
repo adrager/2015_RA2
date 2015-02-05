@@ -78,31 +78,55 @@ Bool_t SyncMaker::Process(Long64_t entry)
 {
 	fChain->GetTree()->GetEntry(entry);
 	all++;
+	alld+=Weight;
 	if(NJets>=4)
 	{
 		nJetcut++;
+		nJetcutd+=Weight;
 		if(HT>500)
 		{
 			htcut++;
+			htcutd+=Weight;
 			if(MHT>200)
 			{
 				mhtcut++;
+				mhtcutd+=Weight;
 				if(selectedIDIsoMuonsNum==0)
 				{
 					muveto++;
+					muvetod+=Weight;
 					if(selectedIDIsoElectronsNum==0)
 					{
 						elecveto++;
+						elecvetod+=Weight;
 						if(minDeltaPhiN>4)
 						{
 							deltaphiNcut++;
+							deltaphiNcutd+=Weight;
 							if(isoTracks==0)
 							{
 								isotrakveto++;
-								if(BTags==0)btag0++;
-								if(BTags==1)btag1++;
-								if(BTags==2)btag2++;
-								if(BTags>=3)btag3++;
+								isotrakvetod+=Weight;
+								if(BTags==0)
+								{
+									btag0++;
+									btag0d+=Weight;
+								}
+								if(BTags==1)
+								{
+									btag1++;
+									btag1d+=Weight;
+								}
+								if(BTags==2)
+								{
+									btag2++;
+									btag2d+=Weight;
+								}
+								if(BTags>=3)
+								{
+									btag3++;
+									btag3d+=Weight;
+								}
 							}
 						}
 					}
@@ -131,19 +155,19 @@ void SyncMaker::Terminate()
 	outPutFile->cd();
 	tOut_->Write();
 	std::cout<<"Sync (unweighted) event count:"<<std::endl;
-	std::cout<<"All:                   "<<all<<std::endl;
-	std::cout<<"NJets>=4:              "<<nJetcut<<std::endl;
-	std::cout<<"HT>500:                "<<htcut<<std::endl;
-	std::cout<<"MHT>200:               "<<mhtcut<<std::endl;
-	std::cout<<"IsoMu veto:            "<<muveto<<std::endl;
-	std::cout<<"IsoMu veto:            "<<muveto<<std::endl;
-	std::cout<<"IsoElec veto:          "<<elecveto<<std::endl;
-	std::cout<<"DeltaPhiN>4:           "<<deltaphiNcut<<std::endl;
-	std::cout<<"IsoTrack(mt<100) veto: "<<isotrakveto<<std::endl;
-	std::cout<<"btag=0:                "<<btag0<<std::endl;
-	std::cout<<"btag=1:                "<<btag1<<std::endl;
-	std::cout<<"btag=2:                "<<btag2<<std::endl;
-	std::cout<<"btag>=3:               "<<btag3<<std::endl;
+	std::cout<<"All:                   "<<alld<<" ("<<all<<")"<<std::endl;
+	std::cout<<"NJets>=4:              "<<nJetcutd<<" ("<<nJetcut<<")"<<std::endl;
+	std::cout<<"HT>500:                "<<htcutd<<" ("<<htcut<<")"<<std::endl;
+	std::cout<<"MHT>200:               "<<mhtcutd<<" ("<<mhtcut<<")"<<std::endl;
+	std::cout<<"IsoMu veto:            "<<muvetod<<" ("<<muveto<<")"<<std::endl;
+	std::cout<<"IsoMu veto:            "<<muvetod<<" ("<<muveto<<")"<<std::endl;
+	std::cout<<"IsoElec veto:          "<<elecvetod<<" ("<<elecveto<<")"<<std::endl;
+	std::cout<<"DeltaPhiN>4:           "<<deltaphiNcutd<<" ("<<deltaphiNcut<<")"<<std::endl;
+	std::cout<<"IsoTrack(mt<100) veto: "<<isotrakvetod<<" ("<<isotrakveto<<")"<<std::endl;
+	std::cout<<"btag=0:                "<<btag0d<<" ("<<btag0<<")"<<std::endl;
+	std::cout<<"btag=1:                "<<btag1d<<" ("<<btag1<<")"<<std::endl;
+	std::cout<<"btag=2:                "<<btag2d<<" ("<<btag2<<")"<<std::endl;
+	std::cout<<"btag>=3:               "<<btag3d<<" ("<<btag3<<")"<<std::endl;
 }
 void SyncMaker::ResetVariables()
 {
@@ -159,4 +183,17 @@ void SyncMaker::ResetVariables()
 	btag1=0;
 	btag2=0;
 	btag3=0;
+	
+	alld=0.;
+	nJetcutd=0.;
+	htcutd=0.;
+	mhtcutd=0.;
+	muvetod=0.;
+	elecvetod=0.;
+	deltaphiNcutd=0.;
+	isotrakvetod=0.;
+	btag0d=0.;
+	btag1d=0.;
+	btag2d=0.;
+	btag3d=0.;
 }

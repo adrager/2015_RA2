@@ -185,7 +185,7 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 	fChain->GetTree()->GetEntry(entry);
 	if(HT<minHT_ || MHT< minMHT_ || NJets < minNJets_  ) return kTRUE;
 // 	if(DeltaPhi1 < deltaPhi1_ || DeltaPhi2 < deltaPhi2_ || DeltaPhi3 < deltaPhi3_ )return kTRUE;
-	if(minDeltaPhiN>minDeltaPhiN_) return kTRUE;
+	if(minDeltaPhiN<minDeltaPhiN_) return kTRUE;
 	if(applyFilters_ &&  !FiltersPass() ) return kTRUE;
 	// compute efficiencies 1 lepton
 	if(GenMuNum==1 && GenElecNum==0)

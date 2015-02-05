@@ -61,6 +61,8 @@ double elecPurityNJet_[elecpurityNJet_] ={2,3,4,5,22};
 // 2D
 const int muaccHT_ = 3;
 double muAccHT_ [muaccHT_] = {500,1400,2500};
+const int muaccMHT_ = 7;
+double muAccMHT_ [muaccMHT_] = {200,250,300,500,700,900,2500};
 const int muaccBTags_ = 5;
 double muAccBTags_[muaccBTags_] = {0,1,2,3,10};
 const int muaccNJets_ = 7;
@@ -70,6 +72,8 @@ double muAccNJets_ [muaccNJets_] = {2,3,4,5,6,9,20};
 // 2D
 const int elecaccHT_ = 3;
 double elecAccHT_ [elecaccHT_] = {500,1300,2500};
+const int elecaccMHT_ = 7;
+double elecAccMHT_ [elecaccMHT_] = {200,250,300,500,700,900,2500};
 const int elecaccBTags_ = 5;
 double elecAccBTags_[elecaccBTags_] = {0,1,2,3,10};
 const int elecaccNJets_ = 8;
@@ -131,6 +135,7 @@ public :
 	TH1F *MuAccActivity_, *MuAccActivityFail_;
 	// 2D
 	TH2F *MuAccHTNJets_, *MuAccHTNJetsFail_; 
+	TH2F *MuAccMHTNJets_, *MuAccMHTNJetsFail_;
 	TH2F *MuAccBTagNJets_, *MuAccBTagNJetsFail_;
 	
 	// elec
@@ -144,6 +149,7 @@ public :
 	
 	// 2D
 	TH2F *ElecAccHTNJets_, *ElecAccHTNJetsFail_; 
+	TH2F *ElecAccMHTNJets_, *ElecAccMHTNJetsFail_;
 	TH2F *ElecAccBTagNJets_, *ElecAccBTagNJetsFail_;
 	
 	// Recoeptance
