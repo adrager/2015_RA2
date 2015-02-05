@@ -4,13 +4,13 @@
 //#include "EffMaker.h"
 void MakeExpectation()
 {
- 	TProof *proof = TProof::Open("workers=10");
+//   	TProof *proof = TProof::Open("workers=10");
 	TChain *Effchain = new TChain("TreeMaker2/PreSelection");
- 	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/*.root");
-   	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/WJetsToLNu_HT-200to400/*root");
-    	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/WJetsToLNu_HT-400to600/*root");
- 	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/WJetsToLNu_HT-600toInf/*root");
-// 	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/isoTrackDefault/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/*root");
+    	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/*.root");
+//        	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/WJetsToLNu_HT-200to400/*root");
+//        	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/WJetsToLNu_HT-400to600/*root");
+//     	  Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/WJetsToLNu_HT-600toInf/*root");
+// // 	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/isoTrackDefault/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/*root");
 // 	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/isoTrackDefault/WJetsToLNu_HT-200to400/*root");
 // 	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/isoTrackDefault/WJetsToLNu_HT-400to600/*root");
 // 	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/isoTrackDefault/WJetsToLNu_HT-600toInf/*root");
@@ -24,9 +24,9 @@ void MakeExpectation()
 	// 	Effchain->Add("/nfs/dust/cms/user/adraeger/CSA2014/signal_25NS_nTuples/SMS-T1tttt_2J_mGl-1500_mLSP-100_Tune4C_13TeV-madgraph-tauola_Spring14dr-PU_S14_POSTLS170_V6AN1-miniAOD706p1.root");
 	// 	Effchain->Add("/nfs/dust/cms/user/adraeger/CSA2014/signal_25NS_nTuples/SMS-T1tttt_2J_mGl-1200_mLSP-800_Tune4C_13TeV-madgraph-tauola_Spring14dr-PU_S14_POSTLS170_V6AN1-miniAOD706p1.root");
 	// 	Effchain->Add("/nfs/dust/cms/user/adraeger/CSA2014/signal_25NS_nTuples/SMS-T1qqqq_2J_mGl-1400_mLSP-100_Tune4C_13TeV-madgraph-tauola_Spring14dr-PU_S14_POSTLS170_V6AN1-miniAOD706p1.root");
- 	Effchain->SetProof();
+//   	Effchain->SetProof();
 	//	Effchain->Process("ExpecMaker.C+",0,80000);
-	Effchain->Process("ExpecMaker.C+");
- 	Effchain->SetProof(0);
- 	delete proof;
+		Effchain->Process("/afs/desy.de/user/a/adraeger/xxl-af-cms/2015/2015_RA2/ll_macros/ExpecMaker.C+");
+//   	Effchain->SetProof(0);
+//   	delete proof;
 }

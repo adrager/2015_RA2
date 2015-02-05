@@ -45,6 +45,16 @@ const double MuAccUncertaintyDown_ = 9;  // pdf
 const double maxDeltaRMuActivity_=1.0;
 const double maxDeltaRElecActivity_=1.0;
 const double maxDeltaRIsoTrackActivity_=1.0;
+const unsigned int elecActivityMethod_=0;
+const unsigned int muActivityMethod_=0;
+const unsigned int isoTrackActivityMethod_=0;
+
+// isolated track prediction
+const double maxDeltaRRecoIsoMuToTack_ = 0.2;
+const double maxDiffPtRecoIsoMuToTack_ = 0.5;
+
+const double maxDeltaRRecoIsoElecToTack_ = 0.3;
+const double maxDiffPtRecoIsoElecToTack_ = 0.5;
 
 
 class Prediction : public TSelector {
@@ -58,9 +68,9 @@ public :
    double effDown(double eff, double down);
    double getEff(TH2F* effTH2F, double xValue, double yValue);
    double getEff(TH1F* effTH2F, double xValue);
-   double MuActivity(double muEta, double muPhi);
-   double ElecActivity( double elecEta, double elecPhi);
-   double IsoTrackActivityCalc( double isoTrackEta, double isoTrackPhi);
+	 double MuActivity(double muEta, double muPhi, unsigned int method);
+	 double ElecActivity( double elecEta, double elecPhi, unsigned int method);
+	 double IsoTrackActivityCalc( double isoTrackEta, double isoTrackPhi, unsigned int method);
    // output variables
    TTree *tPrediction_;
    Float_t mtw;
@@ -79,6 +89,9 @@ public :
    Float_t totalWeight_, totalWeightDiLep_;
    Float_t         selectedIDIsoMuonsActivity[5];   //[selectedIDIsoMuonsNum]
    Float_t         selectedIDIsoElectronsActivity[5];   //[selectedIDIsoMuonsNum]
+   
+   // isolated track prediction
+   bool IsolatedTracksMuMatched_, IsolatedTracksElecMatched_;
    
    // Effiecineices
    TH2F *MuMTWPTActivity_;
@@ -101,6 +114,8 @@ public :
 	 TH2F *ElecMTWPTActivity_;
 	 TH1F *ElecDiLepContributionMTWAppliedNJets_;
 	 TH1F *ElecDiLepEffMTWAppliedNJets_;
+	 
+	 UShort_t elecActivityMethod, muActivityMethod, isoTrackActivityMethod;
 
    // Declaration of leaf types
    UInt_t          RunNum;
@@ -123,29 +138,29 @@ public :
 	 Float_t         DeltaPhiN2;
 	 Float_t         DeltaPhiN3;
    UShort_t        selectedIDIsoMuonsNum;
-   Float_t         selectedIDIsoMuonsPt[3];   //[selectedIDIsoMuonsNum]
-   Float_t         selectedIDIsoMuonsEta[3];   //[selectedIDIsoMuonsNum]
-   Float_t         selectedIDIsoMuonsPhi[3];   //[selectedIDIsoMuonsNum]
-   Float_t         selectedIDIsoMuonsE[3];   //[selectedIDIsoMuonsNum]
-   Float_t         selectedIDIsoMuonsTLorentzVector[3];   //[selectedIDIsoMuonsNum]
+   Float_t         selectedIDIsoMuonsPt[10];   //[selectedIDIsoMuonsNum]
+   Float_t         selectedIDIsoMuonsEta[10];   //[selectedIDIsoMuonsNum]
+   Float_t         selectedIDIsoMuonsPhi[10];   //[selectedIDIsoMuonsNum]
+   Float_t         selectedIDIsoMuonsE[10];   //[selectedIDIsoMuonsNum]
+   Float_t         selectedIDIsoMuonsTLorentzVector[10];   //[selectedIDIsoMuonsNum]
    UShort_t        selectedIDIsoElectronsNum;
-   Float_t         selectedIDIsoElectronsPt[4];   //[selectedIDIsoElectronsNum]
-   Float_t         selectedIDIsoElectronsEta[4];   //[selectedIDIsoElectronsNum]
-   Float_t         selectedIDIsoElectronsPhi[4];   //[selectedIDIsoElectronsNum]
-   Float_t         selectedIDIsoElectronsE[4];   //[selectedIDIsoElectronsNum]
-   Float_t         selectedIDIsoElectronsTLorentzVector[4];   //[selectedIDIsoElectronsNum]
+   Float_t         selectedIDIsoElectronsPt[10];   //[selectedIDIsoElectronsNum]
+   Float_t         selectedIDIsoElectronsEta[10];   //[selectedIDIsoElectronsNum]
+   Float_t         selectedIDIsoElectronsPhi[10];   //[selectedIDIsoElectronsNum]
+   Float_t         selectedIDIsoElectronsE[10];   //[selectedIDIsoElectronsNum]
+   Float_t         selectedIDIsoElectronsTLorentzVector[10];   //[selectedIDIsoElectronsNum]
    UShort_t        IsolatedTracksNum;
-   Float_t         IsolatedTracksPt[4];   //[IsolatedTracksNum]
-   Float_t         IsolatedTracksEta[4];   //[IsolatedTracksNum]
-   Float_t         IsolatedTracksPhi[4];   //[IsolatedTracksNum]
-   Float_t         IsolatedTracksE[4];   //[IsolatedTracksNum]
-   Float_t         IsolatedTracksTLorentzVector[4];   //[IsolatedTracksNum]
+   Float_t         IsolatedTracksPt[10];   //[IsolatedTracksNum]
+   Float_t         IsolatedTracksEta[10];   //[IsolatedTracksNum]
+   Float_t         IsolatedTracksPhi[10];   //[IsolatedTracksNum]
+   Float_t         IsolatedTracksE[10];   //[IsolatedTracksNum]
+   Float_t         IsolatedTracksTLorentzVector[10];   //[IsolatedTracksNum]
    UShort_t        selectedIDMuonsNum;
-   Float_t         selectedIDMuonsPt[4];   //[selectedIDMuonsNum]
-   Float_t         selectedIDMuonsEta[4];   //[selectedIDMuonsNum]
-   Float_t         selectedIDMuonsPhi[4];   //[selectedIDMuonsNum]
-   Float_t         selectedIDMuonsE[4];   //[selectedIDMuonsNum]
-   Float_t         selectedIDMuonsTLorentzVector[4];   //[selectedIDMuonsNum]
+   Float_t         selectedIDMuonsPt[10];   //[selectedIDMuonsNum]
+   Float_t         selectedIDMuonsEta[10];   //[selectedIDMuonsNum]
+   Float_t         selectedIDMuonsPhi[10];   //[selectedIDMuonsNum]
+   Float_t         selectedIDMuonsE[10];   //[selectedIDMuonsNum]
+   Float_t         selectedIDMuonsTLorentzVector[10];   //[selectedIDMuonsNum]
    UShort_t        selectedIDElectronsNum;
    Float_t         selectedIDElectronsPt[7];   //[selectedIDElectronsNum]
    Float_t         selectedIDElectronsEta[7];   //[selectedIDElectronsNum]
@@ -198,6 +213,11 @@ public :
    Int_t           Jets_neutralHadronMultiplicity[80];   //[JetsNum]
    Float_t         Jets_photonEnergyFraction[80];   //[JetsNum]
    Int_t           Jets_photonMultiplicity[80];   //[JetsNum]
+   UShort_t        SelectedPFCandidatesNum;
+	 Float_t         SelectedPFCandidatesPt[1000];   //[SelectedPFCandidatesNum]
+	 Float_t         SelectedPFCandidatesEta[1000];   //[SelectedPFCandidatesNum]
+	 Float_t         SelectedPFCandidatesPhi[1000];   //[SelectedPFCandidatesNum]
+	 Float_t         SelectedPFCandidatesE[1000];   //[SelectedPFCandidatesNum]
    
    // List of branches
    TBranch        *b_RunNum;   //!
@@ -295,6 +315,11 @@ public :
    TBranch        *b_Jets_neutralHadronMultiplicity;   //!
    TBranch        *b_Jets_photonEnergyFraction;   //!
    TBranch        *b_Jets_photonMultiplicity;   //!
+   TBranch        *b_SelectedPFCandidatesNum;   //!
+   TBranch        *b_SelectedPFCandidatesPt;   //!
+   TBranch        *b_SelectedPFCandidatesEta;   //!
+   TBranch        *b_SelectedPFCandidatesPhi;   //!
+   TBranch        *b_SelectedPFCandidatesE;   //!
    
    Prediction(TTree * /*tree*/ =0) : fChain(0) { }
    virtual ~Prediction() { }
@@ -428,6 +453,11 @@ void Prediction::Init(TTree *tree)
   fChain->SetBranchAddress("Jets_neutralHadronMultiplicity", Jets_neutralHadronMultiplicity, &b_Jets_neutralHadronMultiplicity);
   fChain->SetBranchAddress("Jets_photonEnergyFraction", Jets_photonEnergyFraction, &b_Jets_photonEnergyFraction);
   fChain->SetBranchAddress("Jets_photonMultiplicity", Jets_photonMultiplicity, &b_Jets_photonMultiplicity);
+	fChain->SetBranchAddress("SelectedPFCandidatesNum", &SelectedPFCandidatesNum, &b_SelectedPFCandidatesNum);
+	fChain->SetBranchAddress("SelectedPFCandidatesPt", SelectedPFCandidatesPt, &b_SelectedPFCandidatesPt);
+	fChain->SetBranchAddress("SelectedPFCandidatesEta", SelectedPFCandidatesEta, &b_SelectedPFCandidatesEta);
+	fChain->SetBranchAddress("SelectedPFCandidatesPhi", SelectedPFCandidatesPhi, &b_SelectedPFCandidatesPhi);
+	fChain->SetBranchAddress("SelectedPFCandidatesE", SelectedPFCandidatesE, &b_SelectedPFCandidatesE);
 }
 
 Bool_t Prediction::Notify()

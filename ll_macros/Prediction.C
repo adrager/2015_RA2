@@ -101,6 +101,12 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
 	 tPrediction_->Branch("RecoIsoElecE", selectedIDIsoElectronsE, "RecoIsoElecE[selectedIDIsoElectronsNum]/F");
 	 tPrediction_->Branch("selectedIDIsoElectronsActivity", selectedIDIsoElectronsActivity, "selectedIDIsoElectronsActivity[selectedIDIsoElectronsNum]/F");
    tPrediction_->Branch("MTW",&mtw,"MTW/F");
+	 muActivityMethod=muActivityMethod_;
+	 elecActivityMethod=elecActivityMethod_;
+	 isoTrackActivityMethod=isoTrackActivityMethod_;
+	 tPrediction_->Branch("muActivityMethod",&muActivityMethod,"muActivityMethod/s");  
+	 tPrediction_->Branch("elecActivityMethod",&elecActivityMethod,"elecActivityMethod/s");  
+	 tPrediction_->Branch("isoTrackActivityMethod",&isoTrackActivityMethod,"isoTrackActivityMethod/s");
    tPrediction_->Branch("muMTWEff",&muMTWEff_,"muMTWEff/F");
    tPrediction_->Branch("mtwCorrectedWeight",&mtwCorrectedWeight_,"mtwCorrectedWeight/F");
    tPrediction_->Branch("muDiLepContributionMTWAppliedEff",&muDiLepContributionMTWAppliedEff_,"muDiLepContributionMTWAppliedEff/F");
@@ -125,6 +131,14 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
 	 tPrediction_->Branch("muDiLepEffMTWAppliedEff",&muDiLepEffMTWAppliedEff_,"muDiLepEffMTWAppliedEff/F");
 	 tPrediction_->Branch("elecDiLepEffMTWAppliedEff",&elecDiLepEffMTWAppliedEff_,"elecDiLepEffMTWAppliedEff/F");
 	 tPrediction_->Branch("totalWeightDiLep",&totalWeightDiLep_,"totalWeightDiLep/F");
+	 // iso track control sample usage
+	 tPrediction_->Branch("IsolatedTracksNum",&IsolatedTracksNum,"IsolatedTracksNum/s");
+	 tPrediction_->Branch("IsolatedTracksPt", IsolatedTracksPt, "IsolatedTracksPt[IsolatedTracksNum]/F");
+	 tPrediction_->Branch("IsolatedTracksEta", IsolatedTracksEta, "IsolatedTracksEta[IsolatedTracksNum]/F");
+	 tPrediction_->Branch("IsolatedTracksPhi", IsolatedTracksPhi, "IsolatedTracksPhi[IsolatedTracksNum]/F");
+	 tPrediction_->Branch("IsolatedTracksE", IsolatedTracksE, "IsolatedTracksE[IsolatedTracksNum]/F");
+	 tPrediction_->Branch("IsolatedTracksMuMatched", &IsolatedTracksMuMatched_, "IsolatedTracksMuMatched/b");
+	 tPrediction_->Branch("IsolatedTracksElecMatched", &IsolatedTracksElecMatched_, "IsolatedTracksElecMatched/b");
    GetOutputList()->Add(tPrediction_);
 }
 
@@ -141,7 +155,7 @@ Bool_t Prediction::Process(Long64_t entry)
 	if(selectedIDIsoMuonsNum==1 && selectedIDIsoElectronsNum==0)
 	{
 	  mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoMuonsPt[0], selectedIDIsoMuonsPhi[0]);
-	  selectedIDIsoMuonsActivity[0]=MuActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0]);
+		selectedIDIsoMuonsActivity[0]=MuActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0],muActivityMethod_);
 		muMTWEff_ = getEff(MuMTWPTActivity_,selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
 	  mtwCorrectedWeight_ = Weight / muMTWEff_;
 	  muDiLepContributionMTWAppliedEff_ = getEff(MuDiLepContributionMTWAppliedNJets_,NJets);
@@ -164,10 +178,10 @@ Bool_t Prediction::Process(Long64_t entry)
 // 		elecAccEff_ = getEff(ElecAccBTagNJets_,BTags,NJets);
 		elecAccEff_ = getEff(ElecAccMHTNJets_,MHT,NJets);
 	  elecAccWeight_ = totalMuons_ * (1 - elecAccEff_);
-//  	  elecRecoEff_ = getEff(ElecRecoActivity_,ElecActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0]));
- 		elecRecoEff_ = getEff(ElecRecoPTActivity_,selectedIDIsoMuonsPt[0],ElecActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0]));
+		//  	  elecRecoEff_ = getEff(ElecRecoActivity_,ElecActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0],elecActivityMethod_));
+		elecRecoEff_ = getEff(ElecRecoPTActivity_,selectedIDIsoMuonsPt[0],ElecActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0],elecActivityMethod_));
 	  elecRecoWeight_ = totalMuons_ * (elecAccEff_) * (1-elecRecoEff_);
-	  elecIsoEff_ = getEff(ElecIsoPTActivity_,selectedIDIsoMuonsPt[0],ElecActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0]));
+		elecIsoEff_ = getEff(ElecIsoPTActivity_,selectedIDIsoMuonsPt[0],ElecActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0],elecActivityMethod_));
 	  elecIsoWeight_ = totalMuons_ * (elecAccEff_) * (elecRecoEff_) * (1-elecIsoEff_);
 	  elecTotalWeight_ = elecIsoWeight_ + elecRecoWeight_ + elecAccWeight_;
 	  totalWeight_ = elecTotalWeight_ + muTotalWeight_;
@@ -178,7 +192,7 @@ Bool_t Prediction::Process(Long64_t entry)
 	else if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==1)
 	{
 	  mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoElectronsPt[0], selectedIDIsoElectronsPhi[0]);
-	  selectedIDIsoElectronsActivity[0]=ElecActivity(selectedIDIsoElectronsEta[0], selectedIDIsoElectronsPhi[0]);
+		selectedIDIsoElectronsActivity[0]=ElecActivity(selectedIDIsoElectronsEta[0], selectedIDIsoElectronsPhi[0],elecActivityMethod_);
 		elecPurityCorrection_ =  getEff(ElecPurityMHTNJets_,MHT,NJets);
 		elecMTWEff_ = getEff(ElecMTWPTActivity_,selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
 		elecIsoEff_ =  getEff(ElecIsoPTActivity_,selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
@@ -213,7 +227,36 @@ Bool_t Prediction::Process(Long64_t entry)
 		totalWeightDiLep_ = totalWeight_ + (1-elecDiLepContributionMTWAppliedEff_) * mtwCorrectedWeight_ * (1-elecDiLepEffMTWAppliedEff_)/elecDiLepEffMTWAppliedEff_;
 	}
 
-	if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==0) return kTRUE;
+	if(IsolatedTracksNum==1)
+	{		
+		// try to match to isolated lepton
+		for (unsigned  i=0; i<selectedIDIsoMuonsNum;i++)
+		{
+			if(deltaR(selectedIDIsoMuonsEta[i],selectedIDIsoMuonsPhi[i],IsolatedTracksEta[0],IsolatedTracksPhi[0])<maxDeltaRRecoIsoMuToTack_ && std::abs(selectedIDIsoMuonsPt[i]-IsolatedTracksPt[0])/selectedIDIsoMuonsPt[i] <maxDiffPtRecoIsoMuToTack_) IsolatedTracksMuMatched_=true;
+		}
+		// try to match to isolated lepton
+		for (unsigned  i=0; i<selectedIDIsoElectronsNum;i++) 
+		{
+			if(deltaR(selectedIDIsoElectronsEta[i],selectedIDIsoElectronsPhi[i],IsolatedTracksEta[0],IsolatedTracksPhi[0])<maxDeltaRRecoIsoMuToTack_ && std::abs(selectedIDIsoElectronsPt[i]-IsolatedTracksPt[0])/selectedIDIsoElectronsPt[i] <maxDiffPtRecoIsoElecToTack_) IsolatedTracksElecMatched_=true;
+		}
+		// if matching to iso lepton fails try matching to reco lepton
+		if(!IsolatedTracksElecMatched_ && !IsolatedTracksMuMatched_)
+		{
+			for(unsigned i=0 ; i<selectedIDMuonsNum;i++)
+			{
+				
+			}
+		}
+		if(IsolatedTracksMuMatched_ && !IsolatedTracksElecMatched_)
+		{
+			
+		}
+		if(IsolatedTracksElecMatched_ && !IsolatedTracksMuMatched_)
+		{
+			
+		}
+	}
+	if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==0 && !IsolatedTracksMuMatched_ && !IsolatedTracksElecMatched_) return kTRUE;
 	tPrediction_->Fill();
    return kTRUE;
 }
@@ -263,6 +306,9 @@ void Prediction::resetValues()
 	muDiLepEffMTWAppliedEff_=0.;
 	elecDiLepEffMTWAppliedEff_=0.;
 	totalWeightDiLep_=0.;
+	// isolated track prediction
+	IsolatedTracksMuMatched_=false;
+	IsolatedTracksElecMatched_=false;
 
 }
 bool Prediction::FiltersPass()
@@ -366,36 +412,93 @@ double Prediction::getEff(TH1F* effTH1F, double xValue)
   return result;
 }
 
-double Prediction::MuActivity( double muEta, double muPhi)
+double Prediction::MuActivity( double muEta, double muPhi, unsigned int method)
 {
-  double result =0;
-  for (unsigned int i=0; i < JetsNum ; i++)
-  {
-    if(deltaR(muEta,muPhi,JetsEta[i],JetsPhi[i])>maxDeltaRMuActivity_ ) continue;
-    result+=JetsPt[i] * (Jets_chargedEmEnergyFraction[i] + Jets_chargedHadronEnergyFraction[i]);
-  }
-  return result;
-  
+	double result =0;
+	if(method==0)
+	{
+		for (unsigned int i=0; i < JetsNum ; i++)
+		{
+			if(deltaR(muEta,muPhi,JetsEta[i],JetsPhi[i])>maxDeltaRMuActivity_ ) continue;
+			result+=JetsPt[i] * (Jets_chargedEmEnergyFraction[i] + Jets_chargedHadronEnergyFraction[i]);
+		}
+	}
+	if(method==1)
+	{
+		for (unsigned int i=0; i < JetsNum ; i++)
+		{
+			if(deltaR(muEta,muPhi,JetsEta[i],JetsPhi[i])>maxDeltaRMuActivity_ ) continue;
+			result+=JetsPt[i] * (Jets_chargedEmEnergyFraction[i] + Jets_chargedHadronEnergyFraction[i])*(1/(deltaR(muEta,muPhi,JetsEta[i],JetsPhi[i])+0.5));
+		}
+	}
+	if(method==2)
+	{
+		for(unsigned int i=0; i< SelectedPFCandidatesNum; i++)
+		{
+			if(deltaR(muEta,muPhi,SelectedPFCandidatesEta[i],SelectedPFCandidatesPhi[i])>maxDeltaRElecActivity_ ) continue;
+			result+=SelectedPFCandidatesPt[i];
+		}
+	}
+	return result;
+	
 }
-double Prediction::ElecActivity( double elecEta, double elecPhi)
+double Prediction::ElecActivity( double elecEta, double elecPhi, unsigned int method)
 {
-  double result =0;
-  for (unsigned int i=0; i < JetsNum ; i++)
-  {
-    if(deltaR(elecEta,elecPhi,JetsEta[i],JetsPhi[i])>maxDeltaRElecActivity_ ) continue;
-    result+=JetsPt[i] * (Jets_chargedHadronEnergyFraction[i]);
-  }
-  return result;
-  
+	double result =0;
+	if(method==0)
+	{
+		for (unsigned int i=0; i < JetsNum ; i++)
+		{
+			if(deltaR(elecEta,elecPhi,JetsEta[i],JetsPhi[i])>maxDeltaRElecActivity_ ) continue;
+			result+=JetsPt[i] * (Jets_chargedHadronEnergyFraction[i]);
+		}
+	}
+	if(method==1)
+	{
+		for (unsigned int i=0; i < JetsNum ; i++)
+		{
+			if(deltaR(elecEta,elecPhi,JetsEta[i],JetsPhi[i])>maxDeltaRElecActivity_ ) continue;
+			result+=JetsPt[i] * (Jets_chargedHadronEnergyFraction[i])*(1/(deltaR(elecEta,elecPhi,JetsEta[i],JetsPhi[i])+0.5));
+		}
+	}
+	if(method==2)
+	{
+		for(unsigned int i=0; i< SelectedPFCandidatesNum; i++)
+		{
+			if(deltaR(elecEta,elecPhi,SelectedPFCandidatesEta[i],SelectedPFCandidatesPhi[i])>maxDeltaRElecActivity_ ) continue;
+			result+=SelectedPFCandidatesPt[i];
+		}
+	}
+	return result;
+	
 }
-double Prediction::IsoTrackActivityCalc( double isoTrackEta, double isoTrackPhi)
+double Prediction::IsoTrackActivityCalc( double isoTrackEta, double isoTrackPhi, unsigned int method)
 {
-  double result =0;
-  for (unsigned int i=0; i < JetsNum ; i++)
-  {
-    if(deltaR(isoTrackEta,isoTrackPhi,JetsEta[i],JetsPhi[i])>maxDeltaRElecActivity_ ) continue;
-    result+=JetsPt[i] * (Jets_neutralEmEnergyFraction[i] + Jets_photonEnergyFraction[i]);
-  }
-  return result;
-  
+	double result =0;
+	if(method==0)
+	{
+		for (unsigned int i=0; i < JetsNum ; i++)
+		{
+			if(deltaR(isoTrackEta,isoTrackPhi,JetsEta[i],JetsPhi[i])>maxDeltaRElecActivity_ ) continue;
+			result+=JetsPt[i] * (Jets_neutralEmEnergyFraction[i] + Jets_photonEnergyFraction[i]);
+		}
+	}
+	if(method==1)
+	{
+		for (unsigned int i=0; i < JetsNum ; i++)
+		{
+			if(deltaR(isoTrackEta,isoTrackPhi,JetsEta[i],JetsPhi[i])>maxDeltaRElecActivity_ ) continue;
+			result+=JetsPt[i] * (Jets_neutralEmEnergyFraction[i] + Jets_photonEnergyFraction[i])*(1/(deltaR(isoTrackEta,isoTrackPhi,JetsEta[i],JetsPhi[i])+0.5));
+		}
+	}
+	if(method==2)
+	{
+		for(unsigned int i=0; i< SelectedPFCandidatesNum; i++)
+		{
+			if(deltaR(isoTrackEta,isoTrackPhi,SelectedPFCandidatesEta[i],SelectedPFCandidatesPhi[i])>maxDeltaRElecActivity_ ) continue;
+			result+=SelectedPFCandidatesPt[i];
+		}
+	}
+	return result;
+	
 }

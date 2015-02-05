@@ -33,6 +33,9 @@ const double maxTauEta_=2.4;
 const double maxDeltaRMuActivity_=1.0;
 const double maxDeltaRElecActivity_=1.0;
 const double maxDeltaRIsoTrackActivity_=1.0;
+const unsigned int elecActivityMethod_=0;
+const unsigned int muActivityMethod_=0;
+const unsigned int isoTrackActivityMethod_=0;
 
 // lepton matching
 const double maxDeltaRGenToRecoMu_ =0.3;
@@ -79,9 +82,9 @@ public :
 	bool FiltersPass();
 	double deltaR(double eta1, double phi1, double eta2, double phi2);
 	double MTWCalculator(double metPt,double  metPhi,double  lepPt,double  lepPhi);
-	double MuActivity(double muEta, double muPhi);
-	double ElecActivity( double elecEta, double elecPhi);
-	double IsoTrackActivityCalc( double isoTrackEta, double isoTrackPhi);
+	double MuActivity(double muEta, double muPhi, unsigned int method);
+	double ElecActivity( double elecEta, double elecPhi, unsigned int method);
+	double IsoTrackActivityCalc( double isoTrackEta, double isoTrackPhi, unsigned int method);
 	
 	TTree          *fChain;   //!pointer to the analyzed TTree or TChain
 	// Storing stuff
@@ -91,47 +94,47 @@ public :
 	UShort_t FallsVetoLep, FallsVetoIsoTrack;
 	UShort_t FallsVetoIsoTrackPT10, FallsVetoIsoTrackPT10IsoCut08, FallsVetoIsoTrackPT10IsoCut12;
 	UShort_t muIso, muReco, muAcc, muMTW, muTotal;
-	UShort_t muIsoMatched[20], muRecoMatched[20];
+	UShort_t muIsoMatched[40], muRecoMatched[40];
 	UShort_t elecIso, elecReco, elecAcc, elecMTW, elecTotal;
-	UShort_t elecIsoMatched[20], elecRecoMatched[20];
+	UShort_t elecIsoMatched[40], elecRecoMatched[40];
 	UShort_t muIsoTrack, muIsoTrackMTW;
-	UShort_t muIsoTrackMatched[20], elecIsoTrackMatched[20];
+	UShort_t muIsoTrackMatched[40], elecIsoTrackMatched[40];
 	UShort_t elecIsoTrack, elecIsoTrackMTW;
-	UShort_t         RecoIsoMuonPromtMatched[20];
-	Float_t         RecoIsoMuonPromtMatchedDeltaR[20];
-	Float_t         RecoIsoMuonPromtMatchedRelPt[20];
-	UShort_t         RecoIsoElecPromtMatched[20];
-	Float_t         RecoIsoElecPromtMatchedDeltaR[20];
-	Float_t         RecoIsoElecPromtMatchedRelPt[20];
+	UShort_t         RecoIsoMuonPromtMatched[40];
+	Float_t         RecoIsoMuonPromtMatchedDeltaR[40];
+	Float_t         RecoIsoMuonPromtMatchedRelPt[40];
+	UShort_t         RecoIsoElecPromtMatched[40];
+	Float_t         RecoIsoElecPromtMatchedDeltaR[40];
+	Float_t         RecoIsoElecPromtMatchedRelPt[40];
 	// isolated track studies
-	UShort_t GenMuonIsoTrackMatched[20], RecoIsoMuonIsoTrackMatched[20];
-	UShort_t GenElecIsoTrackMatched[20], RecoIsoElecIsoTrackMatched[20];
-	UShort_t GenTauIsoTrackMatched[20];
-	UShort_t SelectedIsoTracksMatchedToGenLepton[20], SelectedIsoTracksMatchedToRecoIsoLepton[20];
-	Float_t SelectedIsoTracksMatchedToGenDeltaR[20], SelectedIsoTracksMatchedToGenRelPT[20];
-	Float_t SelectedIsoTracksMatchedToRecoIsoDeltaR[20], SelectedIsoTracksMatchedToRecoIsoRelPT[20];
+	UShort_t GenMuonIsoTrackMatched[40], RecoIsoMuonIsoTrackMatched[40];
+	UShort_t GenElecIsoTrackMatched[40], RecoIsoElecIsoTrackMatched[40];
+	UShort_t GenTauIsoTrackMatched[40];
+	UShort_t SelectedIsoTracksMatchedToGenLepton[40], SelectedIsoTracksMatchedToRecoIsoLepton[40];
+	Float_t SelectedIsoTracksMatchedToGenDeltaR[40], SelectedIsoTracksMatchedToGenRelPT[40];
+	Float_t SelectedIsoTracksMatchedToRecoIsoDeltaR[40], SelectedIsoTracksMatchedToRecoIsoRelPT[40];
 	
-	UShort_t GenMuonIsolatedTracksPT10Matched[20], RecoIsoMuonIsolatedTracksPT10Matched[20];
-	UShort_t GenElecIsolatedTracksPT10Matched[20], RecoIsoElecIsolatedTracksPT10Matched[20];
-	UShort_t GenTauIsolatedTracksPT10Matched[20];
-	UShort_t IsolatedTracksPT10MatchedToGenLepton[20], IsolatedTracksPT10MatchedToRecoIsoLepton[20];
-	Float_t IsolatedTracksPT10MatchedToGenDeltaR[20], IsolatedTracksPT10MatchedToGenRelPT[20];
-	Float_t IsolatedTracksPT10MatchedToRecoIsoDeltaR[20], IsolatedTracksPT10MatchedToRecoIsoRelPT[20];
+	UShort_t GenMuonIsolatedTracksPT10Matched[40], RecoIsoMuonIsolatedTracksPT10Matched[40];
+	UShort_t GenElecIsolatedTracksPT10Matched[40], RecoIsoElecIsolatedTracksPT10Matched[40];
+	UShort_t GenTauIsolatedTracksPT10Matched[40];
+	UShort_t IsolatedTracksPT10MatchedToGenLepton[40], IsolatedTracksPT10MatchedToRecoIsoLepton[40];
+	Float_t IsolatedTracksPT10MatchedToGenDeltaR[40], IsolatedTracksPT10MatchedToGenRelPT[40];
+	Float_t IsolatedTracksPT10MatchedToRecoIsoDeltaR[40], IsolatedTracksPT10MatchedToRecoIsoRelPT[40];
 	
-	UShort_t GenMuonIsolatedTracksPT10IsoCut08Matched[20], RecoIsoMuonIsolatedTracksPT10IsoCut08Matched[20];
-	UShort_t GenElecIsolatedTracksPT10IsoCut08Matched[20], RecoIsoElecIsolatedTracksPT10IsoCut08Matched[20];
-	UShort_t GenTauIsolatedTracksPT10IsoCut08Matched[20];
-	UShort_t IsolatedTracksPT10IsoCut08MatchedToGenLepton[20], IsolatedTracksPT10IsoCut08MatchedToRecoIsoLepton[20];
-	Float_t IsolatedTracksPT10IsoCut08MatchedToGenDeltaR[20], IsolatedTracksPT10IsoCut08MatchedToGenRelPT[20];
-	Float_t IsolatedTracksPT10IsoCut08MatchedToRecoIsoDeltaR[20], IsolatedTracksPT10IsoCut08MatchedToRecoIsoRelPT[20];
+	UShort_t GenMuonIsolatedTracksPT10IsoCut08Matched[40], RecoIsoMuonIsolatedTracksPT10IsoCut08Matched[40];
+	UShort_t GenElecIsolatedTracksPT10IsoCut08Matched[40], RecoIsoElecIsolatedTracksPT10IsoCut08Matched[40];
+	UShort_t GenTauIsolatedTracksPT10IsoCut08Matched[40];
+	UShort_t IsolatedTracksPT10IsoCut08MatchedToGenLepton[40], IsolatedTracksPT10IsoCut08MatchedToRecoIsoLepton[40];
+	Float_t IsolatedTracksPT10IsoCut08MatchedToGenDeltaR[40], IsolatedTracksPT10IsoCut08MatchedToGenRelPT[40];
+	Float_t IsolatedTracksPT10IsoCut08MatchedToRecoIsoDeltaR[40], IsolatedTracksPT10IsoCut08MatchedToRecoIsoRelPT[40];
 	
 	
-	UShort_t GenMuonIsolatedTracksPT10IsoCut12Matched[20], RecoIsoMuonIsolatedTracksPT10IsoCut12Matched[20];
-	UShort_t GenElecIsolatedTracksPT10IsoCut12Matched[20], RecoIsoElecIsolatedTracksPT10IsoCut12Matched[20];
-	UShort_t GenTauIsolatedTracksPT10IsoCut12Matched[20];
-	UShort_t IsolatedTracksPT10IsoCut12MatchedToGenLepton[20], IsolatedTracksPT10IsoCut12MatchedToRecoIsoLepton[20];
-	Float_t IsolatedTracksPT10IsoCut12MatchedToGenDeltaR[20], IsolatedTracksPT10IsoCut12MatchedToGenRelPT[20];
-	Float_t IsolatedTracksPT10IsoCut12MatchedToRecoIsoDeltaR[20], IsolatedTracksPT10IsoCut12MatchedToRecoIsoRelPT[20];
+	UShort_t GenMuonIsolatedTracksPT10IsoCut12Matched[40], RecoIsoMuonIsolatedTracksPT10IsoCut12Matched[40];
+	UShort_t GenElecIsolatedTracksPT10IsoCut12Matched[40], RecoIsoElecIsolatedTracksPT10IsoCut12Matched[40];
+	UShort_t GenTauIsolatedTracksPT10IsoCut12Matched[40];
+	UShort_t IsolatedTracksPT10IsoCut12MatchedToGenLepton[40], IsolatedTracksPT10IsoCut12MatchedToRecoIsoLepton[40];
+	Float_t IsolatedTracksPT10IsoCut12MatchedToGenDeltaR[40], IsolatedTracksPT10IsoCut12MatchedToGenRelPT[40];
+	Float_t IsolatedTracksPT10IsoCut12MatchedToRecoIsoDeltaR[40], IsolatedTracksPT10IsoCut12MatchedToRecoIsoRelPT[40];
 	// di lep
 	UShort_t ExpectationDiLep_, MuDiLepControlSample_, ElecDiLepControlSample_;
 	// stand alone isolated track prediction
@@ -141,10 +144,11 @@ public :
 	UShort_t IsoTrackDiLepControlSampleElec_, IsoTrackDiLepControlSampleMu_, IsoTrackDiLepElec_, IsoTrackDiLepMu_;
 	
 	// activity resetValues
-	Float_t         RecoIsoMuonActivity[20], RecoMuonActivity[20], GenMuonActivity[20];
-	Float_t         RecoIsoElectronActivity[20], RecoElectronActivity[20], GenElecActivity[20];
+	Float_t         RecoIsoMuonActivity[40], RecoMuonActivity[40], GenMuonActivity[40];
+	Float_t         RecoIsoElectronActivity[40], RecoElectronActivity[40], GenElecActivity[40];
 	
-	Float_t IsoTrackActivity[20], GenTauActivity[20];
+	Float_t IsoTrackActivity[40], GenTauActivity[40];
+	UShort_t elecActivityMethod, muActivityMethod, isoTrackActivityMethod;
 	
 	
 	
@@ -171,81 +175,86 @@ public :
 	Float_t         DeltaPhiN2;
 	Float_t         DeltaPhiN3;
 	UShort_t        selectedIDIsoMuonsNum;
-	Float_t         selectedIDIsoMuonsPt[3];   //[selectedIDIsoMuonsNum]
-	Float_t         selectedIDIsoMuonsEta[3];   //[selectedIDIsoMuonsNum]
-	Float_t         selectedIDIsoMuonsPhi[3];   //[selectedIDIsoMuonsNum]
-	Float_t         selectedIDIsoMuonsE[3];   //[selectedIDIsoMuonsNum]
-	Float_t         selectedIDIsoMuonsTLorentzVector[3];   //[selectedIDIsoMuonsNum]
+	Float_t         selectedIDIsoMuonsPt[10];   //[selectedIDIsoMuonsNum]
+	Float_t         selectedIDIsoMuonsEta[10];   //[selectedIDIsoMuonsNum]
+	Float_t         selectedIDIsoMuonsPhi[10];   //[selectedIDIsoMuonsNum]
+	Float_t         selectedIDIsoMuonsE[10];   //[selectedIDIsoMuonsNum]
+	Float_t         selectedIDIsoMuonsTLorentzVector[10];   //[selectedIDIsoMuonsNum]
 	UShort_t        selectedIDIsoElectronsNum;
-	Float_t         selectedIDIsoElectronsPt[4];   //[selectedIDIsoElectronsNum]
-	Float_t         selectedIDIsoElectronsEta[4];   //[selectedIDIsoElectronsNum]
-	Float_t         selectedIDIsoElectronsPhi[4];   //[selectedIDIsoElectronsNum]
-	Float_t         selectedIDIsoElectronsE[4];   //[selectedIDIsoElectronsNum]
-	Float_t         selectedIDIsoElectronsTLorentzVector[4];   //[selectedIDIsoElectronsNum]
+	Float_t         selectedIDIsoElectronsPt[10];   //[selectedIDIsoElectronsNum]
+	Float_t         selectedIDIsoElectronsEta[10];   //[selectedIDIsoElectronsNum]
+	Float_t         selectedIDIsoElectronsPhi[10];   //[selectedIDIsoElectronsNum]
+	Float_t         selectedIDIsoElectronsE[10];   //[selectedIDIsoElectronsNum]
+	Float_t         selectedIDIsoElectronsTLorentzVector[10];   //[selectedIDIsoElectronsNum]
 	UShort_t        IsolatedTracksNum;
-	Float_t         IsolatedTracksPt[4];   //[IsolatedTracksNum]
-	Float_t         IsolatedTracksEta[4];   //[IsolatedTracksNum]
-	Float_t         IsolatedTracksPhi[4];   //[IsolatedTracksNum]
-	Float_t         IsolatedTracksE[4];   //[IsolatedTracksNum]
-	Float_t         IsolatedTracksTLorentzVector[4];   //[IsolatedTracksNum]
+	Float_t         IsolatedTracksPt[10];   //[IsolatedTracksNum]
+	Float_t         IsolatedTracksEta[10];   //[IsolatedTracksNum]
+	Float_t         IsolatedTracksPhi[10];   //[IsolatedTracksNum]
+	Float_t         IsolatedTracksE[10];   //[IsolatedTracksNum]
+	Float_t         IsolatedTracksTLorentzVector[10];   //[IsolatedTracksNum]
 	UShort_t        selectedIDMuonsNum;
-	Float_t         selectedIDMuonsPt[4];   //[selectedIDMuonsNum]
-	Float_t         selectedIDMuonsEta[4];   //[selectedIDMuonsNum]
-	Float_t         selectedIDMuonsPhi[4];   //[selectedIDMuonsNum]
-	Float_t         selectedIDMuonsE[4];   //[selectedIDMuonsNum]
-	Float_t         selectedIDMuonsTLorentzVector[4];   //[selectedIDMuonsNum]
+	Float_t         selectedIDMuonsPt[10];   //[selectedIDMuonsNum]
+	Float_t         selectedIDMuonsEta[10];   //[selectedIDMuonsNum]
+	Float_t         selectedIDMuonsPhi[10];   //[selectedIDMuonsNum]
+	Float_t         selectedIDMuonsE[10];   //[selectedIDMuonsNum]
+	Float_t         selectedIDMuonsTLorentzVector[10];   //[selectedIDMuonsNum]
 	UShort_t        selectedIDElectronsNum;
-	Float_t         selectedIDElectronsPt[7];   //[selectedIDElectronsNum]
-	Float_t         selectedIDElectronsEta[7];   //[selectedIDElectronsNum]
-	Float_t         selectedIDElectronsPhi[7];   //[selectedIDElectronsNum]
-	Float_t         selectedIDElectronsE[7];   //[selectedIDElectronsNum]
-	Float_t         selectedIDElectronsTLorentzVector[7];   //[selectedIDElectronsNum]
+	Float_t         selectedIDElectronsPt[10];   //[selectedIDElectronsNum]
+	Float_t         selectedIDElectronsEta[10];   //[selectedIDElectronsNum]
+	Float_t         selectedIDElectronsPhi[10];   //[selectedIDElectronsNum]
+	Float_t         selectedIDElectronsE[10];   //[selectedIDElectronsNum]
+	Float_t         selectedIDElectronsTLorentzVector[10];   //[selectedIDElectronsNum]
 	UShort_t        GenBosonNum;
-	Float_t         GenBosonPt[2];   //[GenBosonNum]
-	Float_t         GenBosonEta[2];   //[GenBosonNum]
-	Float_t         GenBosonPhi[2];   //[GenBosonNum]
-	Float_t         GenBosonE[2];   //[GenBosonNum]
-	Float_t         GenBosonTLorentzVector[2];   //[GenBosonNum]
-	Int_t           GenBoson_GenBosonPDGId[2];   //[GenBosonNum]
+	Float_t         GenBosonPt[10];   //[GenBosonNum]
+	Float_t         GenBosonEta[10];   //[GenBosonNum]
+	Float_t         GenBosonPhi[10];   //[GenBosonNum]
+	Float_t         GenBosonE[10];   //[GenBosonNum]
+	Float_t         GenBosonTLorentzVector[10];   //[GenBosonNum]
+	Int_t           GenBoson_GenBosonPDGId[10];   //[GenBosonNum]
 	UShort_t        GenMuNum;
-	Float_t         GenMuPt[2];   //[GenMuNum]
-	Float_t         GenMuEta[2];   //[GenMuNum]
-	Float_t         GenMuPhi[2];   //[GenMuNum]
-	Float_t         GenMuE[2];   //[GenMuNum]
-	Float_t         GenMuTLorentzVector[2];   //[GenMuNum]
-	Int_t           GenMu_GenMuFromTau[2];   //[GenMuNum]
+	Float_t         GenMuPt[10];   //[GenMuNum]
+	Float_t         GenMuEta[10];   //[GenMuNum]
+	Float_t         GenMuPhi[10];   //[GenMuNum]
+	Float_t         GenMuE[10];   //[GenMuNum]
+	Float_t         GenMuTLorentzVector[10];   //[GenMuNum]
+	Int_t           GenMu_GenMuFromTau[10];   //[GenMuNum]
 	UShort_t        GenElecNum;
-	Float_t         GenElecPt[2];   //[GenElecNum]
-	Float_t         GenElecEta[2];   //[GenElecNum]
-	Float_t         GenElecPhi[2];   //[GenElecNum]
-	Float_t         GenElecE[2];   //[GenElecNum]
-	Float_t         GenElecTLorentzVector[2];   //[GenElecNum]
-	Int_t           GenElec_GenElecFromTau[2];   //[GenElecNum]
+	Float_t         GenElecPt[10];   //[GenElecNum]
+	Float_t         GenElecEta[10];   //[GenElecNum]
+	Float_t         GenElecPhi[10];   //[GenElecNum]
+	Float_t         GenElecE[10];   //[GenElecNum]
+	Float_t         GenElecTLorentzVector[10];   //[GenElecNum]
+	Int_t           GenElec_GenElecFromTau[10];   //[GenElecNum]
 	UShort_t        GenTauNum;
-	Float_t         GenTauPt[2];   //[GenTauNum]
-	Float_t         GenTauEta[2];   //[GenTauNum]
-	Float_t         GenTauPhi[2];   //[GenTauNum]
-	Float_t         GenTauE[2];   //[GenTauNum]
-	Float_t         GenTauTLorentzVector[2];   //[GenTauNum]
-	Int_t           GenTau_GenTauHad[2];   //[GenTauNum]
+	Float_t         GenTauPt[10];   //[GenTauNum]
+	Float_t         GenTauEta[10];   //[GenTauNum]
+	Float_t         GenTauPhi[10];   //[GenTauNum]
+	Float_t         GenTauE[10];   //[GenTauNum]
+	Float_t         GenTauTLorentzVector[10];   //[GenTauNum]
+	Int_t           GenTau_GenTauHad[10];   //[GenTauNum]
 	UShort_t        JetsNum;
-	Float_t         JetsPt[80];   //[JetsNum]
-	Float_t         JetsEta[80];   //[JetsNum]
-	Float_t         JetsPhi[80];   //[JetsNum]
-	Float_t         JetsE[80];   //[JetsNum]
-	Float_t         JetsTLorentzVector[80];   //[JetsNum]
-	Float_t         Jets_bDiscriminator[80];   //[JetsNum]
-	Float_t         Jets_chargedEmEnergyFraction[80];   //[JetsNum]
-	Float_t         Jets_chargedHadronEnergyFraction[80];   //[JetsNum]
-	Int_t           Jets_chargedHadronMultiplicity[80];   //[JetsNum]
-	Int_t           Jets_electronMultiplicity[80];   //[JetsNum]
-	Float_t         Jets_jetArea[80];   //[JetsNum]
-	Float_t         Jets_muonEnergyFraction[80];   //[JetsNum]
-	Int_t           Jets_muonMultiplicity[80];   //[JetsNum]
-	Float_t         Jets_neutralEmEnergyFraction[80];   //[JetsNum]
-	Int_t           Jets_neutralHadronMultiplicity[80];   //[JetsNum]
-	Float_t         Jets_photonEnergyFraction[80];   //[JetsNum]
-	Int_t           Jets_photonMultiplicity[80];   //[JetsNum]
+	Float_t         JetsPt[200];   //[JetsNum]
+	Float_t         JetsEta[200];   //[JetsNum]
+	Float_t         JetsPhi[200];   //[JetsNum]
+	Float_t         JetsE[200];   //[JetsNum]
+	Float_t         JetsTLorentzVector[200];   //[JetsNum]
+	Float_t         Jets_bDiscriminator[200];   //[JetsNum]
+	Float_t         Jets_chargedEmEnergyFraction[200];   //[JetsNum]
+	Float_t         Jets_chargedHadronEnergyFraction[200];   //[JetsNum]
+	Int_t           Jets_chargedHadronMultiplicity[200];   //[JetsNum]
+	Int_t           Jets_electronMultiplicity[200];   //[JetsNum]
+	Float_t         Jets_jetArea[200];   //[JetsNum]
+	Float_t         Jets_muonEnergyFraction[200];   //[JetsNum]
+	Int_t           Jets_muonMultiplicity[200];   //[JetsNum]
+	Float_t         Jets_neutralEmEnergyFraction[200];   //[JetsNum]
+	Int_t           Jets_neutralHadronMultiplicity[200];   //[JetsNum]
+	Float_t         Jets_photonEnergyFraction[200];   //[JetsNum]
+	Int_t           Jets_photonMultiplicity[200];   //[JetsNum]
+	UShort_t        SelectedPFCandidatesNum;
+	Float_t         SelectedPFCandidatesPt[1000];   //[SelectedPFCandidatesNum]
+	Float_t         SelectedPFCandidatesEta[1000];   //[SelectedPFCandidatesNum]
+	Float_t         SelectedPFCandidatesPhi[1000];   //[SelectedPFCandidatesNum]
+	Float_t         SelectedPFCandidatesE[1000];   //[SelectedPFCandidatesNum]
 	
 	// List of branches
 	TBranch        *b_RunNum;   //!
@@ -343,6 +352,11 @@ public :
 	TBranch        *b_Jets_neutralHadronMultiplicity;   //!
 	TBranch        *b_Jets_photonEnergyFraction;   //!
 	TBranch        *b_Jets_photonMultiplicity;   //!
+	TBranch        *b_SelectedPFCandidatesNum;   //!
+	TBranch        *b_SelectedPFCandidatesPt;   //!
+	TBranch        *b_SelectedPFCandidatesEta;   //!
+	TBranch        *b_SelectedPFCandidatesPhi;   //!
+	TBranch        *b_SelectedPFCandidatesE;   //!
 	
 	ExpecMaker(TTree * /*tree*/ =0) : fChain(0) { }
 	virtual ~ExpecMaker() { }
@@ -476,6 +490,11 @@ void ExpecMaker::Init(TTree *tree)
 	fChain->SetBranchAddress("Jets_neutralHadronMultiplicity", Jets_neutralHadronMultiplicity, &b_Jets_neutralHadronMultiplicity);
 	fChain->SetBranchAddress("Jets_photonEnergyFraction", Jets_photonEnergyFraction, &b_Jets_photonEnergyFraction);
 	fChain->SetBranchAddress("Jets_photonMultiplicity", Jets_photonMultiplicity, &b_Jets_photonMultiplicity);
+	fChain->SetBranchAddress("SelectedPFCandidatesNum", &SelectedPFCandidatesNum, &b_SelectedPFCandidatesNum);
+	fChain->SetBranchAddress("SelectedPFCandidatesPt", SelectedPFCandidatesPt, &b_SelectedPFCandidatesPt);
+	fChain->SetBranchAddress("SelectedPFCandidatesEta", SelectedPFCandidatesEta, &b_SelectedPFCandidatesEta);
+	fChain->SetBranchAddress("SelectedPFCandidatesPhi", SelectedPFCandidatesPhi, &b_SelectedPFCandidatesPhi);
+	fChain->SetBranchAddress("SelectedPFCandidatesE", SelectedPFCandidatesE, &b_SelectedPFCandidatesE);
 }
 
 Bool_t ExpecMaker::Notify()
