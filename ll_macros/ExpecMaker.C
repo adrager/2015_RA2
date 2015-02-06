@@ -1007,6 +1007,15 @@ double ExpecMaker::MuActivity( double muEta, double muPhi, unsigned int method)
 			result+=SelectedPFCandidatesPt[i];
 		}
 	}
+	if(method==3)
+	{
+		for(unsigned int i=0; i< SelectedPFCandidatesNum; i++)
+		{
+			if(SelectedPFCandidates_Charge[i]!=0) continue;
+			if(deltaR(muEta,muPhi,SelectedPFCandidatesEta[i],SelectedPFCandidatesPhi[i])>maxDeltaRElecActivity_ ) continue;
+			result+=SelectedPFCandidatesPt[i];
+		}
+	}
 	return result;
 	
 }
@@ -1037,6 +1046,15 @@ double ExpecMaker::ElecActivity( double elecEta, double elecPhi, unsigned int me
 			result+=SelectedPFCandidatesPt[i];
 		}
 	}
+	if(method==3)
+	{
+		for(unsigned int i=0; i< SelectedPFCandidatesNum; i++)
+		{
+			if(SelectedPFCandidates_Charge[i]!=0) continue;
+			if(deltaR(elecEta,elecPhi,SelectedPFCandidatesEta[i],SelectedPFCandidatesPhi[i])>maxDeltaRElecActivity_ ) continue;
+			result+=SelectedPFCandidatesPt[i];
+		}
+	}
 	return result;
 	
 }
@@ -1063,6 +1081,15 @@ double ExpecMaker::IsoTrackActivityCalc( double isoTrackEta, double isoTrackPhi,
 	{
 		for(unsigned int i=0; i< SelectedPFCandidatesNum; i++)
 		{
+			if(deltaR(isoTrackEta,isoTrackPhi,SelectedPFCandidatesEta[i],SelectedPFCandidatesPhi[i])>maxDeltaRElecActivity_ ) continue;
+			result+=SelectedPFCandidatesPt[i];
+		}
+	}
+	if(method==3)
+	{
+		for(unsigned int i=0; i< SelectedPFCandidatesNum; i++)
+		{
+			if(SelectedPFCandidates_Charge[i]!=0) continue;
 			if(deltaR(isoTrackEta,isoTrackPhi,SelectedPFCandidatesEta[i],SelectedPFCandidatesPhi[i])>maxDeltaRElecActivity_ ) continue;
 			result+=SelectedPFCandidatesPt[i];
 		}

@@ -21,10 +21,10 @@ const double deltaPhi3_=0.3;
 const double minDeltaPhiN_=4.0;
 const bool applyFilters_=false;
 // lepton cuts
-const double minMuPt_=10;
+const double minMuPt_=7;
 const double maxMuEta_=2.4;
-const double minElecPt_=10;
-const double maxElecEta_=2.4;
+const double minElecPt_=7;
+const double maxElecEta_=2.5;
 const double mtwCut_=100;
 const double minTauPt_=10;
 const double maxTauEta_=2.4;
@@ -33,9 +33,9 @@ const double maxTauEta_=2.4;
 const double maxDeltaRMuActivity_=1.0;
 const double maxDeltaRElecActivity_=1.0;
 const double maxDeltaRIsoTrackActivity_=1.0;
-const unsigned int elecActivityMethod_=0;
-const unsigned int muActivityMethod_=0;
-const unsigned int isoTrackActivityMethod_=0;
+const unsigned int elecActivityMethod_=3;
+const unsigned int muActivityMethod_=3;
+const unsigned int isoTrackActivityMethod_=3;
 
 // lepton matching
 const double maxDeltaRGenToRecoMu_ =0.3;
@@ -255,6 +255,7 @@ public :
 	Float_t         SelectedPFCandidatesEta[1000];   //[SelectedPFCandidatesNum]
 	Float_t         SelectedPFCandidatesPhi[1000];   //[SelectedPFCandidatesNum]
 	Float_t         SelectedPFCandidatesE[1000];   //[SelectedPFCandidatesNum]
+	Int_t           SelectedPFCandidates_Charge[1000];   //[SelectedPFCandidatesNum]
 	
 	// List of branches
 	TBranch        *b_RunNum;   //!
@@ -357,6 +358,7 @@ public :
 	TBranch        *b_SelectedPFCandidatesEta;   //!
 	TBranch        *b_SelectedPFCandidatesPhi;   //!
 	TBranch        *b_SelectedPFCandidatesE;   //!
+	TBranch        *b_SelectedPFCandidates_Charge;   //!
 	
 	ExpecMaker(TTree * /*tree*/ =0) : fChain(0) { }
 	virtual ~ExpecMaker() { }
@@ -495,6 +497,7 @@ void ExpecMaker::Init(TTree *tree)
 	fChain->SetBranchAddress("SelectedPFCandidatesEta", SelectedPFCandidatesEta, &b_SelectedPFCandidatesEta);
 	fChain->SetBranchAddress("SelectedPFCandidatesPhi", SelectedPFCandidatesPhi, &b_SelectedPFCandidatesPhi);
 	fChain->SetBranchAddress("SelectedPFCandidatesE", SelectedPFCandidatesE, &b_SelectedPFCandidatesE);
+	fChain->SetBranchAddress("SelectedPFCandidates_Charge", SelectedPFCandidates_Charge, &b_SelectedPFCandidates_Charge);
 }
 
 Bool_t ExpecMaker::Notify()
