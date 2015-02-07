@@ -33,9 +33,9 @@ const double maxTauEta_=2.4;
 const double maxDeltaRMuActivity_=1.0;
 const double maxDeltaRElecActivity_=1.0;
 const double maxDeltaRIsoTrackActivity_=1.0;
-const unsigned int elecActivityMethod_=3;
-const unsigned int muActivityMethod_=3;
-const unsigned int isoTrackActivityMethod_=3;
+const unsigned int elecActivityMethod_=0;
+const unsigned int muActivityMethod_=0;
+const unsigned int isoTrackActivityMethod_=0;
 
 // lepton matching
 const double maxDeltaRGenToRecoMu_ =0.3;
