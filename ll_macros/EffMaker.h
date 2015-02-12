@@ -11,6 +11,8 @@
 #include <cmath>
 #include "TCanvas.h"
 #include "TEfficiency.h"
+#include "TGraphAsymmErrors.h"
+
 
 // output control
 const bool saveEffToPDF_=true;
@@ -93,6 +95,22 @@ double ElecMTWPT2D_[elecMTWPT2D_]={10,30,40,50,60,70,90,110,1900};
 const int elecMTWActivity2D_=9;
 double ElecMTWActivity2D_[elecMTWActivity2D_]={0,5,10,20,40,60,80,100,1600};
 
+class TH1Feff
+{
+public:
+	TH1Feff(){}
+	TH1Feff(const char* name, const char* title, Int_t nbinsx, const double* xbins){RefTH1F_ = new 	TH1F(name, title, nbinsx, xbins);}
+	TH1F* Clone(){return RefTH1F_;}
+	void SetName(const char* title){RefTH1F_->SetName(title);}
+	void Fill(Double_t x,Double_t Weight,bool passOrFail);
+	TGraphAsymmErrors* GetEfficiency();
+	~TH1Feff(){}
+private:
+	TH1F* RefTH1F_;
+	vector<Double_t> weights_;
+	vector<TH1F*> TH1FFail_, TH1FPass_;
+};
+
 class EffMaker : public TSelector {
 public :	
 	TH2F* ratioCalculator(TH2F* passTH2, TH2F* failTH2);
@@ -108,6 +126,9 @@ public :
 	//purity
 	//mu
 	//1D
+	TH1Feff* MuPurityBTagEff_;
+	
+	
 	TH1F *MuPurityBTag_, *MuPurityBTagFail_;
 	TH1F *MuPurityNJets_, *MuPurityNJetsFail_;
 	TH1F *MuPurityHT_, *MuPurityHTFail_;

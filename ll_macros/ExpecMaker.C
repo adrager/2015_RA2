@@ -42,7 +42,7 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	TString option = GetOption();
 	// tree
 	tExpectation_ = new TTree("LostLeptonExpectation","a simple Tree with simple variables");
-	tExpectation_->SetAutoSave(10000000000);
+// 	tExpectation_->SetAutoSave(10000000000);
 	//  tExpectation_->SetAutoFlush(1000000);
 	tExpectation_->Branch("HT",&HT,"HT/F");
 	tExpectation_->Branch("MHT",&MHT,"MHT/F");
@@ -842,9 +842,16 @@ void ExpecMaker::SlaveTerminate()
 }
 void ExpecMaker::Terminate()
 {
+	GetOutputList()->Print();
+	std::cout << "tExpectation_:" << tExpectation_ << '\n';
+	tExpectation_ = dynamic_cast<TTree*>(GetOutputList()->FindObject("LostLeptonExpectation"));
+	std::cout << "tExpectation_:" << tExpectation_ << '\n';
+	
 	TFile *outPutFile = new TFile("Expectation.root","RECREATE"); 
 	outPutFile->cd();
 	tExpectation_->Write();
+	outPutFile->Close();
+	
 }
 void ExpecMaker::resetValues()
 {

@@ -44,316 +44,317 @@ void EffMaker::SlaveBegin(TTree * /*tree*/)
   // muon
   //1D
   MuPurityBTag_ = new TH1F("MuPurityBTag1D","MuPurityBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(MuPurityBTag_);
+  //GetOutputList()->Add(MuPurityBTag_);
   MuPurityBTagFail_ = (TH1F*)MuPurityBTag_->Clone();
   MuPurityBTagFail_->SetName("MuPurityBTag1DFail");
-  GetOutputList()->Add(MuPurityBTagFail_); 
+  //GetOutputList()->Add(MuPurityBTagFail_); 
+	MuPurityBTagEff_ = new TH1Feff("MuPurityBTag1D2","MuPurityBTag1D",oneDBJets_-1,OneDBJets_);
   
   MuPurityNJets_ = new TH1F("MuPurityNJets1D","MuPurityNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(MuPurityNJets_);
+  //GetOutputList()->Add(MuPurityNJets_);
   MuPurityNJetsFail_ = (TH1F*)MuPurityNJets_->Clone();
   MuPurityNJetsFail_->SetName("MuPurityNJets1DFail");
-  GetOutputList()->Add(MuPurityNJetsFail_); 
+  //GetOutputList()->Add(MuPurityNJetsFail_); 
   
   MuPurityHT_ = new TH1F("MuPurityHT1D","MuPurityHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(MuPurityHT_);
+  //GetOutputList()->Add(MuPurityHT_);
   MuPurityHTFail_ = (TH1F*)MuPurityHT_->Clone();
   MuPurityHTFail_->SetName("MuPurityHT1DFail");
-  GetOutputList()->Add(MuPurityHTFail_); 
+  //GetOutputList()->Add(MuPurityHTFail_); 
   
   MuPurityMHT_ = new TH1F("MuPurityMHT1D","MuPurityMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(MuPurityMHT_);
+  //GetOutputList()->Add(MuPurityMHT_);
   MuPurityMHTFail_ = (TH1F*)MuPurityMHT_->Clone();
   MuPurityMHTFail_->SetName("MuPurityMHT1DFail");
-  GetOutputList()->Add(MuPurityMHTFail_); 
+  //GetOutputList()->Add(MuPurityMHTFail_); 
   //2D
   MuonPurityMHTNJet = new TH2F("MuonPurity","MuonPurity",mupurityMHT_-1,muPurityMHT_,mupurityNJet_-1,muPurityNJet_);
-  GetOutputList()->Add(MuonPurityMHTNJet);
+  //GetOutputList()->Add(MuonPurityMHTNJet);
   MuonPurityMHTNJetFail = (TH2F*)MuonPurityMHTNJet->Clone();
   MuonPurityMHTNJetFail->SetName("MuonPurityFail");
-  GetOutputList()->Add(MuonPurityMHTNJetFail);  
+  //GetOutputList()->Add(MuonPurityMHTNJetFail);  
   // electron
   //1D
   ElecPurityBTag_ = new TH1F("ElecPurityBTag1D","ElecPurityBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(ElecPurityBTag_);
+  //GetOutputList()->Add(ElecPurityBTag_);
   ElecPurityBTagFail_ = (TH1F*)ElecPurityBTag_->Clone();
   ElecPurityBTagFail_->SetName("ElecPurityBTag1DFail");
-  GetOutputList()->Add(ElecPurityBTagFail_); 
+  //GetOutputList()->Add(ElecPurityBTagFail_); 
   
   ElecPurityNJets_ = new TH1F("ElecPurityNJets1D","ElecPurityNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(ElecPurityNJets_);
+  //GetOutputList()->Add(ElecPurityNJets_);
   ElecPurityNJetsFail_ = (TH1F*)ElecPurityNJets_->Clone();
   ElecPurityNJetsFail_->SetName("ElecPurityNJets1DFail");
-  GetOutputList()->Add(ElecPurityNJetsFail_); 
+  //GetOutputList()->Add(ElecPurityNJetsFail_); 
   
   ElecPurityHT_ = new TH1F("ElecPurityHT1D","ElecPurityHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(ElecPurityHT_);
+  //GetOutputList()->Add(ElecPurityHT_);
   ElecPurityHTFail_ = (TH1F*)ElecPurityHT_->Clone();
   ElecPurityHTFail_->SetName("ElecPurityHT1DFail");
-  GetOutputList()->Add(ElecPurityHTFail_); 
+  //GetOutputList()->Add(ElecPurityHTFail_); 
   
   ElecPurityMHT_ = new TH1F("ElecPurityMHT1D","ElecPurityMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(ElecPurityMHT_);
+  //GetOutputList()->Add(ElecPurityMHT_);
   ElecPurityMHTFail_ = (TH1F*)ElecPurityMHT_->Clone();
   ElecPurityMHTFail_->SetName("ElecPurityMHT1DFail");
-  GetOutputList()->Add(ElecPurityMHTFail_); 
+  //GetOutputList()->Add(ElecPurityMHTFail_); 
   //2D
   std::cout<<"POin5"<<std::endl;
   ElecPurityMHTNJet = new TH2F("ElecPurity","ElecPurity",mupurityMHT_-1,muPurityMHT_,mupurityNJet_-1,muPurityNJet_);
-  GetOutputList()->Add(ElecPurityMHTNJet);
+  //GetOutputList()->Add(ElecPurityMHTNJet);
   ElecPurityMHTNJetFail = (TH2F*)ElecPurityMHTNJet->Clone();
   ElecPurityMHTNJetFail->SetName("ElecPurityFail");
-  GetOutputList()->Add(ElecPurityMHTNJetFail); 
+  //GetOutputList()->Add(ElecPurityMHTNJetFail); 
   
   // acceptance
   //muon
   //1D
   MuAccBTag_ = new TH1F("MuAccBTag1D","MuAccBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(MuAccBTag_);
+  //GetOutputList()->Add(MuAccBTag_);
   MuAccBTagFail_ = (TH1F*)MuAccBTag_->Clone();
   MuAccBTagFail_->SetName("MuAccBTag1DFail");
-  GetOutputList()->Add(MuAccBTagFail_); 
+  //GetOutputList()->Add(MuAccBTagFail_); 
   
   MuAccNJets_ = new TH1F("MuAccNJets1D","MuAccNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(MuAccNJets_);
+  //GetOutputList()->Add(MuAccNJets_);
   MuAccNJetsFail_ = (TH1F*)MuAccNJets_->Clone();
   MuAccNJetsFail_->SetName("MuAccNJets1DFail");
-  GetOutputList()->Add(MuAccNJetsFail_); 
+  //GetOutputList()->Add(MuAccNJetsFail_); 
   
   MuAccHT_ = new TH1F("MuAccHT1D","MuAccHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(MuAccHT_);
+  //GetOutputList()->Add(MuAccHT_);
   MuAccHTFail_ = (TH1F*)MuAccHT_->Clone();
   MuAccHTFail_->SetName("MuAccHT1DFail");
-  GetOutputList()->Add(MuAccHTFail_); 
+  //GetOutputList()->Add(MuAccHTFail_); 
   
   MuAccMHT_ = new TH1F("MuAccMHT1D","MuAccMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(MuAccMHT_);
+  //GetOutputList()->Add(MuAccMHT_);
   MuAccMHTFail_ = (TH1F*)MuAccMHT_->Clone();
   MuAccMHTFail_->SetName("MuAccMHT1DFail");
-  GetOutputList()->Add(MuAccMHTFail_); 
+  //GetOutputList()->Add(MuAccMHTFail_); 
   
   //2D
   MuAccHTNJets_ = new TH2F("MuAccHTNJets","MuAccHTNJets",muaccHT_-1,muAccHT_, muaccNJets_-1, muAccNJets_);
-  GetOutputList()->Add(MuAccHTNJets_);
+  //GetOutputList()->Add(MuAccHTNJets_);
   MuAccHTNJetsFail_ = (TH2F*)MuAccHTNJets_->Clone();
   MuAccHTNJetsFail_->SetName("MuAccHTNJetsFail");
-  GetOutputList()->Add(MuAccHTNJetsFail_); 
+  //GetOutputList()->Add(MuAccHTNJetsFail_); 
 	
 	MuAccMHTNJets_ = new TH2F("MuAccMHTNJets","MuAccMHTNJets",muaccMHT_-1,muAccMHT_, muaccNJets_-1, muAccNJets_);
-	GetOutputList()->Add(MuAccMHTNJets_);
+	//GetOutputList()->Add(MuAccMHTNJets_);
 	MuAccMHTNJetsFail_ = (TH2F*)MuAccMHTNJets_->Clone();
 	MuAccMHTNJetsFail_->SetName("MuAccMHTNJetsFail");
-	GetOutputList()->Add(MuAccMHTNJetsFail_); 
+	//GetOutputList()->Add(MuAccMHTNJetsFail_); 
 	
 	MuAccBTagNJets_ = new TH2F("MuAccBTagNJets","MuAccBTagNJets",muaccBTags_-1,muAccBTags_, muaccNJets_-1, muAccNJets_);
-	GetOutputList()->Add(MuAccBTagNJets_);
+	//GetOutputList()->Add(MuAccBTagNJets_);
 	MuAccBTagNJetsFail_ = (TH2F*)MuAccBTagNJets_->Clone();
 	MuAccBTagNJetsFail_->SetName("MuAccBTagNJetsFail");
-	GetOutputList()->Add(MuAccBTagNJetsFail_); 
+	//GetOutputList()->Add(MuAccBTagNJetsFail_); 
   
   //muon
   //1D
   ElecAccBTag_ = new TH1F("ElecAccBTag1D","ElecAccBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(ElecAccBTag_);
+  //GetOutputList()->Add(ElecAccBTag_);
   ElecAccBTagFail_ = (TH1F*)ElecAccBTag_->Clone();
   ElecAccBTagFail_->SetName("ElecAccBTag1DFail");
-  GetOutputList()->Add(ElecAccBTagFail_); 
+  //GetOutputList()->Add(ElecAccBTagFail_); 
   
   ElecAccNJets_ = new TH1F("ElecAccNJets1D","ElecAccNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(ElecAccNJets_);
+  //GetOutputList()->Add(ElecAccNJets_);
   ElecAccNJetsFail_ = (TH1F*)ElecAccNJets_->Clone();
   ElecAccNJetsFail_->SetName("ElecAccNJets1DFail");
-  GetOutputList()->Add(ElecAccNJetsFail_); 
+  //GetOutputList()->Add(ElecAccNJetsFail_); 
   
   ElecAccHT_ = new TH1F("ElecAccHT1D","ElecAccHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(ElecAccHT_);
+  //GetOutputList()->Add(ElecAccHT_);
   ElecAccHTFail_ = (TH1F*)ElecAccHT_->Clone();
   ElecAccHTFail_->SetName("ElecAccHT1DFail");
-  GetOutputList()->Add(ElecAccHTFail_); 
+  //GetOutputList()->Add(ElecAccHTFail_); 
   
   ElecAccMHT_ = new TH1F("ElecAccMHT1D","ElecAccMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(ElecAccMHT_);
+  //GetOutputList()->Add(ElecAccMHT_);
   ElecAccMHTFail_ = (TH1F*)ElecAccMHT_->Clone();
   ElecAccMHTFail_->SetName("ElecAccMHT1DFail");
-  GetOutputList()->Add(ElecAccMHTFail_); 
+  //GetOutputList()->Add(ElecAccMHTFail_); 
   
   //2D
   ElecAccHTNJets_ = new TH2F("ElecAccHTNJets","ElecAccHTNJets",elecaccHT_-1,elecAccHT_, elecaccNJets_-1, elecAccNJets_);
-  GetOutputList()->Add(ElecAccHTNJets_);
+  //GetOutputList()->Add(ElecAccHTNJets_);
   ElecAccHTNJetsFail_ = (TH2F*)ElecAccHTNJets_->Clone();
   ElecAccHTNJetsFail_->SetName("ElecAccHTNJetsFail");
-  GetOutputList()->Add(ElecAccHTNJetsFail_); 
+  //GetOutputList()->Add(ElecAccHTNJetsFail_); 
 	
 	ElecAccMHTNJets_ = new TH2F("ElecAccMHTNJets","ElecAccMHTNJets",elecaccMHT_-1,elecAccMHT_, elecaccNJets_-1, elecAccNJets_);
-	GetOutputList()->Add(ElecAccMHTNJets_);
+	//GetOutputList()->Add(ElecAccMHTNJets_);
 	ElecAccMHTNJetsFail_ = (TH2F*)ElecAccMHTNJets_->Clone();
 	ElecAccMHTNJetsFail_->SetName("ElecAccMHTNJetsFail");
-	GetOutputList()->Add(ElecAccMHTNJetsFail_); 
+	//GetOutputList()->Add(ElecAccMHTNJetsFail_); 
 	
 	ElecAccBTagNJets_ = new TH2F("ElecAccBTagNJets","ElecAccBTagNJets",elecaccBTags_-1,elecAccBTags_, elecaccNJets_-1, elecAccNJets_);
-	GetOutputList()->Add(ElecAccBTagNJets_);
+	//GetOutputList()->Add(ElecAccBTagNJets_);
 	ElecAccBTagNJetsFail_ = (TH2F*)ElecAccBTagNJets_->Clone();
 	ElecAccBTagNJetsFail_->SetName("ElecAccBTagNJetsFail");
-	GetOutputList()->Add(ElecAccBTagNJetsFail_); 
+	//GetOutputList()->Add(ElecAccBTagNJetsFail_); 
   
   // reconstruction
   //muon
   //1D
   MuRecoBTag_ = new TH1F("MuRecoBTag1D","MuRecoBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(MuRecoBTag_);
+  //GetOutputList()->Add(MuRecoBTag_);
   MuRecoBTagFail_ = (TH1F*)MuRecoBTag_->Clone();
   MuRecoBTagFail_->SetName("MuRecoBTag1DFail");
-  GetOutputList()->Add(MuRecoBTagFail_); 
+  //GetOutputList()->Add(MuRecoBTagFail_); 
   
   MuRecoNJets_ = new TH1F("MuRecoNJets1D","MuRecoNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(MuRecoNJets_);
+  //GetOutputList()->Add(MuRecoNJets_);
   MuRecoNJetsFail_ = (TH1F*)MuRecoNJets_->Clone();
   MuRecoNJetsFail_->SetName("MuRecoNJets1DFail");
-  GetOutputList()->Add(MuRecoNJetsFail_); 
+  //GetOutputList()->Add(MuRecoNJetsFail_); 
   
   MuRecoHT_ = new TH1F("MuRecoHT1D","MuRecoHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(MuRecoHT_);
+  //GetOutputList()->Add(MuRecoHT_);
   MuRecoHTFail_ = (TH1F*)MuRecoHT_->Clone();
   MuRecoHTFail_->SetName("MuRecoHT1DFail");
-  GetOutputList()->Add(MuRecoHTFail_); 
+  //GetOutputList()->Add(MuRecoHTFail_); 
   
   MuRecoMHT_ = new TH1F("MuRecoMHT1D","MuRecoMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(MuRecoMHT_);
+  //GetOutputList()->Add(MuRecoMHT_);
   MuRecoMHTFail_ = (TH1F*)MuRecoMHT_->Clone();
   MuRecoMHTFail_->SetName("MuRecoMHT1DFail");
-  GetOutputList()->Add(MuRecoMHTFail_); 
+  //GetOutputList()->Add(MuRecoMHTFail_); 
   
   //elec
   //1D
   ElecRecoBTag_ = new TH1F("ElecRecoBTag1D","ElecRecoBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(ElecRecoBTag_);
+  //GetOutputList()->Add(ElecRecoBTag_);
   ElecRecoBTagFail_ = (TH1F*)ElecRecoBTag_->Clone();
   ElecRecoBTagFail_->SetName("ElecRecoBTag1DFail");
-  GetOutputList()->Add(ElecRecoBTagFail_); 
+  //GetOutputList()->Add(ElecRecoBTagFail_); 
   
   ElecRecoNJets_ = new TH1F("ElecRecoNJets1D","ElecRecoNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(ElecRecoNJets_);
+  //GetOutputList()->Add(ElecRecoNJets_);
   ElecRecoNJetsFail_ = (TH1F*)ElecRecoNJets_->Clone();
   ElecRecoNJetsFail_->SetName("ElecRecoNJets1DFail");
-  GetOutputList()->Add(ElecRecoNJetsFail_); 
+  //GetOutputList()->Add(ElecRecoNJetsFail_); 
   
   ElecRecoHT_ = new TH1F("ElecRecoHT1D","ElecRecoHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(ElecRecoHT_);
+  //GetOutputList()->Add(ElecRecoHT_);
   ElecRecoHTFail_ = (TH1F*)ElecRecoHT_->Clone();
   ElecRecoHTFail_->SetName("ElecRecoHT1DFail");
-  GetOutputList()->Add(ElecRecoHTFail_); 
+  //GetOutputList()->Add(ElecRecoHTFail_); 
   
   ElecRecoMHT_ = new TH1F("ElecRecoMHT1D","ElecRecoMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(ElecRecoMHT_);
+  //GetOutputList()->Add(ElecRecoMHT_);
   ElecRecoMHTFail_ = (TH1F*)ElecRecoMHT_->Clone();
   ElecRecoMHTFail_->SetName("ElecRecoMHT1DFail");
-  GetOutputList()->Add(ElecRecoMHTFail_); 
+  //GetOutputList()->Add(ElecRecoMHTFail_); 
   
   // isolation
   //muon
   //1D
   MuIsoBTag_ = new TH1F("MuIsoBTag1D","MuIsoBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(MuIsoBTag_);
+  //GetOutputList()->Add(MuIsoBTag_);
   MuIsoBTagFail_ = (TH1F*)MuIsoBTag_->Clone();
   MuIsoBTagFail_->SetName("MuIsoBTag1DFail");
-  GetOutputList()->Add(MuIsoBTagFail_); 
+  //GetOutputList()->Add(MuIsoBTagFail_); 
   
   MuIsoNJets_ = new TH1F("MuIsoNJets1D","MuIsoNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(MuIsoNJets_);
+  //GetOutputList()->Add(MuIsoNJets_);
   MuIsoNJetsFail_ = (TH1F*)MuIsoNJets_->Clone();
   MuIsoNJetsFail_->SetName("MuIsoNJets1DFail");
-  GetOutputList()->Add(MuIsoNJetsFail_); 
+  //GetOutputList()->Add(MuIsoNJetsFail_); 
   
   MuIsoHT_ = new TH1F("MuIsoHT1D","MuIsoHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(MuIsoHT_);
+  //GetOutputList()->Add(MuIsoHT_);
   MuIsoHTFail_ = (TH1F*)MuIsoHT_->Clone();
   MuIsoHTFail_->SetName("MuIsoHT1DFail");
-  GetOutputList()->Add(MuIsoHTFail_); 
+  //GetOutputList()->Add(MuIsoHTFail_); 
   
   MuIsoMHT_ = new TH1F("MuIsoMHT1D","MuIsoMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(MuIsoMHT_);
+  //GetOutputList()->Add(MuIsoMHT_);
   MuIsoMHTFail_ = (TH1F*)MuIsoMHT_->Clone();
   MuIsoMHTFail_->SetName("MuIsoMHT1DFail");
-  GetOutputList()->Add(MuIsoMHTFail_); 
+  //GetOutputList()->Add(MuIsoMHTFail_); 
   
   //elec
   //1D
   ElecIsoBTag_ = new TH1F("ElecIsoBTag1D","ElecIsoBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(ElecIsoBTag_);
+  //GetOutputList()->Add(ElecIsoBTag_);
   ElecIsoBTagFail_ = (TH1F*)ElecIsoBTag_->Clone();
   ElecIsoBTagFail_->SetName("ElecIsoBTag1DFail");
-  GetOutputList()->Add(ElecIsoBTagFail_); 
+  //GetOutputList()->Add(ElecIsoBTagFail_); 
   
   ElecIsoNJets_ = new TH1F("ElecIsoNJets1D","ElecIsoNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(ElecIsoNJets_);
+  //GetOutputList()->Add(ElecIsoNJets_);
   ElecIsoNJetsFail_ = (TH1F*)ElecIsoNJets_->Clone();
   ElecIsoNJetsFail_->SetName("ElecIsoNJets1DFail");
-  GetOutputList()->Add(ElecIsoNJetsFail_); 
+  //GetOutputList()->Add(ElecIsoNJetsFail_); 
   
   ElecIsoHT_ = new TH1F("ElecIsoHT1D","ElecIsoHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(ElecIsoHT_);
+  //GetOutputList()->Add(ElecIsoHT_);
   ElecIsoHTFail_ = (TH1F*)ElecIsoHT_->Clone();
   ElecIsoHTFail_->SetName("ElecIsoHT1DFail");
-  GetOutputList()->Add(ElecIsoHTFail_); 
+  //GetOutputList()->Add(ElecIsoHTFail_); 
   
   ElecIsoMHT_ = new TH1F("ElecIsoMHT1D","ElecIsoMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(ElecIsoMHT_);
+  //GetOutputList()->Add(ElecIsoMHT_);
   ElecIsoMHTFail_ = (TH1F*)ElecIsoMHT_->Clone();
   ElecIsoMHTFail_->SetName("ElecIsoMHT1DFail");
-  GetOutputList()->Add(ElecIsoMHTFail_); 
+  //GetOutputList()->Add(ElecIsoMHTFail_); 
   
   // mtw
   //muon
   //1D
   MuMTWBTag_ = new TH1F("MuMTWBTag1D","MuMTWBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(MuMTWBTag_);
+  //GetOutputList()->Add(MuMTWBTag_);
   MuMTWBTagFail_ = (TH1F*)MuMTWBTag_->Clone();
   MuMTWBTagFail_->SetName("MuMTWBTag1DFail");
-  GetOutputList()->Add(MuMTWBTagFail_); 
+  //GetOutputList()->Add(MuMTWBTagFail_); 
   
   MuMTWNJets_ = new TH1F("MuMTWNJets1D","MuMTWNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(MuMTWNJets_);
+  //GetOutputList()->Add(MuMTWNJets_);
   MuMTWNJetsFail_ = (TH1F*)MuMTWNJets_->Clone();
   MuMTWNJetsFail_->SetName("MuMTWNJets1DFail");
-  GetOutputList()->Add(MuMTWNJetsFail_); 
+  //GetOutputList()->Add(MuMTWNJetsFail_); 
   
   MuMTWHT_ = new TH1F("MuMTWHT1D","MuMTWHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(MuMTWHT_);
+  //GetOutputList()->Add(MuMTWHT_);
   MuMTWHTFail_ = (TH1F*)MuMTWHT_->Clone();
   MuMTWHTFail_->SetName("MuMTWHT1DFail");
-  GetOutputList()->Add(MuMTWHTFail_); 
+  //GetOutputList()->Add(MuMTWHTFail_); 
   
   MuMTWMHT_ = new TH1F("MuMTWMHT1D","MuMTWMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(MuMTWMHT_);
+  //GetOutputList()->Add(MuMTWMHT_);
   MuMTWMHTFail_ = (TH1F*)MuMTWMHT_->Clone();
   MuMTWMHTFail_->SetName("MuMTWMHT1DFail");
-  GetOutputList()->Add(MuMTWMHTFail_); 
+  //GetOutputList()->Add(MuMTWMHTFail_); 
   
   //muon
   //1D
   ElecMTWBTag_ = new TH1F("ElecMTWBTag1D","ElecMTWBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(ElecMTWBTag_);
+  //GetOutputList()->Add(ElecMTWBTag_);
   ElecMTWBTagFail_ = (TH1F*)ElecMTWBTag_->Clone();
   ElecMTWBTagFail_->SetName("ElecMTWBTag1DFail");
-  GetOutputList()->Add(ElecMTWBTagFail_); 
+  //GetOutputList()->Add(ElecMTWBTagFail_); 
   
   ElecMTWNJets_ = new TH1F("ElecMTWNJets1D","ElecMTWNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(ElecMTWNJets_);
+  //GetOutputList()->Add(ElecMTWNJets_);
   ElecMTWNJetsFail_ = (TH1F*)ElecMTWNJets_->Clone();
   ElecMTWNJetsFail_->SetName("ElecMTWNJets1DFail");
-  GetOutputList()->Add(ElecMTWNJetsFail_); 
+  //GetOutputList()->Add(ElecMTWNJetsFail_); 
   
   ElecMTWHT_ = new TH1F("ElecMTWHT1D","ElecMTWHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(ElecMTWHT_);
+  //GetOutputList()->Add(ElecMTWHT_);
   ElecMTWHTFail_ = (TH1F*)ElecMTWHT_->Clone();
   ElecMTWHTFail_->SetName("ElecMTWHT1DFail");
-  GetOutputList()->Add(ElecMTWHTFail_); 
+  //GetOutputList()->Add(ElecMTWHTFail_); 
   
   ElecMTWMHT_ = new TH1F("ElecMTWMHT1D","ElecMTWMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(ElecMTWMHT_);
+  //GetOutputList()->Add(ElecMTWMHT_);
   ElecMTWMHTFail_ = (TH1F*)ElecMTWMHT_->Clone();
   ElecMTWMHTFail_->SetName("ElecMTWMHT1DFail");
-  GetOutputList()->Add(ElecMTWMHTFail_); 
+  //GetOutputList()->Add(ElecMTWMHTFail_); 
   
   // di lep
   
@@ -361,588 +362,588 @@ void EffMaker::SlaveBegin(TTree * /*tree*/)
   //muon
   //1D
   MuDiLepBTag_ = new TH1F("MuDiLepBTag1D","MuDiLepBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(MuDiLepBTag_);
+  //GetOutputList()->Add(MuDiLepBTag_);
   MuDiLepBTagFail_ = (TH1F*)MuDiLepBTag_->Clone();
   MuDiLepBTagFail_->SetName("MuDiLepBTag1DFail");
-  GetOutputList()->Add(MuDiLepBTagFail_); 
+  //GetOutputList()->Add(MuDiLepBTagFail_); 
   
   MuDiLepNJets_ = new TH1F("MuDiLepNJets1D","MuDiLepNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(MuDiLepNJets_);
+  //GetOutputList()->Add(MuDiLepNJets_);
   MuDiLepNJetsFail_ = (TH1F*)MuDiLepNJets_->Clone();
   MuDiLepNJetsFail_->SetName("MuDiLepNJets1DFail");
-  GetOutputList()->Add(MuDiLepNJetsFail_); 
+  //GetOutputList()->Add(MuDiLepNJetsFail_); 
   
   MuDiLepHT_ = new TH1F("MuDiLepHT1D","MuDiLepHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(MuDiLepHT_);
+  //GetOutputList()->Add(MuDiLepHT_);
   MuDiLepHTFail_ = (TH1F*)MuDiLepHT_->Clone();
   MuDiLepHTFail_->SetName("MuDiLepHT1DFail");
-  GetOutputList()->Add(MuDiLepHTFail_); 
+  //GetOutputList()->Add(MuDiLepHTFail_); 
   
   MuDiLepMHT_ = new TH1F("MuDiLepMHT1D","MuDiLepMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(MuDiLepMHT_);
+  //GetOutputList()->Add(MuDiLepMHT_);
   MuDiLepMHTFail_ = (TH1F*)MuDiLepMHT_->Clone();
   MuDiLepMHTFail_->SetName("MuDiLepMHT1DFail");
-  GetOutputList()->Add(MuDiLepMHTFail_); 
+  //GetOutputList()->Add(MuDiLepMHTFail_); 
   
   //muon
   //1D
   ElecDiLepBTag_ = new TH1F("ElecDiLepBTag1D","ElecDiLepBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(ElecDiLepBTag_);
+  //GetOutputList()->Add(ElecDiLepBTag_);
   ElecDiLepBTagFail_ = (TH1F*)ElecDiLepBTag_->Clone();
   ElecDiLepBTagFail_->SetName("ElecDiLepBTag1DFail");
-  GetOutputList()->Add(ElecDiLepBTagFail_); 
+  //GetOutputList()->Add(ElecDiLepBTagFail_); 
   
   ElecDiLepNJets_ = new TH1F("ElecDiLepNJets1D","ElecDiLepNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(ElecDiLepNJets_);
+  //GetOutputList()->Add(ElecDiLepNJets_);
   ElecDiLepNJetsFail_ = (TH1F*)ElecDiLepNJets_->Clone();
   ElecDiLepNJetsFail_->SetName("ElecDiLepNJets1DFail");
-  GetOutputList()->Add(ElecDiLepNJetsFail_); 
+  //GetOutputList()->Add(ElecDiLepNJetsFail_); 
   
   ElecDiLepHT_ = new TH1F("ElecDiLepHT1D","ElecDiLepHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(ElecDiLepHT_);
+  //GetOutputList()->Add(ElecDiLepHT_);
   ElecDiLepHTFail_ = (TH1F*)ElecDiLepHT_->Clone();
   ElecDiLepHTFail_->SetName("ElecDiLepHT1DFail");
-  GetOutputList()->Add(ElecDiLepHTFail_); 
+  //GetOutputList()->Add(ElecDiLepHTFail_); 
   
   ElecDiLepMHT_ = new TH1F("ElecDiLepMHT1D","ElecDiLepMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(ElecDiLepMHT_);
+  //GetOutputList()->Add(ElecDiLepMHT_);
   ElecDiLepMHTFail_ = (TH1F*)ElecDiLepMHT_->Clone();
   ElecDiLepMHTFail_->SetName("ElecDiLepMHT1DFail");
-  GetOutputList()->Add(ElecDiLepMHTFail_); 
+  //GetOutputList()->Add(ElecDiLepMHTFail_); 
   
   
   // mtw
   //muon
   //1D
   MuDiLepMTWBTag_ = new TH1F("MuDiLepMTWBTag1D","MuDiLepMTWBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(MuDiLepMTWBTag_);
+  //GetOutputList()->Add(MuDiLepMTWBTag_);
   MuDiLepMTWBTagFail_ = (TH1F*)MuDiLepMTWBTag_->Clone();
   MuDiLepMTWBTagFail_->SetName("MuDiLepMTWBTag1DFail");
-  GetOutputList()->Add(MuDiLepMTWBTagFail_); 
+  //GetOutputList()->Add(MuDiLepMTWBTagFail_); 
   
   MuDiLepMTWNJets_ = new TH1F("MuDiLepMTWNJets1D","MuDiLepMTWNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(MuDiLepMTWNJets_);
+  //GetOutputList()->Add(MuDiLepMTWNJets_);
   MuDiLepMTWNJetsFail_ = (TH1F*)MuDiLepMTWNJets_->Clone();
   MuDiLepMTWNJetsFail_->SetName("MuDiLepMTWNJets1DFail");
-  GetOutputList()->Add(MuDiLepMTWNJetsFail_); 
+  //GetOutputList()->Add(MuDiLepMTWNJetsFail_); 
   
   MuDiLepMTWHT_ = new TH1F("MuDiLepMTWHT1D","MuDiLepMTWHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(MuDiLepMTWHT_);
+  //GetOutputList()->Add(MuDiLepMTWHT_);
   MuDiLepMTWHTFail_ = (TH1F*)MuDiLepMTWHT_->Clone();
   MuDiLepMTWHTFail_->SetName("MuDiLepMTWHT1DFail");
-  GetOutputList()->Add(MuDiLepMTWHTFail_); 
+  //GetOutputList()->Add(MuDiLepMTWHTFail_); 
   
   MuDiLepMTWMHT_ = new TH1F("MuDiLepMTWMHT1D","MuDiLepMTWMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(MuDiLepMTWMHT_);
+  //GetOutputList()->Add(MuDiLepMTWMHT_);
   MuDiLepMTWMHTFail_ = (TH1F*)MuDiLepMTWMHT_->Clone();
   MuDiLepMTWMHTFail_->SetName("MuDiLepMTWMHT1DFail");
-  GetOutputList()->Add(MuDiLepMTWMHTFail_); 
+  //GetOutputList()->Add(MuDiLepMTWMHTFail_); 
   
   //muon
   //1D
   ElecDiLepMTWBTag_ = new TH1F("ElecDiLepMTWBTag1D","ElecDiLepMTWBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(ElecDiLepMTWBTag_);
+  //GetOutputList()->Add(ElecDiLepMTWBTag_);
   ElecDiLepMTWBTagFail_ = (TH1F*)ElecDiLepMTWBTag_->Clone();
   ElecDiLepMTWBTagFail_->SetName("ElecDiLepMTWBTag1DFail");
-  GetOutputList()->Add(ElecDiLepMTWBTagFail_); 
+  //GetOutputList()->Add(ElecDiLepMTWBTagFail_); 
   
   ElecDiLepMTWNJets_ = new TH1F("ElecDiLepMTWNJets1D","ElecDiLepMTWNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(ElecDiLepMTWNJets_);
+  //GetOutputList()->Add(ElecDiLepMTWNJets_);
   ElecDiLepMTWNJetsFail_ = (TH1F*)ElecDiLepMTWNJets_->Clone();
   ElecDiLepMTWNJetsFail_->SetName("ElecDiLepMTWNJets1DFail");
-  GetOutputList()->Add(ElecDiLepMTWNJetsFail_); 
+  //GetOutputList()->Add(ElecDiLepMTWNJetsFail_); 
   
   ElecDiLepMTWHT_ = new TH1F("ElecDiLepMTWHT1D","ElecDiLepMTWHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(ElecDiLepMTWHT_);
+  //GetOutputList()->Add(ElecDiLepMTWHT_);
   ElecDiLepMTWHTFail_ = (TH1F*)ElecDiLepMTWHT_->Clone();
   ElecDiLepMTWHTFail_->SetName("ElecDiLepMTWHT1DFail");
-  GetOutputList()->Add(ElecDiLepMTWHTFail_); 
+  //GetOutputList()->Add(ElecDiLepMTWHTFail_); 
   
   ElecDiLepMTWMHT_ = new TH1F("ElecDiLepMTWMHT1D","ElecDiLepMTWMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(ElecDiLepMTWMHT_);
+  //GetOutputList()->Add(ElecDiLepMTWMHT_);
   ElecDiLepMTWMHTFail_ = (TH1F*)ElecDiLepMTWMHT_->Clone();
   ElecDiLepMTWMHTFail_->SetName("ElecDiLepMTWMHT1DFail");
-  GetOutputList()->Add(ElecDiLepMTWMHTFail_); 
+  //GetOutputList()->Add(ElecDiLepMTWMHTFail_); 
   
   
   // mtw
   //muon
   //1D
   MuDiLepContributionBTag_ = new TH1F("MuDiLepContributionBTag1D","MuDiLepContributionBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(MuDiLepContributionBTag_);
+  //GetOutputList()->Add(MuDiLepContributionBTag_);
   MuDiLepContributionBTagFail_ = (TH1F*)MuDiLepContributionBTag_->Clone();
   MuDiLepContributionBTagFail_->SetName("MuDiLepContributionBTag1DFail");
-  GetOutputList()->Add(MuDiLepContributionBTagFail_); 
+  //GetOutputList()->Add(MuDiLepContributionBTagFail_); 
   
   MuDiLepContributionNJets_ = new TH1F("MuDiLepContributionNJets1D","MuDiLepContributionNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(MuDiLepContributionNJets_);
+  //GetOutputList()->Add(MuDiLepContributionNJets_);
   MuDiLepContributionNJetsFail_ = (TH1F*)MuDiLepContributionNJets_->Clone();
   MuDiLepContributionNJetsFail_->SetName("MuDiLepContributionNJets1DFail");
-  GetOutputList()->Add(MuDiLepContributionNJetsFail_); 
+  //GetOutputList()->Add(MuDiLepContributionNJetsFail_); 
   
   MuDiLepContributionHT_ = new TH1F("MuDiLepContributionHT1D","MuDiLepContributionHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(MuDiLepContributionHT_);
+  //GetOutputList()->Add(MuDiLepContributionHT_);
   MuDiLepContributionHTFail_ = (TH1F*)MuDiLepContributionHT_->Clone();
   MuDiLepContributionHTFail_->SetName("MuDiLepContributionHT1DFail");
-  GetOutputList()->Add(MuDiLepContributionHTFail_); 
+  //GetOutputList()->Add(MuDiLepContributionHTFail_); 
   
   MuDiLepContributionMHT_ = new TH1F("MuDiLepContributionMHT1D","MuDiLepContributionMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(MuDiLepContributionMHT_);
+  //GetOutputList()->Add(MuDiLepContributionMHT_);
   MuDiLepContributionMHTFail_ = (TH1F*)MuDiLepContributionMHT_->Clone();
   MuDiLepContributionMHTFail_->SetName("MuDiLepContributionMHT1DFail");
-  GetOutputList()->Add(MuDiLepContributionMHTFail_); 
+  //GetOutputList()->Add(MuDiLepContributionMHTFail_); 
   
   //muon
   //1D
   ElecDiLepContributionBTag_ = new TH1F("ElecDiLepContributionBTag1D","ElecDiLepContributionBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(ElecDiLepContributionBTag_);
+  //GetOutputList()->Add(ElecDiLepContributionBTag_);
   ElecDiLepContributionBTagFail_ = (TH1F*)ElecDiLepContributionBTag_->Clone();
   ElecDiLepContributionBTagFail_->SetName("ElecDiLepContributionBTag1DFail");
-  GetOutputList()->Add(ElecDiLepContributionBTagFail_); 
+  //GetOutputList()->Add(ElecDiLepContributionBTagFail_); 
   
   ElecDiLepContributionNJets_ = new TH1F("ElecDiLepContributionNJets1D","ElecDiLepContributionNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(ElecDiLepContributionNJets_);
+  //GetOutputList()->Add(ElecDiLepContributionNJets_);
   ElecDiLepContributionNJetsFail_ = (TH1F*)ElecDiLepContributionNJets_->Clone();
   ElecDiLepContributionNJetsFail_->SetName("ElecDiLepContributionNJets1DFail");
-  GetOutputList()->Add(ElecDiLepContributionNJetsFail_); 
+  //GetOutputList()->Add(ElecDiLepContributionNJetsFail_); 
   
   ElecDiLepContributionHT_ = new TH1F("ElecDiLepContributionHT1D","ElecDiLepContributionHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(ElecDiLepContributionHT_);
+  //GetOutputList()->Add(ElecDiLepContributionHT_);
   ElecDiLepContributionHTFail_ = (TH1F*)ElecDiLepContributionHT_->Clone();
   ElecDiLepContributionHTFail_->SetName("ElecDiLepContributionHT1DFail");
-  GetOutputList()->Add(ElecDiLepContributionHTFail_); 
+  //GetOutputList()->Add(ElecDiLepContributionHTFail_); 
   
   ElecDiLepContributionMHT_ = new TH1F("ElecDiLepContributionMHT1D","ElecDiLepContributionMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(ElecDiLepContributionMHT_);
+  //GetOutputList()->Add(ElecDiLepContributionMHT_);
   ElecDiLepContributionMHTFail_ = (TH1F*)ElecDiLepContributionMHT_->Clone();
   ElecDiLepContributionMHTFail_->SetName("ElecDiLepContributionMHT1DFail");
-  GetOutputList()->Add(ElecDiLepContributionMHTFail_); 
+  //GetOutputList()->Add(ElecDiLepContributionMHTFail_); 
   
   
   // mtw
   //muon
   //1D
   MuDiLepContributionMTWBTag_ = new TH1F("MuDiLepContributionMTWBTag1D","MuDiLepContributionMTWBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(MuDiLepContributionMTWBTag_);
+  //GetOutputList()->Add(MuDiLepContributionMTWBTag_);
   MuDiLepContributionMTWBTagFail_ = (TH1F*)MuDiLepContributionMTWBTag_->Clone();
   MuDiLepContributionMTWBTagFail_->SetName("MuDiLepContributionMTWBTag1DFail");
-  GetOutputList()->Add(MuDiLepContributionMTWBTagFail_); 
+  //GetOutputList()->Add(MuDiLepContributionMTWBTagFail_); 
   
   MuDiLepContributionMTWNJets_ = new TH1F("MuDiLepContributionMTWNJets1D","MuDiLepContributionMTWNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(MuDiLepContributionMTWNJets_);
+  //GetOutputList()->Add(MuDiLepContributionMTWNJets_);
   MuDiLepContributionMTWNJetsFail_ = (TH1F*)MuDiLepContributionMTWNJets_->Clone();
   MuDiLepContributionMTWNJetsFail_->SetName("MuDiLepContributionMTWNJets1DFail");
-  GetOutputList()->Add(MuDiLepContributionMTWNJetsFail_); 
+  //GetOutputList()->Add(MuDiLepContributionMTWNJetsFail_); 
   
   MuDiLepContributionMTWHT_ = new TH1F("MuDiLepContributionMTWHT1D","MuDiLepContributionMTWHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(MuDiLepContributionMTWHT_);
+  //GetOutputList()->Add(MuDiLepContributionMTWHT_);
   MuDiLepContributionMTWHTFail_ = (TH1F*)MuDiLepContributionMTWHT_->Clone();
   MuDiLepContributionMTWHTFail_->SetName("MuDiLepContributionMTWHT1DFail");
-  GetOutputList()->Add(MuDiLepContributionMTWHTFail_); 
+  //GetOutputList()->Add(MuDiLepContributionMTWHTFail_); 
   
   MuDiLepContributionMTWMHT_ = new TH1F("MuDiLepContributionMTWMHT1D","MuDiLepContributionMTWMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(MuDiLepContributionMTWMHT_);
+  //GetOutputList()->Add(MuDiLepContributionMTWMHT_);
   MuDiLepContributionMTWMHTFail_ = (TH1F*)MuDiLepContributionMTWMHT_->Clone();
   MuDiLepContributionMTWMHTFail_->SetName("MuDiLepContributionMTWMHT1DFail");
-  GetOutputList()->Add(MuDiLepContributionMTWMHTFail_); 
+  //GetOutputList()->Add(MuDiLepContributionMTWMHTFail_); 
   
   //muon
   //1D
   ElecDiLepContributionMTWBTag_ = new TH1F("ElecDiLepContributionMTWBTag1D","ElecDiLepContributionMTWBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(ElecDiLepContributionMTWBTag_);
+  //GetOutputList()->Add(ElecDiLepContributionMTWBTag_);
   ElecDiLepContributionMTWBTagFail_ = (TH1F*)ElecDiLepContributionMTWBTag_->Clone();
   ElecDiLepContributionMTWBTagFail_->SetName("ElecDiLepContributionMTWBTag1DFail");
-  GetOutputList()->Add(ElecDiLepContributionMTWBTagFail_); 
+  //GetOutputList()->Add(ElecDiLepContributionMTWBTagFail_); 
   
   ElecDiLepContributionMTWNJets_ = new TH1F("ElecDiLepContributionMTWNJets1D","ElecDiLepContributionMTWNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(ElecDiLepContributionMTWNJets_);
+  //GetOutputList()->Add(ElecDiLepContributionMTWNJets_);
   ElecDiLepContributionMTWNJetsFail_ = (TH1F*)ElecDiLepContributionMTWNJets_->Clone();
   ElecDiLepContributionMTWNJetsFail_->SetName("ElecDiLepContributionMTWNJets1DFail");
-  GetOutputList()->Add(ElecDiLepContributionMTWNJetsFail_); 
+  //GetOutputList()->Add(ElecDiLepContributionMTWNJetsFail_); 
   
   ElecDiLepContributionMTWHT_ = new TH1F("ElecDiLepContributionMTWHT1D","ElecDiLepContributionMTWHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(ElecDiLepContributionMTWHT_);
+  //GetOutputList()->Add(ElecDiLepContributionMTWHT_);
   ElecDiLepContributionMTWHTFail_ = (TH1F*)ElecDiLepContributionMTWHT_->Clone();
   ElecDiLepContributionMTWHTFail_->SetName("ElecDiLepContributionMTWHT1DFail");
-  GetOutputList()->Add(ElecDiLepContributionMTWHTFail_); 
+  //GetOutputList()->Add(ElecDiLepContributionMTWHTFail_); 
   
   ElecDiLepContributionMTWMHT_ = new TH1F("ElecDiLepContributionMTWMHT1D","ElecDiLepContributionMTWMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(ElecDiLepContributionMTWMHT_);
+  //GetOutputList()->Add(ElecDiLepContributionMTWMHT_);
   ElecDiLepContributionMTWMHTFail_ = (TH1F*)ElecDiLepContributionMTWMHT_->Clone();
   ElecDiLepContributionMTWMHTFail_->SetName("ElecDiLepContributionMTWMHT1DFail");
-  GetOutputList()->Add(ElecDiLepContributionMTWMHTFail_); 
+  //GetOutputList()->Add(ElecDiLepContributionMTWMHTFail_); 
   
   // Isolated Track
   
   //Mu
   
   IsoTrackMuBTag_ = new TH1F("IsoTrackMuBTag1D","IsoTrackMuBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(IsoTrackMuBTag_);
+  //GetOutputList()->Add(IsoTrackMuBTag_);
   IsoTrackMuBTagFail_ = (TH1F*)IsoTrackMuBTag_->Clone();
   IsoTrackMuBTagFail_->SetName("IsoTrackMuBTag1DFail");
-  GetOutputList()->Add(IsoTrackMuBTagFail_); 
+  //GetOutputList()->Add(IsoTrackMuBTagFail_); 
   
   IsoTrackMuNJets_ = new TH1F("IsoTrackMuNJets1D","IsoTrackMuNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(IsoTrackMuNJets_);
+  //GetOutputList()->Add(IsoTrackMuNJets_);
   IsoTrackMuNJetsFail_ = (TH1F*)IsoTrackMuNJets_->Clone();
   IsoTrackMuNJetsFail_->SetName("IsoTrackMuNJets1DFail");
-  GetOutputList()->Add(IsoTrackMuNJetsFail_); 
+  //GetOutputList()->Add(IsoTrackMuNJetsFail_); 
   
   IsoTrackMuHT_ = new TH1F("IsoTrackMuHT1D","IsoTrackMuHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(IsoTrackMuHT_);
+  //GetOutputList()->Add(IsoTrackMuHT_);
   IsoTrackMuHTFail_ = (TH1F*)IsoTrackMuHT_->Clone();
   IsoTrackMuHTFail_->SetName("IsoTrackMuHT1DFail");
-  GetOutputList()->Add(IsoTrackMuHTFail_); 
+  //GetOutputList()->Add(IsoTrackMuHTFail_); 
   
   IsoTrackMuMHT_ = new TH1F("IsoTrackMuMHT1D","IsoTrackMuMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(IsoTrackMuMHT_);
+  //GetOutputList()->Add(IsoTrackMuMHT_);
   IsoTrackMuMHTFail_ = (TH1F*)IsoTrackMuMHT_->Clone();
   IsoTrackMuMHTFail_->SetName("IsoTrackMuMHT1DFail");
-  GetOutputList()->Add(IsoTrackMuMHTFail_); 
+  //GetOutputList()->Add(IsoTrackMuMHTFail_); 
   
   // match to isolated muon
   IsoTrackMuMatchedToIsoMuBTag_ = new TH1F("IsoTrackMuMatchedToIsoMuBTag1D","IsoTrackMuMatchedToIsoMuBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(IsoTrackMuMatchedToIsoMuBTag_);
+  //GetOutputList()->Add(IsoTrackMuMatchedToIsoMuBTag_);
   IsoTrackMuMatchedToIsoMuBTagFail_ = (TH1F*)IsoTrackMuMatchedToIsoMuBTag_->Clone();
   IsoTrackMuMatchedToIsoMuBTagFail_->SetName("IsoTrackMuMatchedToIsoMuBTag1DFail");
-  GetOutputList()->Add(IsoTrackMuMatchedToIsoMuBTagFail_); 
+  //GetOutputList()->Add(IsoTrackMuMatchedToIsoMuBTagFail_); 
   
   IsoTrackMuMatchedToIsoMuNJets_ = new TH1F("IsoTrackMuMatchedToIsoMuNJets1D","IsoTrackMuMatchedToIsoMuNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(IsoTrackMuMatchedToIsoMuNJets_);
+  //GetOutputList()->Add(IsoTrackMuMatchedToIsoMuNJets_);
   IsoTrackMuMatchedToIsoMuNJetsFail_ = (TH1F*)IsoTrackMuMatchedToIsoMuNJets_->Clone();
   IsoTrackMuMatchedToIsoMuNJetsFail_->SetName("IsoTrackMuMatchedToIsoMuNJets1DFail");
-  GetOutputList()->Add(IsoTrackMuMatchedToIsoMuNJetsFail_); 
+  //GetOutputList()->Add(IsoTrackMuMatchedToIsoMuNJetsFail_); 
   
   IsoTrackMuMatchedToIsoMuHT_ = new TH1F("IsoTrackMuMatchedToIsoMuHT1D","IsoTrackMuMatchedToIsoMuHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(IsoTrackMuMatchedToIsoMuHT_);
+  //GetOutputList()->Add(IsoTrackMuMatchedToIsoMuHT_);
   IsoTrackMuMatchedToIsoMuHTFail_ = (TH1F*)IsoTrackMuMatchedToIsoMuHT_->Clone();
   IsoTrackMuMatchedToIsoMuHTFail_->SetName("IsoTrackMuMatchedToIsoMuHT1DFail");
-  GetOutputList()->Add(IsoTrackMuMatchedToIsoMuHTFail_); 
+  //GetOutputList()->Add(IsoTrackMuMatchedToIsoMuHTFail_); 
   
   IsoTrackMuMatchedToIsoMuMHT_ = new TH1F("IsoTrackMuMatchedToIsoMuMHT1D","IsoTrackMuMatchedToIsoMuMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(IsoTrackMuMatchedToIsoMuMHT_);
+  //GetOutputList()->Add(IsoTrackMuMatchedToIsoMuMHT_);
   IsoTrackMuMatchedToIsoMuMHTFail_ = (TH1F*)IsoTrackMuMatchedToIsoMuMHT_->Clone();
   IsoTrackMuMatchedToIsoMuMHTFail_->SetName("IsoTrackMuMatchedToIsoMuMHT1DFail");
-  GetOutputList()->Add(IsoTrackMuMatchedToIsoMuMHTFail_); 
+  //GetOutputList()->Add(IsoTrackMuMatchedToIsoMuMHTFail_); 
   
   
   
   IsoTrackMuMTWBTag_ = new TH1F("IsoTrackMuMTWBTag1D","IsoTrackMuMTWBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(IsoTrackMuMTWBTag_);
+  //GetOutputList()->Add(IsoTrackMuMTWBTag_);
   IsoTrackMuMTWBTagFail_ = (TH1F*)IsoTrackMuMTWBTag_->Clone();
   IsoTrackMuMTWBTagFail_->SetName("IsoTrackMuMTWBTag1DFail");
-  GetOutputList()->Add(IsoTrackMuMTWBTagFail_); 
+  //GetOutputList()->Add(IsoTrackMuMTWBTagFail_); 
   
   IsoTrackMuMTWNJets_ = new TH1F("IsoTrackMuMTWNJets1D","IsoTrackMuMTWNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(IsoTrackMuMTWNJets_);
+  //GetOutputList()->Add(IsoTrackMuMTWNJets_);
   IsoTrackMuMTWNJetsFail_ = (TH1F*)IsoTrackMuMTWNJets_->Clone();
   IsoTrackMuMTWNJetsFail_->SetName("IsoTrackMuMTWNJets1DFail");
-  GetOutputList()->Add(IsoTrackMuMTWNJetsFail_); 
+  //GetOutputList()->Add(IsoTrackMuMTWNJetsFail_); 
   
   IsoTrackMuMTWHT_ = new TH1F("IsoTrackMuMTWHT1D","IsoTrackMuMTWHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(IsoTrackMuMTWHT_);
+  //GetOutputList()->Add(IsoTrackMuMTWHT_);
   IsoTrackMuMTWHTFail_ = (TH1F*)IsoTrackMuMTWHT_->Clone();
   IsoTrackMuMTWHTFail_->SetName("IsoTrackMuMTWHT1DFail");
-  GetOutputList()->Add(IsoTrackMuMTWHTFail_); 
+  //GetOutputList()->Add(IsoTrackMuMTWHTFail_); 
   
   IsoTrackMuMTWMHT_ = new TH1F("IsoTrackMuMTWMHT1D","IsoTrackMuMTWMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(IsoTrackMuMTWMHT_);
+  //GetOutputList()->Add(IsoTrackMuMTWMHT_);
   IsoTrackMuMTWMHTFail_ = (TH1F*)IsoTrackMuMTWMHT_->Clone();
   IsoTrackMuMTWMHTFail_->SetName("IsoTrackMuMTWMHT1DFail");
-  GetOutputList()->Add(IsoTrackMuMTWMHTFail_); 
+  //GetOutputList()->Add(IsoTrackMuMTWMHTFail_); 
   
   //Elec
   
   IsoTrackElecBTag_ = new TH1F("IsoTrackElecBTag1D","IsoTrackElecBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(IsoTrackElecBTag_);
+  //GetOutputList()->Add(IsoTrackElecBTag_);
   IsoTrackElecBTagFail_ = (TH1F*)IsoTrackElecBTag_->Clone();
   IsoTrackElecBTagFail_->SetName("IsoTrackElecBTag1DFail");
-  GetOutputList()->Add(IsoTrackElecBTagFail_); 
+  //GetOutputList()->Add(IsoTrackElecBTagFail_); 
   
   IsoTrackElecNJets_ = new TH1F("IsoTrackElecNJets1D","IsoTrackElecNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(IsoTrackElecNJets_);
+  //GetOutputList()->Add(IsoTrackElecNJets_);
   IsoTrackElecNJetsFail_ = (TH1F*)IsoTrackElecNJets_->Clone();
   IsoTrackElecNJetsFail_->SetName("IsoTrackElecNJets1DFail");
-  GetOutputList()->Add(IsoTrackElecNJetsFail_); 
+  //GetOutputList()->Add(IsoTrackElecNJetsFail_); 
   
   IsoTrackElecHT_ = new TH1F("IsoTrackElecHT1D","IsoTrackElecHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(IsoTrackElecHT_);
+  //GetOutputList()->Add(IsoTrackElecHT_);
   IsoTrackElecHTFail_ = (TH1F*)IsoTrackElecHT_->Clone();
   IsoTrackElecHTFail_->SetName("IsoTrackElecHT1DFail");
-  GetOutputList()->Add(IsoTrackElecHTFail_); 
+  //GetOutputList()->Add(IsoTrackElecHTFail_); 
   
   IsoTrackElecMHT_ = new TH1F("IsoTrackElecMHT1D","IsoTrackElecMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(IsoTrackElecMHT_);
+  //GetOutputList()->Add(IsoTrackElecMHT_);
   IsoTrackElecMHTFail_ = (TH1F*)IsoTrackElecMHT_->Clone();
   IsoTrackElecMHTFail_->SetName("IsoTrackElecMHT1DFail");
-  GetOutputList()->Add(IsoTrackElecMHTFail_); 
+  //GetOutputList()->Add(IsoTrackElecMHTFail_); 
   
   
   IsoTrackElecMTWBTag_ = new TH1F("IsoTrackElecMTWBTag1D","IsoTrackElecMTWBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(IsoTrackElecMTWBTag_);
+  //GetOutputList()->Add(IsoTrackElecMTWBTag_);
   IsoTrackElecMTWBTagFail_ = (TH1F*)IsoTrackElecMTWBTag_->Clone();
   IsoTrackElecMTWBTagFail_->SetName("IsoTrackElecMTWBTag1DFail");
-  GetOutputList()->Add(IsoTrackElecMTWBTagFail_); 
+  //GetOutputList()->Add(IsoTrackElecMTWBTagFail_); 
   
   IsoTrackElecMTWNJets_ = new TH1F("IsoTrackElecMTWNJets1D","IsoTrackElecMTWNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(IsoTrackElecMTWNJets_);
+  //GetOutputList()->Add(IsoTrackElecMTWNJets_);
   IsoTrackElecMTWNJetsFail_ = (TH1F*)IsoTrackElecMTWNJets_->Clone();
   IsoTrackElecMTWNJetsFail_->SetName("IsoTrackElecMTWNJets1DFail");
-  GetOutputList()->Add(IsoTrackElecMTWNJetsFail_); 
+  //GetOutputList()->Add(IsoTrackElecMTWNJetsFail_); 
   
   IsoTrackElecMTWHT_ = new TH1F("IsoTrackElecMTWHT1D","IsoTrackElecMTWHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(IsoTrackElecMTWHT_);
+  //GetOutputList()->Add(IsoTrackElecMTWHT_);
   IsoTrackElecMTWHTFail_ = (TH1F*)IsoTrackElecMTWHT_->Clone();
   IsoTrackElecMTWHTFail_->SetName("IsoTrackElecMTWHT1DFail");
-  GetOutputList()->Add(IsoTrackElecMTWHTFail_); 
+  //GetOutputList()->Add(IsoTrackElecMTWHTFail_); 
   
   IsoTrackElecMTWMHT_ = new TH1F("IsoTrackElecMTWMHT1D","IsoTrackElecMTWMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(IsoTrackElecMTWMHT_);
+  //GetOutputList()->Add(IsoTrackElecMTWMHT_);
   IsoTrackElecMTWMHTFail_ = (TH1F*)IsoTrackElecMTWMHT_->Clone();
   IsoTrackElecMTWMHTFail_->SetName("IsoTrackElecMTWMHT1DFail");
-  GetOutputList()->Add(IsoTrackElecMTWMHTFail_); 
+  //GetOutputList()->Add(IsoTrackElecMTWMHTFail_); 
   
   
   // match to isolated muon
   IsoTrackElecMatchedToIsoElecBTag_ = new TH1F("IsoTrackElecMatchedToIsoElecBTag1D","IsoTrackElecMatchedToIsoElecBTag1D",oneDBJets_-1,OneDBJets_);
-  GetOutputList()->Add(IsoTrackElecMatchedToIsoElecBTag_);
+  //GetOutputList()->Add(IsoTrackElecMatchedToIsoElecBTag_);
   IsoTrackElecMatchedToIsoElecBTagFail_ = (TH1F*)IsoTrackElecMatchedToIsoElecBTag_->Clone();
   IsoTrackElecMatchedToIsoElecBTagFail_->SetName("IsoTrackElecMatchedToIsoElecBTag1DFail");
-  GetOutputList()->Add(IsoTrackElecMatchedToIsoElecBTagFail_); 
+  //GetOutputList()->Add(IsoTrackElecMatchedToIsoElecBTagFail_); 
   
   IsoTrackElecMatchedToIsoElecNJets_ = new TH1F("IsoTrackElecMatchedToIsoElecNJets1D","IsoTrackElecMatchedToIsoElecNJets1D",oneDNJets_-1,OneDNJets_);
-  GetOutputList()->Add(IsoTrackElecMatchedToIsoElecNJets_);
+  //GetOutputList()->Add(IsoTrackElecMatchedToIsoElecNJets_);
   IsoTrackElecMatchedToIsoElecNJetsFail_ = (TH1F*)IsoTrackElecMatchedToIsoElecNJets_->Clone();
   IsoTrackElecMatchedToIsoElecNJetsFail_->SetName("IsoTrackElecMatchedToIsoElecNJets1DFail");
-  GetOutputList()->Add(IsoTrackElecMatchedToIsoElecNJetsFail_); 
+  //GetOutputList()->Add(IsoTrackElecMatchedToIsoElecNJetsFail_); 
   
   IsoTrackElecMatchedToIsoElecHT_ = new TH1F("IsoTrackElecMatchedToIsoElecHT1D","IsoTrackElecMatchedToIsoElecHT1D",oneDHT_-1,OneDHT_);
-  GetOutputList()->Add(IsoTrackElecMatchedToIsoElecHT_);
+  //GetOutputList()->Add(IsoTrackElecMatchedToIsoElecHT_);
   IsoTrackElecMatchedToIsoElecHTFail_ = (TH1F*)IsoTrackElecMatchedToIsoElecHT_->Clone();
   IsoTrackElecMatchedToIsoElecHTFail_->SetName("IsoTrackElecMatchedToIsoElecHT1DFail");
-  GetOutputList()->Add(IsoTrackElecMatchedToIsoElecHTFail_); 
+  //GetOutputList()->Add(IsoTrackElecMatchedToIsoElecHTFail_); 
   
   IsoTrackElecMatchedToIsoElecMHT_ = new TH1F("IsoTrackElecMatchedToIsoElecMHT1D","IsoTrackElecMatchedToIsoElecMHT1D",oneDMHT_-1,OneDMHT_);
-  GetOutputList()->Add(IsoTrackElecMatchedToIsoElecMHT_);
+  //GetOutputList()->Add(IsoTrackElecMatchedToIsoElecMHT_);
   IsoTrackElecMatchedToIsoElecMHTFail_ = (TH1F*)IsoTrackElecMatchedToIsoElecMHT_->Clone();
   IsoTrackElecMatchedToIsoElecMHTFail_->SetName("IsoTrackElecMatchedToIsoElecMHT1DFail");
-  GetOutputList()->Add(IsoTrackElecMatchedToIsoElecMHTFail_); 
+  //GetOutputList()->Add(IsoTrackElecMatchedToIsoElecMHTFail_); 
   
   // acitivity and pt
   
   MuPurityPT_ = new TH1F("MuPurityPT","MuPurityPT",oneDPT_-1,OneDPT_);
-  GetOutputList()->Add(MuPurityPT_);
+  //GetOutputList()->Add(MuPurityPT_);
   MuPurityPTFail_ = (TH1F*)MuPurityPT_->Clone();
   MuPurityPTFail_->SetName("MuPurityPTFail");
-  GetOutputList()->Add(MuPurityPTFail_); 
+  //GetOutputList()->Add(MuPurityPTFail_); 
   
   MuPurityActivity_ = new TH1F("MuPurityActivity","MuPurityActivity",oneDActivity_-1,OneDActivity_);
-  GetOutputList()->Add(MuPurityActivity_);
+  //GetOutputList()->Add(MuPurityActivity_);
   MuPurityActivityFail_ = (TH1F*)MuPurityActivity_->Clone();
   MuPurityActivityFail_->SetName("MuPurityActivityFail");
-  GetOutputList()->Add(MuPurityActivityFail_); 
+  //GetOutputList()->Add(MuPurityActivityFail_); 
   
   MuAccPT_ = new TH1F("MuAccPT","MuAccPT",oneDPT_-1,OneDPT_);
-  GetOutputList()->Add(MuAccPT_);
+  //GetOutputList()->Add(MuAccPT_);
   MuAccPTFail_ = (TH1F*)MuAccPT_->Clone();
   MuAccPTFail_->SetName("MuAccPTFail");
-  GetOutputList()->Add(MuAccPTFail_); 
+  //GetOutputList()->Add(MuAccPTFail_); 
   
   MuAccActivity_ = new TH1F("MuAccActivity","MuAccActivity",oneDActivity_-1,OneDActivity_);
-  GetOutputList()->Add(MuAccActivity_);
+  //GetOutputList()->Add(MuAccActivity_);
   MuAccActivityFail_ = (TH1F*)MuAccActivity_->Clone();
   MuAccActivityFail_->SetName("MuAccActivityFail");
-  GetOutputList()->Add(MuAccActivityFail_); 
+  //GetOutputList()->Add(MuAccActivityFail_); 
   
   
   MuRecoPT_ = new TH1F("MuRecoPT","MuRecoPT",oneDPT_-1,OneDPT_);
-  GetOutputList()->Add(MuRecoPT_);
+  //GetOutputList()->Add(MuRecoPT_);
   MuRecoPTFail_ = (TH1F*)MuRecoPT_->Clone();
   MuRecoPTFail_->SetName("MuRecoPTFail");
-  GetOutputList()->Add(MuRecoPTFail_); 
+  //GetOutputList()->Add(MuRecoPTFail_); 
   
   MuRecoActivity_ = new TH1F("MuRecoActivity","MuRecoActivity",oneDActivity_-1,OneDActivity_);
-  GetOutputList()->Add(MuRecoActivity_);
+  //GetOutputList()->Add(MuRecoActivity_);
   MuRecoActivityFail_ = (TH1F*)MuRecoActivity_->Clone();
   MuRecoActivityFail_->SetName("MuRecoActivityFail");
-  GetOutputList()->Add(MuRecoActivityFail_); 
+  //GetOutputList()->Add(MuRecoActivityFail_); 
   
   MuIsoPT_ = new TH1F("MuIsoPT","MuIsoPT",oneDPT_-1,OneDPT_);
-  GetOutputList()->Add(MuIsoPT_);
+  //GetOutputList()->Add(MuIsoPT_);
   MuIsoPTFail_ = (TH1F*)MuIsoPT_->Clone();
   MuIsoPTFail_->SetName("MuIsoPTFail");
-  GetOutputList()->Add(MuIsoPTFail_); 
+  //GetOutputList()->Add(MuIsoPTFail_); 
   
   MuIsoActivity_ = new TH1F("MuIsoActivity","MuIsoActivity",oneDActivity_-1,OneDActivity_);
-  GetOutputList()->Add(MuIsoActivity_);
+  //GetOutputList()->Add(MuIsoActivity_);
   MuIsoActivityFail_ = (TH1F*)MuIsoActivity_->Clone();
   MuIsoActivityFail_->SetName("MuIsoActivityFail");
-  GetOutputList()->Add(MuIsoActivityFail_); 
+  //GetOutputList()->Add(MuIsoActivityFail_); 
   
   MuMTWPT_ = new TH1F("MuMTWPT","MuMTWPT",oneDPT_-1,OneDPT_);
-  GetOutputList()->Add(MuMTWPT_);
+  //GetOutputList()->Add(MuMTWPT_);
   MuMTWPTFail_ = (TH1F*)MuMTWPT_->Clone();
   MuMTWPTFail_->SetName("MuMTWPTFail");
-  GetOutputList()->Add(MuMTWPTFail_); 
+  //GetOutputList()->Add(MuMTWPTFail_); 
   
   MuMTWActivity_ = new TH1F("MuMTWActivity","MuMTWActivity",oneDActivity_-1,OneDActivity_);
-  GetOutputList()->Add(MuMTWActivity_);
+  //GetOutputList()->Add(MuMTWActivity_);
   MuMTWActivityFail_ = (TH1F*)MuMTWActivity_->Clone();
   MuMTWActivityFail_->SetName("MuMTWActivityFail");
-  GetOutputList()->Add(MuMTWActivityFail_); 
+  //GetOutputList()->Add(MuMTWActivityFail_); 
   
   MuDiLepPT_ = new TH1F("MuDiLepPT","MuDiLepPT",oneDPT_-1,OneDPT_);
-  GetOutputList()->Add(MuDiLepPT_);
+  //GetOutputList()->Add(MuDiLepPT_);
   MuDiLepPTFail_ = (TH1F*)MuDiLepPT_->Clone();
   MuDiLepPTFail_->SetName("MuDiLepPTFail");
-  GetOutputList()->Add(MuDiLepPTFail_); 
+  //GetOutputList()->Add(MuDiLepPTFail_); 
   
   MuDiLepActivity_ = new TH1F("MuDiLepActivity","MuDiLepActivity",oneDActivity_-1,OneDActivity_);
-  GetOutputList()->Add(MuDiLepActivity_);
+  //GetOutputList()->Add(MuDiLepActivity_);
   MuDiLepActivityFail_ = (TH1F*)MuDiLepActivity_->Clone();
   MuDiLepActivityFail_->SetName("MuDiLepActivityFail");
-  GetOutputList()->Add(MuDiLepActivityFail_); 
+  //GetOutputList()->Add(MuDiLepActivityFail_); 
   
   
   MuDiLepMTWPT_ = new TH1F("MuDiLepMTWPT","MuDiLepMTWPT",oneDPT_-1,OneDPT_);
-  GetOutputList()->Add(MuDiLepMTWPT_);
+  //GetOutputList()->Add(MuDiLepMTWPT_);
   MuDiLepMTWPTFail_ = (TH1F*)MuDiLepMTWPT_->Clone();
   MuDiLepMTWPTFail_->SetName("MuDiLepMTWPTFail");
-  GetOutputList()->Add(MuDiLepMTWPTFail_); 
+  //GetOutputList()->Add(MuDiLepMTWPTFail_); 
   
   MuDiLepMTWActivity_ = new TH1F("MuDiLepMTWActivity","MuDiLepMTWActivity",oneDActivity_-1,OneDActivity_);
-  GetOutputList()->Add(MuDiLepMTWActivity_);
+  //GetOutputList()->Add(MuDiLepMTWActivity_);
   MuDiLepMTWActivityFail_ = (TH1F*)MuDiLepMTWActivity_->Clone();
   MuDiLepMTWActivityFail_->SetName("MuDiLepMTWActivityFail");
-  GetOutputList()->Add(MuDiLepMTWActivityFail_); 
+  //GetOutputList()->Add(MuDiLepMTWActivityFail_); 
   
   
   // elec
   
   ElecPurityPT_ = new TH1F("ElecPurityPT","ElecPurityPT",oneDPT_-1,OneDPT_);
-  GetOutputList()->Add(ElecPurityPT_);
+  //GetOutputList()->Add(ElecPurityPT_);
   ElecPurityPTFail_ = (TH1F*)ElecPurityPT_->Clone();
   ElecPurityPTFail_->SetName("ElecPurityPTFail");
-  GetOutputList()->Add(ElecPurityPTFail_); 
+  //GetOutputList()->Add(ElecPurityPTFail_); 
   
   ElecPurityActivity_ = new TH1F("ElecPurityActivity","ElecPurityActivity",oneDActivity_-1,OneDActivity_);
-  GetOutputList()->Add(ElecPurityActivity_);
+  //GetOutputList()->Add(ElecPurityActivity_);
   ElecPurityActivityFail_ = (TH1F*)ElecPurityActivity_->Clone();
   ElecPurityActivityFail_->SetName("ElecPurityActivityFail");
-  GetOutputList()->Add(ElecPurityActivityFail_); 
+  //GetOutputList()->Add(ElecPurityActivityFail_); 
   
   ElecAccPT_ = new TH1F("ElecAccPT","ElecAccPT",oneDPT_-1,OneDPT_);
-  GetOutputList()->Add(ElecAccPT_);
+  //GetOutputList()->Add(ElecAccPT_);
   ElecAccPTFail_ = (TH1F*)ElecAccPT_->Clone();
   ElecAccPTFail_->SetName("ElecAccPTFail");
-  GetOutputList()->Add(ElecAccPTFail_); 
+  //GetOutputList()->Add(ElecAccPTFail_); 
   
   ElecAccActivity_ = new TH1F("ElecAccActivity","ElecAccActivity",oneDActivity_-1,OneDActivity_);
-  GetOutputList()->Add(ElecAccActivity_);
+  //GetOutputList()->Add(ElecAccActivity_);
   ElecAccActivityFail_ = (TH1F*)ElecAccActivity_->Clone();
   ElecAccActivityFail_->SetName("ElecAccActivityFail");
-  GetOutputList()->Add(ElecAccActivityFail_); 
+  //GetOutputList()->Add(ElecAccActivityFail_); 
   
   
   ElecRecoPT_ = new TH1F("ElecRecoPT","ElecRecoPT",oneDPT_-1,OneDPT_);
-  GetOutputList()->Add(ElecRecoPT_);
+  //GetOutputList()->Add(ElecRecoPT_);
   ElecRecoPTFail_ = (TH1F*)ElecRecoPT_->Clone();
   ElecRecoPTFail_->SetName("ElecRecoPTFail");
-  GetOutputList()->Add(ElecRecoPTFail_); 
+  //GetOutputList()->Add(ElecRecoPTFail_); 
   
   ElecRecoActivity_ = new TH1F("ElecRecoActivity","ElecRecoActivity",oneDActivity_-1,OneDActivity_);
-  GetOutputList()->Add(ElecRecoActivity_);
+  //GetOutputList()->Add(ElecRecoActivity_);
   ElecRecoActivityFail_ = (TH1F*)ElecRecoActivity_->Clone();
   ElecRecoActivityFail_->SetName("ElecRecoActivityFail");
-  GetOutputList()->Add(ElecRecoActivityFail_); 
+  //GetOutputList()->Add(ElecRecoActivityFail_); 
   
   ElecIsoPT_ = new TH1F("ElecIsoPT","ElecIsoPT",oneDPT_-1,OneDPT_);
-  GetOutputList()->Add(ElecIsoPT_);
+  //GetOutputList()->Add(ElecIsoPT_);
   ElecIsoPTFail_ = (TH1F*)ElecIsoPT_->Clone();
   ElecIsoPTFail_->SetName("ElecIsoPTFail");
-  GetOutputList()->Add(ElecIsoPTFail_); 
+  //GetOutputList()->Add(ElecIsoPTFail_); 
   
   ElecIsoActivity_ = new TH1F("ElecIsoActivity","ElecIsoActivity",oneDActivity_-1,OneDActivity_);
-  GetOutputList()->Add(ElecIsoActivity_);
+  //GetOutputList()->Add(ElecIsoActivity_);
   ElecIsoActivityFail_ = (TH1F*)ElecIsoActivity_->Clone();
   ElecIsoActivityFail_->SetName("ElecIsoActivityFail");
-  GetOutputList()->Add(ElecIsoActivityFail_); 
+  //GetOutputList()->Add(ElecIsoActivityFail_); 
   
   ElecMTWPT_ = new TH1F("ElecMTWPT","ElecMTWPT",oneDPT_-1,OneDPT_);
-  GetOutputList()->Add(ElecMTWPT_);
+  //GetOutputList()->Add(ElecMTWPT_);
   ElecMTWPTFail_ = (TH1F*)ElecMTWPT_->Clone();
   ElecMTWPTFail_->SetName("ElecMTWPTFail");
-  GetOutputList()->Add(ElecMTWPTFail_); 
+  //GetOutputList()->Add(ElecMTWPTFail_); 
   
   ElecMTWActivity_ = new TH1F("ElecMTWActivity","ElecMTWActivity",oneDActivity_-1,OneDActivity_);
-  GetOutputList()->Add(ElecMTWActivity_);
+  //GetOutputList()->Add(ElecMTWActivity_);
   ElecMTWActivityFail_ = (TH1F*)ElecMTWActivity_->Clone();
   ElecMTWActivityFail_->SetName("ElecMTWActivityFail");
-  GetOutputList()->Add(ElecMTWActivityFail_); 
+  //GetOutputList()->Add(ElecMTWActivityFail_); 
   
   ElecDiLepPT_ = new TH1F("ElecDiLepPT","ElecDiLepPT",oneDPT_-1,OneDPT_);
-  GetOutputList()->Add(ElecDiLepPT_);
+  //GetOutputList()->Add(ElecDiLepPT_);
   ElecDiLepPTFail_ = (TH1F*)ElecDiLepPT_->Clone();
   ElecDiLepPTFail_->SetName("ElecDiLepPTFail");
-  GetOutputList()->Add(ElecDiLepPTFail_); 
+  //GetOutputList()->Add(ElecDiLepPTFail_); 
   
   ElecDiLepActivity_ = new TH1F("ElecDiLepActivity","ElecDiLepActivity",oneDActivity_-1,OneDActivity_);
-  GetOutputList()->Add(ElecDiLepActivity_);
+  //GetOutputList()->Add(ElecDiLepActivity_);
   ElecDiLepActivityFail_ = (TH1F*)ElecDiLepActivity_->Clone();
   ElecDiLepActivityFail_->SetName("ElecDiLepActivityFail");
-  GetOutputList()->Add(ElecDiLepActivityFail_); 
+  //GetOutputList()->Add(ElecDiLepActivityFail_); 
   
   
   ElecDiLepMTWPT_ = new TH1F("ElecDiLepMTWPT","ElecDiLepMTWPT",oneDPT_-1,OneDPT_);
-  GetOutputList()->Add(ElecDiLepMTWPT_);
+  //GetOutputList()->Add(ElecDiLepMTWPT_);
   ElecDiLepMTWPTFail_ = (TH1F*)ElecDiLepMTWPT_->Clone();
   ElecDiLepMTWPTFail_->SetName("ElecDiLepMTWPTFail");
-  GetOutputList()->Add(ElecDiLepMTWPTFail_); 
+  //GetOutputList()->Add(ElecDiLepMTWPTFail_); 
   
   ElecDiLepMTWActivity_ = new TH1F("ElecDiLepMTWActivity","ElecDiLepMTWActivity",oneDActivity_-1,OneDActivity_);
-  GetOutputList()->Add(ElecDiLepMTWActivity_);
+  //GetOutputList()->Add(ElecDiLepMTWActivity_);
   ElecDiLepMTWActivityFail_ = (TH1F*)ElecDiLepMTWActivity_->Clone();
   ElecDiLepMTWActivityFail_->SetName("ElecDiLepMTWActivityFail");
-  GetOutputList()->Add(ElecDiLepMTWActivityFail_); 
+  //GetOutputList()->Add(ElecDiLepMTWActivityFail_); 
   
   // 2D
   MuIsoPTActivity_ = new TH2F("MuIsoPTActivity","MuIsoPTActivity",oneDPT_-1,OneDPT_,oneDActivity_-1,OneDActivity_);
-  GetOutputList()->Add(MuIsoPTActivity_);
+  //GetOutputList()->Add(MuIsoPTActivity_);
   MuIsoPTActivityFail_ = (TH2F*)MuIsoPTActivity_->Clone();
   MuIsoPTActivityFail_->SetName("MuIsoPTActivityFail");
-  GetOutputList()->Add(MuIsoPTActivityFail_); 
+  //GetOutputList()->Add(MuIsoPTActivityFail_); 
   
   ElecIsoPTActivity_ = new TH2F("ElecIsoPTActivity","ElecIsoPTActivity",oneDPT_-1,OneDPT_,oneDActivity_-1,OneDActivity_);
-  GetOutputList()->Add(ElecIsoPTActivity_);
+  //GetOutputList()->Add(ElecIsoPTActivity_);
   ElecIsoPTActivityFail_ = (TH2F*)ElecIsoPTActivity_->Clone();
   ElecIsoPTActivityFail_->SetName("ElecIsoPTActivityFail");
-  GetOutputList()->Add(ElecIsoPTActivityFail_); 
+  //GetOutputList()->Add(ElecIsoPTActivityFail_); 
 	
 	
 	MuRecoPTActivity_ = new TH2F("MuRecoPTActivity","MuRecoPTActivity",oneDPT_-1,OneDPT_,oneDActivity_-1,OneDActivity_);
-	GetOutputList()->Add(MuRecoPTActivity_);
+	//GetOutputList()->Add(MuRecoPTActivity_);
 	MuRecoPTActivityFail_ = (TH2F*)MuRecoPTActivity_->Clone();
 	MuRecoPTActivityFail_->SetName("MuRecoPTActivityFail");
-	GetOutputList()->Add(MuRecoPTActivityFail_); 
+	//GetOutputList()->Add(MuRecoPTActivityFail_); 
 	
 	ElecRecoPTActivity_ = new TH2F("ElecRecoPTActivity","ElecRecoPTActivity",oneDPT_-1,OneDPT_,oneDActivity_-1,OneDActivity_);
-	GetOutputList()->Add(ElecRecoPTActivity_);
+	//GetOutputList()->Add(ElecRecoPTActivity_);
 	ElecRecoPTActivityFail_ = (TH2F*)ElecRecoPTActivity_->Clone();
 	ElecRecoPTActivityFail_->SetName("ElecRecoPTActivityFail");
-	GetOutputList()->Add(ElecRecoPTActivityFail_); 
+	//GetOutputList()->Add(ElecRecoPTActivityFail_); 
 	
 	// mtw 2d
 	MuMTWPTActivity_ = new TH2F("MuMTWPTActivity","MuMTWPTActivity",muMTWPT2D_-1,MuMTWPT2D_,muMTWActivity2D_-1,MuMTWActivity2D_);
-	GetOutputList()->Add(MuMTWPTActivity_);
+	//GetOutputList()->Add(MuMTWPTActivity_);
 	MuMTWPTActivityFail_ = (TH2F*)MuMTWPTActivity_->Clone();
 	MuMTWPTActivityFail_->SetName("MuMTWPTActivityFail");
-	GetOutputList()->Add(MuMTWPTActivityFail_);
+	//GetOutputList()->Add(MuMTWPTActivityFail_);
 	
 	ElecMTWPTActivity_ = new TH2F("ElecMTWPTActivity","ElecMTWPTActivity",elecMTWPT2D_-1,ElecMTWPT2D_,elecMTWActivity2D_-1,ElecMTWActivity2D_);
-	GetOutputList()->Add(ElecMTWPTActivity_);
+	//GetOutputList()->Add(ElecMTWPTActivity_);
 	ElecMTWPTActivityFail_ = (TH2F*)ElecMTWPTActivity_->Clone();
 	ElecMTWPTActivityFail_->SetName("ElecMTWPTActivityFail");
-	GetOutputList()->Add(ElecMTWPTActivityFail_);
+	//GetOutputList()->Add(ElecMTWPTActivityFail_);
 }
 
 Bool_t EffMaker::Process(Long64_t entry)
@@ -956,6 +957,7 @@ Bool_t EffMaker::Process(Long64_t entry)
     {
       //1D
       MuPurityBTag_->Fill(BTags,Weight);
+			MuPurityBTagEff_->Fill(BTags,Weight,true);
       MuPurityNJets_->Fill(NJets,Weight);
       MuPurityHT_->Fill(HT,Weight);
       MuPurityMHT_->Fill(MHT,Weight);
@@ -968,6 +970,7 @@ Bool_t EffMaker::Process(Long64_t entry)
     {
       //1D
       MuPurityBTagFail_->Fill(BTags,Weight);
+			MuPurityBTagEff_->Fill(BTags,Weight,false);
       MuPurityNJetsFail_->Fill(NJets,Weight);
       MuPurityHTFail_->Fill(HT,Weight);
       MuPurityMHTFail_->Fill(MHT,Weight);
@@ -2521,6 +2524,8 @@ void EffMaker::Terminate()
   ElecIsoPTActivity_->UseCurrentStyle();
   ElecIsoPTActivity_->Write();
   SaveEfficiency(ElecIsoPTActivity_);
+	
+	MuPurityBTagEff_->GetEfficiency()->Write();
   
   
 }
@@ -2616,4 +2621,49 @@ double EffMaker::MTWCalculator(double metPt,double  metPhi,double  lepPt,double 
 {
   double deltaPhi =TVector2::Phi_mpi_pi(lepPhi-metPhi);
   return sqrt(2*lepPt*metPt*(1-cos(deltaPhi)) );
+}
+
+void TH1Feff::Fill(Double_t x,Double_t Weight, bool passOrFail)
+{
+	int matched=-1;
+	for(unsigned int i=0; i < weights_.size();i++)
+	{
+		if(std::abs(weights_[i]-Weight)/Weight<0.0001 ) matched=i;
+	}
+	if(matched==-1)
+	{
+		TH1FPass_.push_back((TH1F*) RefTH1F_->Clone() );
+		TH1FFail_.push_back((TH1F*) RefTH1F_->Clone() );
+
+		if(passOrFail)
+		{
+			TH1FPass_[weights_.size()]->Fill(x);
+		}
+		else TH1FFail_[weights_.size()]->Fill(x);
+		weights_.push_back(Weight);
+		std::cout<<"Weight: "<<Weight<<"added"<<std::endl;
+	}
+	else
+	{
+		if(passOrFail) TH1FPass_[matched]->Fill(x);
+		else TH1FFail_[matched]->Fill(x);
+	}
+}
+TGraphAsymmErrors* TH1Feff::GetEfficiency()
+{
+	TList* myList = new TList(); 
+	for(unsigned int i=0; i<weights_.size();i++)
+	{
+		TH1FFail_[i]->Sumw2();
+		TH1F *sum = (TH1F*)TH1FFail_[i]->Clone();
+		TH1FPass_[i]->Sumw2();
+		
+		sum->Add(TH1FPass_[i]);
+		TEfficiency* myEff = new TEfficiency(*TH1FPass_[i],*sum);
+		myEff->SetWeight(weights_[i]);
+		myList->Add(myEff);
+	}
+	TGraphAsymmErrors* result= TEfficiency::Combine (myList);
+	
+	return result;
 }
