@@ -10,6 +10,8 @@
 #include "TVector2.h"
 #include <cmath>
 #include "TCanvas.h"
+#include "TEfficiency.h"
+
 // output control
 const bool saveEffToPDF_=true;
 const bool saveEffToPNG_=true;
@@ -95,6 +97,8 @@ class EffMaker : public TSelector {
 public :	
 	TH2F* ratioCalculator(TH2F* passTH2, TH2F* failTH2);
 	TH1F* ratioCalculator(TH1F* passTH1, TH1F* failTH1);
+	TEfficiency* ratioCalculatorTEff(TH2F* passTH2, TH2F* failTH2);
+	TEfficiency* ratioCalculatorTEff(TH1F* passTH1, TH1F* failTH1);
 	double MTWCalculator(double metPt,double  metPhi,double  lepPt,double  lepPhi);
 	void SaveEfficiency(TH2F *input);
 	void SaveEfficiency(TH1F *input);

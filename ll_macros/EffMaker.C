@@ -2489,6 +2489,9 @@ void EffMaker::Terminate()
   ElecIsoPT_->UseCurrentStyle();
   ElecIsoPT_->Write();
   SaveEfficiency(ElecIsoPT_);
+   TEfficiency* tempTeff =  ratioCalculatorTEff(ElecIsoPT_,ElecIsoPTFail_);
+   tempTeff->SetName("ElecIsoPTTEff");
+   tempTeff->Write();
   
   ElecIsoActivity_ = ratioCalculator(ElecIsoActivity_,ElecIsoActivityFail_);   
   ElecIsoActivity_->SetTitle("CMS Simulation, L=5 fb-1, #sqrt(s)=13 TeV e iso; Activity [GeV]");
@@ -2533,14 +2536,42 @@ TH2F* EffMaker::ratioCalculator(TH2F* passTH2, TH2F* failTH2)
 }
 TH1F* EffMaker::ratioCalculator(TH1F* passTH1, TH1F* failTH1)
 {
-  passTH1->Sumw2();
-  TH1F *sum = (TH1F*)passTH1->Clone();
-  failTH1->Sumw2();
-  
-  sum->Add(failTH1);
-  passTH1->Divide(passTH1,sum,1,1,"B");
-  return passTH1;
+	passTH1->Sumw2();
+	TH1F *sum = (TH1F*)passTH1->Clone();
+	failTH1->Sumw2();
+	
+	sum->Add(failTH1);
+	passTH1->Divide(passTH1,sum,1,1,"B");
+	return passTH1;
 }
+TEfficiency* EffMaker::ratioCalculatorTEff(TH1F* passTH1, TH1F* failTH1)
+{
+	TEfficiency* pEff = 0;
+	passTH1->Sumw2();
+	TH1F *sum = (TH1F*)passTH1->Clone();
+	failTH1->Sumw2();
+	
+	sum->Add(failTH1);
+	if(TEfficiency::CheckConsistency(*passTH1,*sum, "w"))
+	{
+		pEff = new TEfficiency(*passTH1,*sum);
+	}
+	else std::cout<<"Error in ratioCalculatorTEff TH1F passing and sum not consistend!"<<std::endl;
+	return pEff;
+}
+
+TEfficiency* EffMaker::ratioCalculatorTEff(TH2F* passTH2, TH2F* failTH2)
+{
+	TEfficiency* pEff = 0;
+	passTH2->Sumw2();
+	TH2F *sum = (TH2F*)passTH2->Clone();
+	failTH2->Sumw2();
+	
+	sum->Add(failTH2);
+	passTH2->Divide(passTH2,sum,1,1,"B");
+	return pEff;
+}
+
 void EffMaker::SaveEfficiency(TH2F *input)
 {
   gROOT->SetBatch(true);
