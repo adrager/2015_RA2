@@ -99,16 +99,53 @@ class TH1Feff
 {
 public:
 	TH1Feff(){}
-	TH1Feff(const char* name, const char* title, Int_t nbinsx, const double* xbins){RefTH1F_ = new 	TH1F(name, title, nbinsx, xbins);}
+	TH1Feff(const char* name, const char* title, Int_t nbinsx, const double* xbins)
+	{
+		RefTH1F_ = new 	TH1F(name, title, nbinsx, xbins);
+		name_=name;
+		title_=title;
+	}
 	TH1F* Clone(){return RefTH1F_;}
 	void SetName(const char* title){RefTH1F_->SetName(title);}
 	void Fill(Double_t x,Double_t Weight,bool passOrFail);
 	TGraphAsymmErrors* GetEfficiency();
+	void saveResults(TDirectory* MainDirectory);
 	~TH1Feff(){}
 private:
 	TH1F* RefTH1F_;
 	vector<Double_t> weights_;
 	vector<TH1F*> TH1FFail_, TH1FPass_;
+	const char* name_;
+	const char* title_;
+};
+
+class TH2Feff
+{
+public:
+	TH2Feff(){}
+	TH2Feff(const char* name, const char* title, Int_t nbinsx, const Double_t* xbins, Int_t nbinsy, const Double_t* ybins)
+	{
+		RefTH2F_ = new 	TH2F(name, title, nbinsx, xbins,nbinsy,ybins);
+		nbinsx_=nbinsx; xbins_=xbins;
+		nbinsy_=nbinsy; ybins_=ybins;
+		name_=name;
+		title_=title;
+	}
+	TH2F* Clone(){return RefTH2F_;}
+	void SetName(const char* title){RefTH2F_->SetName(title);}
+	void Fill(Double_t x, Double_t y, Double_t Weight,bool passOrFail);
+	std::vector<TGraphAsymmErrors*> GetEfficiency();
+	void saveResults(TDirectory* MainDirectory);
+	~TH2Feff(){}
+private:
+	TH2F* RefTH2F_;
+	vector<Double_t> weights_;
+	vector<TH2F*> TH2FFail_, TH2FPass_;
+	Int_t nbinsx_, nbinsy_;
+	const Double_t* xbins_;
+	const Double_t* ybins_;
+	const char* name_;
+	const char* title_;
 };
 
 class EffMaker : public TSelector {
@@ -126,7 +163,6 @@ public :
 	//purity
 	//mu
 	//1D
-	TH1Feff* MuPurityBTagEff_;
 	
 	
 	TH1F *MuPurityBTag_, *MuPurityBTagFail_;
@@ -375,6 +411,255 @@ public :
 	
 	TH2F *ElecIsoPTActivity_, *ElecIsoPTActivityFail_;
 	TH2F *ElecRecoPTActivity_, *ElecRecoPTActivityFail_;
+	
+	// TEff used efficienies
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	TH1Feff *MuPurityBTagEff_;
+	TH1Feff *MuPurityNJetsEff_;
+	TH1Feff *MuPurityHTEff_;
+	TH1Feff *MuPurityMHTEff_;
+	TH1Feff *MuPurityPTEff_;
+	TH1Feff *MuPurityActivityEff_;
+	//2D
+	TH2Feff *MuonPurityMHTNJetEff_;
+	
+	//elec
+	//1D
+	TH1Feff *ElecPurityBTagEff_;
+	TH1Feff *ElecPurityNJetsEff_;
+	TH1Feff *ElecPurityHTEff_;
+	TH1Feff *ElecPurityMHTEff_;
+	TH1Feff *ElecPurityPTEff_;
+	TH1Feff *ElecPurityActivityEff_;
+	//2D
+	TH2Feff *ElecPurityMHTNJetEff_;
+	
+	// Acceptance
+	// mu 
+	//1D
+	TH1Feff *MuAccBTagEff_;
+	TH1Feff *MuAccNJetsEff_;
+	TH1Feff *MuAccHTEff_;
+	TH1Feff *MuAccMHTEff_;
+	TH1Feff *MuAccPTEff_;
+	TH1Feff *MuAccActivityEff_;
+	// 2D
+	TH2Feff *MuAccHTNJetsEff_; 
+	TH2Feff *MuAccMHTNJetsEff_;
+	TH2Feff *MuAccBTagNJetsEff_;
+	
+	// elec
+	//1D
+	TH1Feff *ElecAccBTagEff_;
+	TH1Feff *ElecAccNJetsEff_;
+	TH1Feff *ElecAccHTEff_;
+	TH1Feff *ElecAccMHTEff_;
+	TH1Feff *ElecAccPTEff_;
+	TH1Feff *ElecAccActivityEff_;
+	
+	// 2D
+	TH2Feff *ElecAccHTNJetsEff_; 
+	TH2Feff *ElecAccMHTNJetsEff_;
+	TH2Feff *ElecAccBTagNJetsEff_;
+	
+	// Recoeptance
+	// mu 
+	//1D
+	TH1Feff *MuRecoBTagEff_;
+	TH1Feff *MuRecoNJetsEff_;
+	TH1Feff *MuRecoHTEff_;
+	TH1Feff *MuRecoMHTEff_;
+	TH1Feff *MuRecoPTEff_;
+	TH1Feff *MuRecoActivityEff_;
+	
+	
+	// elec
+	//1D
+	TH1Feff *ElecRecoBTagEff_, *ElecRecoBTagFailEff_;
+	TH1Feff *ElecRecoNJetsEff_, *ElecRecoNJetsFailEff_;
+	TH1Feff *ElecRecoHTEff_, *ElecRecoHTFailEff_;
+	TH1Feff *ElecRecoMHTEff_, *ElecRecoMHTFailEff_;
+	TH1Feff *ElecRecoPTEff_, *ElecRecoPTFailEff_;
+	TH1Feff *ElecRecoActivityEff_, *ElecRecoActivityFailEff_;
+	
+	// Isoeptance
+	// mu 
+	//1D
+	TH1Feff *MuIsoBTagEff_, *MuIsoBTagFailEff_;
+	TH1Feff *MuIsoNJetsEff_, *MuIsoNJetsFailEff_;
+	TH1Feff *MuIsoHTEff_, *MuIsoHTFailEff_;
+	TH1Feff *MuIsoMHTEff_, *MuIsoMHTFailEff_;
+	TH1Feff *MuIsoPTEff_, *MuIsoPTFailEff_;
+	TH1Feff *MuIsoActivityEff_, *MuIsoActivityFailEff_;
+	
+	// elec
+	//1D
+	TH1Feff *ElecIsoBTagEff_, *ElecIsoBTagFailEff_;
+	TH1Feff *ElecIsoNJetsEff_, *ElecIsoNJetsFailEff_;
+	TH1Feff *ElecIsoHTEff_, *ElecIsoHTFailEff_;
+	TH1Feff *ElecIsoMHTEff_, *ElecIsoMHTFailEff_;
+	TH1Feff *ElecIsoPTEff_, *ElecIsoPTFailEff_;
+	TH1Feff *ElecIsoActivityEff_, *ElecIsoActivityFailEff_;
+	
+	// MTWeptance
+	// mu 
+	//1D
+	TH1Feff *MuMTWBTagEff_, *MuMTWBTagFailEff_;
+	TH1Feff *MuMTWNJetsEff_, *MuMTWNJetsFailEff_;
+	TH1Feff *MuMTWHTEff_, *MuMTWHTFailEff_;
+	TH1Feff *MuMTWMHTEff_, *MuMTWMHTFailEff_;
+	TH1Feff *MuMTWPTEff_, *MuMTWPTFailEff_;
+	TH1Feff *MuMTWActivityEff_, *MuMTWActivityFailEff_;
+	// 2D
+	TH2Feff *MuMTWPTActivityEff_, *MuMTWPTActivityFailEff_;
+	
+	// elec
+	//1D
+	TH1Feff *ElecMTWBTagEff_, *ElecMTWBTagFailEff_;
+	TH1Feff *ElecMTWNJetsEff_, *ElecMTWNJetsFailEff_;
+	TH1Feff *ElecMTWHTEff_, *ElecMTWHTFailEff_;
+	TH1Feff *ElecMTWMHTEff_, *ElecMTWMHTFailEff_;
+	TH1Feff *ElecMTWPTEff_, *ElecMTWPTFailEff_;
+	TH1Feff *ElecMTWActivityEff_, *ElecMTWActivityFailEff_;
+	// 2D
+	TH2Feff *ElecMTWPTActivityEff_, *ElecMTWPTActivityFailEff_;
+	
+	
+	// Di lep control sample
+	// mu 
+	//1D
+	TH1Feff *MuDiLepBTagEff_, *MuDiLepBTagFailEff_;
+	TH1Feff *MuDiLepNJetsEff_, *MuDiLepNJetsFailEff_;
+	TH1Feff *MuDiLepHTEff_, *MuDiLepHTFailEff_;
+	TH1Feff *MuDiLepMHTEff_, *MuDiLepMHTFailEff_;
+	TH1Feff *MuDiLepPTEff_, *MuDiLepPTFailEff_;
+	TH1Feff *MuDiLepActivityEff_, *MuDiLepActivityFailEff_;
+	
+	
+	// elec
+	//1D
+	TH1Feff *ElecDiLepBTagEff_, *ElecDiLepBTagFailEff_;
+	TH1Feff *ElecDiLepNJetsEff_, *ElecDiLepNJetsFailEff_;
+	TH1Feff *ElecDiLepHTEff_, *ElecDiLepHTFailEff_;
+	TH1Feff *ElecDiLepMHTEff_, *ElecDiLepMHTFailEff_;
+	TH1Feff *ElecDiLepPTEff_, *ElecDiLepPTFailEff_;
+	TH1Feff *ElecDiLepActivityEff_, *ElecDiLepActivityFailEff_;
+	
+	// di lep mtw cut applied
+	// mu 
+	//1D
+	TH1Feff *MuDiLepMTWBTagEff_, *MuDiLepMTWBTagFailEff_;
+	TH1Feff *MuDiLepMTWNJetsEff_, *MuDiLepMTWNJetsFailEff_;
+	TH1Feff *MuDiLepMTWHTEff_, *MuDiLepMTWHTFailEff_;
+	TH1Feff *MuDiLepMTWMHTEff_, *MuDiLepMTWMHTFailEff_;
+	TH1Feff *MuDiLepMTWPTEff_, *MuDiLepMTWPTFailEff_;
+	TH1Feff *MuDiLepMTWActivityEff_, *MuDiLepMTWActivityFailEff_;
+	
+	// elec
+	//1D
+	TH1Feff *ElecDiLepMTWBTagEff_, *ElecDiLepMTWBTagFailEff_;
+	TH1Feff *ElecDiLepMTWNJetsEff_, *ElecDiLepMTWNJetsFailEff_;
+	TH1Feff *ElecDiLepMTWHTEff_, *ElecDiLepMTWHTFailEff_;
+	TH1Feff *ElecDiLepMTWMHTEff_, *ElecDiLepMTWMHTFailEff_;
+	TH1Feff *ElecDiLepMTWPTEff_, *ElecDiLepMTWPTFailEff_;
+	TH1Feff *ElecDiLepMTWActivityEff_, *ElecDiLepMTWActivityFailEff_;
+	
+	
+	// mu 
+	//1D
+	TH1Feff *MuDiLepContributionBTagEff_, *MuDiLepContributionBTagFailEff_;
+	TH1Feff *MuDiLepContributionNJetsEff_, *MuDiLepContributionNJetsFailEff_;
+	TH1Feff *MuDiLepContributionHTEff_, *MuDiLepContributionHTFailEff_;
+	TH1Feff *MuDiLepContributionMHTEff_, *MuDiLepContributionMHTFailEff_;
+	
+	// elec
+	//1D
+	TH1Feff *ElecDiLepContributionBTagEff_, *ElecDiLepContributionBTagFailEff_;
+	TH1Feff *ElecDiLepContributionNJetsEff_, *ElecDiLepContributionNJetsFailEff_;
+	TH1Feff *ElecDiLepContributionHTEff_, *ElecDiLepContributionHTFailEff_;
+	TH1Feff *ElecDiLepContributionMHTEff_, *ElecDiLepContributionMHTFailEff_;
+	
+	// di lep mtw cut applied
+	// mu 
+	//1D
+	TH1Feff *MuDiLepContributionMTWBTagEff_, *MuDiLepContributionMTWBTagFailEff_;
+	TH1Feff *MuDiLepContributionMTWNJetsEff_, *MuDiLepContributionMTWNJetsFailEff_;
+	TH1Feff *MuDiLepContributionMTWHTEff_, *MuDiLepContributionMTWHTFailEff_;
+	TH1Feff *MuDiLepContributionMTWMHTEff_, *MuDiLepContributionMTWMHTFailEff_;
+	
+	// elec
+	//1D
+	TH1Feff *ElecDiLepContributionMTWBTagEff_, *ElecDiLepContributionMTWBTagFailEff_;
+	TH1Feff *ElecDiLepContributionMTWNJetsEff_, *ElecDiLepContributionMTWNJetsFailEff_;
+	TH1Feff *ElecDiLepContributionMTWHTEff_, *ElecDiLepContributionMTWHTFailEff_;
+	TH1Feff *ElecDiLepContributionMTWMHTEff_, *ElecDiLepContributionMTWMHTFailEff_;
+	
+	// single isolated track from mu or electron
+	// muon
+	TH1Feff *IsoTrackMuBTagEff_, *IsoTrackMuBTagFailEff_;
+	TH1Feff *IsoTrackMuNJetsEff_, *IsoTrackMuNJetsFailEff_;
+	TH1Feff *IsoTrackMuHTEff_, *IsoTrackMuHTFailEff_;
+	TH1Feff *IsoTrackMuMHTEff_, *IsoTrackMuMHTFailEff_;
+	
+	TH1Feff *IsoTrackMuMTWBTagEff_, *IsoTrackMuMTWBTagFailEff_;
+	TH1Feff *IsoTrackMuMTWNJetsEff_, *IsoTrackMuMTWNJetsFailEff_;
+	TH1Feff *IsoTrackMuMTWHTEff_, *IsoTrackMuMTWHTFailEff_;
+	TH1Feff *IsoTrackMuMTWMHTEff_, *IsoTrackMuMTWMHTFailEff_;
+	// match to isolated muon
+	TH1Feff *IsoTrackMuMatchedToIsoMuBTagEff_, *IsoTrackMuMatchedToIsoMuBTagFailEff_;
+	TH1Feff *IsoTrackMuMatchedToIsoMuNJetsEff_, *IsoTrackMuMatchedToIsoMuNJetsFailEff_;
+	TH1Feff *IsoTrackMuMatchedToIsoMuHTEff_, *IsoTrackMuMatchedToIsoMuHTFailEff_;
+	TH1Feff *IsoTrackMuMatchedToIsoMuMHTEff_, *IsoTrackMuMatchedToIsoMuMHTFailEff_;
+	
+	// elec
+	TH1Feff *IsoTrackElecBTagEff_, *IsoTrackElecBTagFailEff_;
+	TH1Feff *IsoTrackElecNJetsEff_, *IsoTrackElecNJetsFailEff_;
+	TH1Feff *IsoTrackElecHTEff_, *IsoTrackElecHTFailEff_;
+	TH1Feff *IsoTrackElecMHTEff_, *IsoTrackElecMHTFailEff_;
+	
+	TH1Feff *IsoTrackElecMTWBTagEff_, *IsoTrackElecMTWBTagFailEff_;
+	TH1Feff *IsoTrackElecMTWNJetsEff_, *IsoTrackElecMTWNJetsFailEff_;
+	TH1Feff *IsoTrackElecMTWHTEff_, *IsoTrackElecMTWHTFailEff_;
+	TH1Feff *IsoTrackElecMTWMHTEff_, *IsoTrackElecMTWMHTFailEff_;
+	// match to isolated muon
+	TH1Feff *IsoTrackElecMatchedToIsoElecBTagEff_, *IsoTrackElecMatchedToIsoElecBTagFailEff_;
+	TH1Feff *IsoTrackElecMatchedToIsoElecNJetsEff_, *IsoTrackElecMatchedToIsoElecNJetsFailEff_;
+	TH1Feff *IsoTrackElecMatchedToIsoElecHTEff_, *IsoTrackElecMatchedToIsoElecHTFailEff_;
+	TH1Feff *IsoTrackElecMatchedToIsoElecMHTEff_, *IsoTrackElecMatchedToIsoElecMHTFailEff_;
+	
+	// isotrack di lep contribution and efficiency
+	//mu contribution
+	TH1Feff *IsoTrackMuDiLepContributionBTagEff_, *IsoTrackMuDiLepContributionBTagFailEff_;
+	TH1Feff *IsoTrackMuDiLepContributionNJetsEff_, *IsoTrackMuDiLepContributionNJetsFailEff_;
+	TH1Feff *IsoTrackMuDiLepContributionHTEff_, *IsoTrackMuDiLepContributionHTFailEff_;
+	TH1Feff *IsoTrackMuDiLepContributionMHTEff_, *IsoTrackMuDiLepContributionMHTFailEff_;
+	// efficiency
+	TH1Feff *IsoTrackMuDiLepEff_BTagEff_, *IsoTrackMuDiLepEff_BTagFailEff_;
+	TH1Feff *IsoTrackMuDiLepEff_NJetsEff_, *IsoTrackMuDiLepEff_NJetsFailEff_;
+	TH1Feff *IsoTrackMuDiLepEff_HTEff_, *IsoTrackMuDiLepEff_HTFailEff_;
+	TH1Feff *IsoTrackMuDiLepEff_MHTEff_, *IsoTrackMuDiLepEff_MHTFailEff_;
+	TH1Feff *IsoTrackMuDiLepEff_PTEff_, *IsoTrackMuDiLepEff_PTFailEff_;
+	TH1Feff *IsoTrackMuDiLepEff_ActivityEff_, *IsoTrackMuDiLepEff_ActivityFailEff_;
+	
+	//elec contribution
+	TH1Feff *IsoTrackElecDiLepContributionBTagEff_, *IsoTrackElecDiLepContributionBTagFailEff_;
+	TH1Feff *IsoTrackElecDiLepContributionNJetsEff_, *IsoTrackElecDiLepContributionNJetsFailEff_;
+	TH1Feff *IsoTrackElecDiLepContributionHTEff_, *IsoTrackElecDiLepContributionHTFailEff_;
+	TH1Feff *IsoTrackElecDiLepContributionMHTEff_, *IsoTrackElecDiLepContributionMHTFailEff_;
+	// efficiency
+	TH1Feff *IsoTrackElecDiLepEff_BTagEff_, *IsoTrackElecDiLepEff_BTagFailEff_;
+	TH1Feff *IsoTrackElecDiLepEff_NJetsEff_, *IsoTrackElecDiLepEff_NJetsFailEff_;
+	TH1Feff *IsoTrackElecDiLepEff_HTEff_, *IsoTrackElecDiLepEff_HTFailEff_;
+	TH1Feff *IsoTrackElecDiLepEff_MHTEff_, *IsoTrackElecDiLepEff_MHTFailEff_;
+	TH1Feff *IsoTrackElecDiLepEff_PTEff_, *IsoTrackElecDiLepEff_PTFailEff_;
+	TH1Feff *IsoTrackElecDiLepEff_ActivityEff_, *IsoTrackElecDiLepEff_ActivityFailEff_;
+	
+	// 2D efficiencies
+	TH2Feff *MuIsoPTActivityEff_, *MuIsoPTActivityFailEff_;
+	TH2Feff *MuRecoPTActivityEff_, *MuRecoPTActivityFailEff_;
+	
+	TH2Feff *ElecIsoPTActivityEff_, *ElecIsoPTActivityFailEff_;
+	TH2Feff *ElecRecoPTActivityEff_, *ElecRecoPTActivityFailEff_;
 	
 	// Declaration of leaf types
 	Float_t         HT;
