@@ -21,9 +21,9 @@ const double deltaPhi3_=0.3;
 const double minDeltaPhiN_=4.0;
 const bool applyFilters_=false;
 // lepton cuts
-const double minMuPt_=5;
+const double minMuPt_=10;
 const double maxMuEta_=2.4;
-const double minElecPt_=5;
+const double minElecPt_=10;
 const double maxElecEta_=2.5;
 const double mtwCut_=100;
 const double minTauPt_=10;
@@ -176,47 +176,47 @@ public :
 	Float_t         METPt;
 	Float_t         METPhi;
 	UShort_t        MuonsNum;
-	Float_t         MuonsPt[4];   //[MuonsNum]
-	Float_t         MuonsEta[4];   //[MuonsNum]
-	Float_t         MuonsPhi[4];   //[MuonsNum]
-	Float_t         MuonsE[4];   //[MuonsNum]
+	Float_t         MuonsPt[3];   //[MuonsNum]
+	Float_t         MuonsEta[3];   //[MuonsNum]
+	Float_t         MuonsPhi[3];   //[MuonsNum]
+	Float_t         MuonsE[3];   //[MuonsNum]
 	UShort_t        ElectronsNum;
-	Float_t         ElectronsPt[4];   //[ElectronsNum]
-	Float_t         ElectronsEta[4];   //[ElectronsNum]
-	Float_t         ElectronsPhi[4];   //[ElectronsNum]
-	Float_t         ElectronsE[4];   //[ElectronsNum]
+	Float_t         ElectronsPt[3];   //[ElectronsNum]
+	Float_t         ElectronsEta[3];   //[ElectronsNum]
+	Float_t         ElectronsPhi[3];   //[ElectronsNum]
+	Float_t         ElectronsE[3];   //[ElectronsNum]
 	UShort_t        IsolatedTracksNum;
-	Float_t         IsolatedTracksPt[6];   //[IsolatedTracksNum]
-	Float_t         IsolatedTracksEta[6];   //[IsolatedTracksNum]
-	Float_t         IsolatedTracksPhi[6];   //[IsolatedTracksNum]
-	Float_t         IsolatedTracksE[6];   //[IsolatedTracksNum]
+	Float_t         IsolatedTracksPt[5];   //[IsolatedTracksNum]
+	Float_t         IsolatedTracksEta[5];   //[IsolatedTracksNum]
+	Float_t         IsolatedTracksPhi[5];   //[IsolatedTracksNum]
+	Float_t         IsolatedTracksE[5];   //[IsolatedTracksNum]
 	UShort_t        selectedIDIsoMuonsNum;
-	Float_t         selectedIDIsoMuonsPt[4];   //[selectedIDIsoMuonsNum]
-	Float_t         selectedIDIsoMuonsEta[4];   //[selectedIDIsoMuonsNum]
-	Float_t         selectedIDIsoMuonsPhi[4];   //[selectedIDIsoMuonsNum]
-	Float_t         selectedIDIsoMuonsE[4];   //[selectedIDIsoMuonsNum]
+	Float_t         selectedIDIsoMuonsPt[3];   //[selectedIDIsoMuonsNum]
+	Float_t         selectedIDIsoMuonsEta[3];   //[selectedIDIsoMuonsNum]
+	Float_t         selectedIDIsoMuonsPhi[3];   //[selectedIDIsoMuonsNum]
+	Float_t         selectedIDIsoMuonsE[3];   //[selectedIDIsoMuonsNum]
 	UShort_t        selectedIDMuonsNum;
-	Float_t         selectedIDMuonsPt[6];   //[selectedIDMuonsNum]
-	Float_t         selectedIDMuonsEta[6];   //[selectedIDMuonsNum]
-	Float_t         selectedIDMuonsPhi[6];   //[selectedIDMuonsNum]
-	Float_t         selectedIDMuonsE[6];   //[selectedIDMuonsNum]
+	Float_t         selectedIDMuonsPt[4];   //[selectedIDMuonsNum]
+	Float_t         selectedIDMuonsEta[4];   //[selectedIDMuonsNum]
+	Float_t         selectedIDMuonsPhi[4];   //[selectedIDMuonsNum]
+	Float_t         selectedIDMuonsE[4];   //[selectedIDMuonsNum]
 	UShort_t        selectedIDIsoElectronsNum;
-	Float_t         selectedIDIsoElectronsPt[4];   //[selectedIDIsoElectronsNum]
-	Float_t         selectedIDIsoElectronsEta[4];   //[selectedIDIsoElectronsNum]
-	Float_t         selectedIDIsoElectronsPhi[4];   //[selectedIDIsoElectronsNum]
-	Float_t         selectedIDIsoElectronsE[4];   //[selectedIDIsoElectronsNum]
+	Float_t         selectedIDIsoElectronsPt[3];   //[selectedIDIsoElectronsNum]
+	Float_t         selectedIDIsoElectronsEta[3];   //[selectedIDIsoElectronsNum]
+	Float_t         selectedIDIsoElectronsPhi[3];   //[selectedIDIsoElectronsNum]
+	Float_t         selectedIDIsoElectronsE[3];   //[selectedIDIsoElectronsNum]
 	UShort_t        selectedIDElectronsNum;
-	Float_t         selectedIDElectronsPt[6];   //[selectedIDElectronsNum]
-	Float_t         selectedIDElectronsEta[6];   //[selectedIDElectronsNum]
-	Float_t         selectedIDElectronsPhi[6];   //[selectedIDElectronsNum]
-	Float_t         selectedIDElectronsE[6];   //[selectedIDElectronsNum]
+	Float_t         selectedIDElectronsPt[4];   //[selectedIDElectronsNum]
+	Float_t         selectedIDElectronsEta[4];   //[selectedIDElectronsNum]
+	Float_t         selectedIDElectronsPhi[4];   //[selectedIDElectronsNum]
+	Float_t         selectedIDElectronsE[4];   //[selectedIDElectronsNum]
 	UShort_t        SelectedPFCandidatesNum;
-	Float_t         SelectedPFCandidatesPt[156];   //[SelectedPFCandidatesNum]
-	Float_t         SelectedPFCandidatesEta[156];   //[SelectedPFCandidatesNum]
-	Float_t         SelectedPFCandidatesPhi[156];   //[SelectedPFCandidatesNum]
-	Float_t         SelectedPFCandidatesE[156];   //[SelectedPFCandidatesNum]
-	Int_t           SelectedPFCandidates_Charge[156];   //[SelectedPFCandidatesNum]
-	Int_t           SelectedPFCandidates_Typ[156];   //[SelectedPFCandidatesNum]
+	Float_t         SelectedPFCandidatesPt[119];   //[SelectedPFCandidatesNum]
+	Float_t         SelectedPFCandidatesEta[119];   //[SelectedPFCandidatesNum]
+	Float_t         SelectedPFCandidatesPhi[119];   //[SelectedPFCandidatesNum]
+	Float_t         SelectedPFCandidatesE[119];   //[SelectedPFCandidatesNum]
+	Int_t           SelectedPFCandidates_Charge[119];   //[SelectedPFCandidatesNum]
+	Int_t           SelectedPFCandidates_Typ[119];   //[SelectedPFCandidatesNum]
 	UShort_t        GenBosonNum;
 	Float_t         GenBosonPt[2];   //[GenBosonNum]
 	Float_t         GenBosonEta[2];   //[GenBosonNum]
@@ -242,22 +242,22 @@ public :
 	Float_t         GenTauE[2];   //[GenTauNum]
 	Int_t           GenTau_GenTauHad[2];   //[GenTauNum]
 	UShort_t        JetsNum;
-	Float_t         JetsPt[45];   //[JetsNum]
-	Float_t         JetsEta[45];   //[JetsNum]
-	Float_t         JetsPhi[45];   //[JetsNum]
-	Float_t         JetsE[45];   //[JetsNum]
-	Float_t         Jets_bDiscriminator[45];   //[JetsNum]
-	Float_t         Jets_chargedEmEnergyFraction[45];   //[JetsNum]
-	Float_t         Jets_chargedHadronEnergyFraction[45];   //[JetsNum]
-	Int_t           Jets_chargedHadronMultiplicity[45];   //[JetsNum]
-	Int_t           Jets_electronMultiplicity[45];   //[JetsNum]
-	Float_t         Jets_jetArea[45];   //[JetsNum]
-	Float_t         Jets_muonEnergyFraction[45];   //[JetsNum]
-	Int_t           Jets_muonMultiplicity[45];   //[JetsNum]
-	Float_t         Jets_neutralEmEnergyFraction[45];   //[JetsNum]
-	Int_t           Jets_neutralHadronMultiplicity[45];   //[JetsNum]
-	Float_t         Jets_photonEnergyFraction[45];   //[JetsNum]
-	Int_t           Jets_photonMultiplicity[45];   //[JetsNum]
+	Float_t         JetsPt[29];   //[JetsNum]
+	Float_t         JetsEta[29];   //[JetsNum]
+	Float_t         JetsPhi[29];   //[JetsNum]
+	Float_t         JetsE[29];   //[JetsNum]
+	Float_t         Jets_bDiscriminator[29];   //[JetsNum]
+	Float_t         Jets_chargedEmEnergyFraction[29];   //[JetsNum]
+	Float_t         Jets_chargedHadronEnergyFraction[29];   //[JetsNum]
+	Int_t           Jets_chargedHadronMultiplicity[29];   //[JetsNum]
+	Int_t           Jets_electronMultiplicity[29];   //[JetsNum]
+	Float_t         Jets_jetArea[29];   //[JetsNum]
+	Float_t         Jets_muonEnergyFraction[29];   //[JetsNum]
+	Int_t           Jets_muonMultiplicity[29];   //[JetsNum]
+	Float_t         Jets_neutralEmEnergyFraction[29];   //[JetsNum]
+	Int_t           Jets_neutralHadronMultiplicity[29];   //[JetsNum]
+	Float_t         Jets_photonEnergyFraction[29];   //[JetsNum]
+	Int_t           Jets_photonMultiplicity[29];   //[JetsNum]
 	
 	// List of branches
 	TBranch        *b_RunNum;   //!

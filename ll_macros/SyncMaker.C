@@ -71,6 +71,9 @@ void SyncMaker::SlaveBegin(TTree * /*tree*/)
 	 tOut_->Branch("selectedIDIsoMuonsNum",&selectedIDIsoMuonsNum,"selectedIDIsoMuonsNum/s");
 	 tOut_->Branch("selectedIDIsoElectronsNum",&selectedIDIsoElectronsNum,"selectedIDIsoElectronsNum/s");
 	 ResetVariables();
+	 std::cout<<"************************************\n"
+	 <<"*    Row   *     event *     mht30 *\n"
+	 <<"************************************\n";
 
 }
 
@@ -79,6 +82,7 @@ Bool_t SyncMaker::Process(Long64_t entry)
 	fChain->GetTree()->GetEntry(entry);
 	all++;
 	alld+=Weight;
+	if(EvtNum==124734)std::cout<<"NJets: "<<NJets <<" HT: "<<HT<<" MHT: "<<MHT<<"\n";
 	if(NJets>=4)
 	{
 		nJetcut++;
@@ -89,6 +93,7 @@ Bool_t SyncMaker::Process(Long64_t entry)
 			htcutd+=Weight;
 			if(MHT>200)
 			{
+			  
 				mhtcut++;
 				mhtcutd+=Weight;
 				if(selectedIDIsoMuonsNum==0)
@@ -132,6 +137,8 @@ Bool_t SyncMaker::Process(Long64_t entry)
 					}
 				}
 			}
+			//else std::cout<<"*     "<<all<<" *     "<<EvtNum<<" * "<<MHT<<" *\n";
+		  
 		}
 	}
 	tOut_->Fill();
@@ -160,7 +167,7 @@ void SyncMaker::Terminate()
 	std::cout<<"HT>500:                "<<htcutd<<" ("<<htcut<<")"<<std::endl;
 	std::cout<<"MHT>200:               "<<mhtcutd<<" ("<<mhtcut<<")"<<std::endl;
 	std::cout<<"IsoMu veto:            "<<muvetod<<" ("<<muveto<<")"<<std::endl;
-	std::cout<<"IsoMu veto:            "<<muvetod<<" ("<<muveto<<")"<<std::endl;
+// 	std::cout<<"IsoMu veto:            "<<muvetod<<" ("<<muveto<<")"<<std::endl;
 	std::cout<<"IsoElec veto:          "<<elecvetod<<" ("<<elecveto<<")"<<std::endl;
 	std::cout<<"DeltaPhiN>4:           "<<deltaphiNcutd<<" ("<<deltaphiNcut<<")"<<std::endl;
 	std::cout<<"IsoTrack(mt<100) veto: "<<isotrakvetod<<" ("<<isotrakveto<<")"<<std::endl;

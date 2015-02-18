@@ -3755,6 +3755,8 @@ void TH2Feff::saveResults(TDirectory* MainDirectory)
 // 	std::cout<<"name: "<<name_<<std::endl;
 	TDirectory *dir = (TDirectory*)MainDirectory->Get(name_);
 	dir->cd();
+	RefTH2F_->SetName(name_);
+	RefTH2F_->Write();
 	std::vector<TGraphAsymmErrors*> result = GetEfficiency();
 	for(unsigned int i=0; i<result.size();i++) 
 	{

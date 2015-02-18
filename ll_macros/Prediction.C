@@ -68,6 +68,30 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
 	 ElecMTWPTActivity_ = (TH2F*)EffInputFolder->Get("ElecMTWPTActivity");
 	 ElecDiLepContributionMTWAppliedNJets_ = (TH1F*) EffInputFolder->Get("ElecDiLepContributionMTWNJets1D");
 	 ElecDiLepEffMTWAppliedNJets_ = (TH1F*) EffInputFolder->Get("ElecDiLepMTWNJets1D");
+	 
+	 // load TEfficiencies
+	 TDirectory *TEffInputFolder =   (TDirectory*)effInput->Get("TEfficiencies");
+	 
+	 MuIsoPTActivityEff_ = new THFeff(TEffInputFolder,"MuIsoPTActivity");
+	 ElecIsoPTActivityEff_ = new THFeff(TEffInputFolder,"ElecIsoPTActivity");
+	 MuDiLepContributionMTWAppliedNJetsEff_ = new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("MuDiLepContributionMTWNJets1D") );
+	 
+	 
+	 MuMTWPTActivityEff_ =  new THFeff(TEffInputFolder,"MuMTWPTActivity");
+	 MuDiLepContributionMTWAppliedNJetsEff_ = new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("MuDiLepContributionMTWNJets1D"));
+	 MuDiLepEffMTWAppliedNJetsEff_ = new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("MuDiLepMTWNJets1D"));
+	 MuIsoPTActivityEff_ =  new THFeff(TEffInputFolder,"MuIsoPTActivity");
+	 MuRecoPTActivityEff_=  new THFeff(TEffInputFolder,"MuRecoPTActivity");
+	 MuAccMHTNJetsEff_ =  new THFeff(TEffInputFolder,"MuAccMHTNJets");
+	 ElecIsoPTActivityEff_ =  new THFeff(TEffInputFolder,"ElecIsoPTActivity");
+
+	 ElecRecoPTActivityEff_=  new THFeff(TEffInputFolder,"ElecRecoPTActivity");
+	 ElecAccMHTNJetsEff_ =  new THFeff(TEffInputFolder,"ElecAccMHTNJets");
+	 
+	 ElecPurityMHTNJetsEff_ =  new THFeff(TEffInputFolder,"ElecPurity");
+	 ElecMTWPTActivityEff_ =  new THFeff(TEffInputFolder,"ElecMTWPTActivity");
+	 ElecDiLepContributionMTWAppliedNJetsEff_ = new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("ElecDiLepContributionMTWNJets1D"));
+	 ElecDiLepEffMTWAppliedNJetsEff_ = new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("ElecDiLepMTWNJets1D"));
 
 
   
@@ -156,19 +180,24 @@ Bool_t Prediction::Process(Long64_t entry)
 	{
 	  mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoMuonsPt[0], selectedIDIsoMuonsPhi[0]);
 		selectedIDIsoMuonsActivity[0]=MuActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0],muActivityMethod_);
-		muMTWEff_ = getEff(MuMTWPTActivity_,selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
+		if(!UseUpdatedTEfficiencies_) muMTWEff_ = getEff(MuMTWPTActivity_,selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
+		else muMTWEff_ = MuMTWPTActivityEff_->GetEff(selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
 	  mtwCorrectedWeight_ = Weight / muMTWEff_;
-	  muDiLepContributionMTWAppliedEff_ = getEff(MuDiLepContributionMTWAppliedNJets_,NJets);
+		if(!UseUpdatedTEfficiencies_) muDiLepContributionMTWAppliedEff_ = getEff(MuDiLepContributionMTWAppliedNJets_,NJets);
+		else muDiLepContributionMTWAppliedEff_ = MuDiLepContributionMTWAppliedNJetsEff_->GetEff(NJets);
 	  mtwDiLepCorrectedWeight_ = mtwCorrectedWeight_ * muDiLepContributionMTWAppliedEff_;
-	  muIsoEff_ = getEff(MuIsoPTActivity_, selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
+		if(!UseUpdatedTEfficiencies_) muIsoEff_ = getEff(MuIsoPTActivity_, selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
+		else muIsoEff_ = MuIsoPTActivityEff_->GetEff( selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
  	  muIsoWeight_ = mtwDiLepCorrectedWeight_* (1 - muIsoEff_)/muIsoEff_;
 // 		muIsoWeight_ = Weight* (1 - muIsoEff_)/muIsoEff_;
 //  	  muRecoEff_ = getEff(MuRecoActivitiy_,selectedIDIsoMuonsActivity[0]);
- 		muRecoEff_ = getEff(MuRecoPTActivity_,selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
+		if(!UseUpdatedTEfficiencies_) muRecoEff_ = getEff(MuRecoPTActivity_,selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
+		else muRecoEff_ = MuRecoPTActivityEff_->GetEff(selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
 	  muRecoWeight_ = mtwDiLepCorrectedWeight_* 1 / muIsoEff_ * (1-muRecoEff_)/muRecoEff_;
 // 	  muAccEff_ = getEff(MuAccHTNJets_,HT,NJets);
 // 		muAccEff_ = getEff(MuAccBTagNJets_,BTags,NJets);
-		muAccEff_ = getEff(MuAccMHTNJets_,MHT,NJets);
+		if(!UseUpdatedTEfficiencies_) muAccEff_ = getEff(MuAccMHTNJets_,MHT,NJets);
+		else muAccEff_ = MuAccMHTNJetsEff_->GetEff(MHT,NJets);
 	  muAccWeight_ = mtwDiLepCorrectedWeight_* 1 / muIsoEff_ * 1 / muRecoEff_ * (1-muAccEff_)/muAccEff_;
 	  
 	  muTotalWeight_ = muIsoWeight_ + muRecoWeight_ + muAccWeight_;
@@ -176,12 +205,15 @@ Bool_t Prediction::Process(Long64_t entry)
 	  
 // 	  elecAccEff_ = getEff(ElecAccHTNJets_,HT,NJets);
 // 		elecAccEff_ = getEff(ElecAccBTagNJets_,BTags,NJets);
-		elecAccEff_ = getEff(ElecAccMHTNJets_,MHT,NJets);
+		if(!UseUpdatedTEfficiencies_) elecAccEff_ = getEff(ElecAccMHTNJets_,MHT,NJets);
+		else elecAccEff_ = ElecAccMHTNJetsEff_->GetEff(MHT,NJets);
 	  elecAccWeight_ = totalMuons_ * (1 - elecAccEff_);
 		//  	  elecRecoEff_ = getEff(ElecRecoActivity_,ElecActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0],elecActivityMethod_));
-		elecRecoEff_ = getEff(ElecRecoPTActivity_,selectedIDIsoMuonsPt[0],ElecActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0],elecActivityMethod_));
+		if(!UseUpdatedTEfficiencies_) elecRecoEff_ = getEff(ElecRecoPTActivity_,selectedIDIsoMuonsPt[0],ElecActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0],elecActivityMethod_));
+		else elecRecoEff_ = ElecRecoPTActivityEff_->GetEff(selectedIDIsoMuonsPt[0],ElecActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0],elecActivityMethod_));
 	  elecRecoWeight_ = totalMuons_ * (elecAccEff_) * (1-elecRecoEff_);
-		elecIsoEff_ = getEff(ElecIsoPTActivity_,selectedIDIsoMuonsPt[0],ElecActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0],elecActivityMethod_));
+		if(!UseUpdatedTEfficiencies_) elecIsoEff_ = getEff(ElecIsoPTActivity_,selectedIDIsoMuonsPt[0],ElecActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0],elecActivityMethod_));
+		else elecIsoEff_= ElecIsoPTActivityEff_->GetEff(selectedIDIsoMuonsPt[0],ElecActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0],elecActivityMethod_));
 	  elecIsoWeight_ = totalMuons_ * (elecAccEff_) * (elecRecoEff_) * (1-elecIsoEff_);
 	  elecTotalWeight_ = elecIsoWeight_ + elecRecoWeight_ + elecAccWeight_;
 	  totalWeight_ = elecTotalWeight_ + muTotalWeight_;
@@ -194,23 +226,30 @@ Bool_t Prediction::Process(Long64_t entry)
 	  mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoElectronsPt[0], selectedIDIsoElectronsPhi[0]);
 		selectedIDIsoElectronsActivity[0]=ElecActivity(selectedIDIsoElectronsEta[0], selectedIDIsoElectronsPhi[0],elecActivityMethod_);
 		elecPurityCorrection_ =  getEff(ElecPurityMHTNJets_,MHT,NJets);
-		elecMTWEff_ = getEff(ElecMTWPTActivity_,selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
-		elecIsoEff_ =  getEff(ElecIsoPTActivity_,selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
+		if(!UseUpdatedTEfficiencies_) elecMTWEff_ = getEff(ElecMTWPTActivity_,selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
+		else elecMTWEff_= ElecMTWPTActivityEff_->GetEff(selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
+		if(!UseUpdatedTEfficiencies_) elecIsoEff_ =  getEff(ElecIsoPTActivity_,selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
+		else elecIsoEff_ = ElecIsoPTActivityEff_->GetEff(selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
 //  		elecRecoEff_ = getEff(ElecRecoActivity_,selectedIDIsoElectronsActivity[0]);
- 		elecRecoEff_ = getEff(ElecRecoPTActivity_,selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
+		if(!UseUpdatedTEfficiencies_) elecRecoEff_ = getEff(ElecRecoPTActivity_,selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
+		else elecRecoEff_ = ElecRecoPTActivityEff_->GetEff(selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
 // 		elecAccEff_ = getEff(ElecAccHTNJets_,HT,NJets);
 // 		elecAccEff_ = getEff(ElecAccBTagNJets_,BTags,NJets);
-		elecAccEff_ = getEff(ElecAccMHTNJets_,MHT,NJets);
+		if(!UseUpdatedTEfficiencies_) elecAccEff_ = getEff(ElecAccMHTNJets_,MHT,NJets);
+		else elecAccEff_ = ElecAccMHTNJetsEff_->GetEff(MHT,NJets);
 		
 // 		muAccEff_ = getEff(MuAccHTNJets_,HT,NJets);
 // 		muAccEff_ = getEff(MuAccBTagNJets_,BTags,NJets);
 		muAccEff_ = getEff(MuAccMHTNJets_,MHT,NJets);
 //  		muRecoEff_ = getEff(MuRecoActivitiy_,selectedIDIsoElectronsActivity[0]);
- 		muRecoEff_ = getEff(MuRecoPTActivity_, selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
-		muIsoEff_ = getEff(MuIsoPTActivity_, selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
+		if(!UseUpdatedTEfficiencies_) muRecoEff_ = getEff(MuRecoPTActivity_, selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
+		else muRecoEff_ = MuRecoPTActivityEff_->GetEff(selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
+		if(!UseUpdatedTEfficiencies_) muIsoEff_ = getEff(MuIsoPTActivity_, selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
+		else muIsoEff_ = MuIsoPTActivityEff_->GetEff(selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
 		purityCorrectedWeight_ = Weight * elecPurityCorrection_;
 		mtwCorrectedWeight_ =  purityCorrectedWeight_ / elecMTWEff_;
-		elecDiLepContributionMTWAppliedEff_ = getEff(ElecDiLepContributionMTWAppliedNJets_,NJets);
+		if(!UseUpdatedTEfficiencies_) elecDiLepContributionMTWAppliedEff_ = getEff(ElecDiLepContributionMTWAppliedNJets_,NJets);
+		else elecDiLepContributionMTWAppliedEff_ = ElecDiLepContributionMTWAppliedNJetsEff_->GetEff(NJets);
 		mtwDiLepCorrectedWeight_ = mtwCorrectedWeight_ * elecDiLepContributionMTWAppliedEff_;
  		elecIsoWeight_= mtwDiLepCorrectedWeight_ * (1 - elecIsoEff_)/elecIsoEff_;
 // 		elecIsoWeight_= Weight * (1 - elecIsoEff_)/elecIsoEff_;
@@ -223,7 +262,8 @@ Bool_t Prediction::Process(Long64_t entry)
 		muIsoWeight_ = totalElectrons_ * (muAccEff_) * (muRecoEff_) * (1-muIsoEff_);
 		muTotalWeight_ = muIsoWeight_ + muRecoWeight_ + muAccWeight_;
 		totalWeight_ = elecTotalWeight_ + muTotalWeight_;
-		elecDiLepEffMTWAppliedEff_ = getEff(ElecDiLepEffMTWAppliedNJets_,NJets);
+		if(!UseUpdatedTEfficiencies_) elecDiLepEffMTWAppliedEff_ = getEff(ElecDiLepEffMTWAppliedNJets_,NJets);
+		else elecDiLepEffMTWAppliedEff_ = ElecDiLepEffMTWAppliedNJetsEff_->GetEff(NJets);
 		totalWeightDiLep_ = totalWeight_ + (1-elecDiLepContributionMTWAppliedEff_) * mtwCorrectedWeight_ * (1-elecDiLepEffMTWAppliedEff_)/elecDiLepEffMTWAppliedEff_;
 	}
 
@@ -501,4 +541,142 @@ double Prediction::IsoTrackActivityCalc( double isoTrackEta, double isoTrackPhi,
 	}
 	return result;
 	
+}
+THFeff::THFeff(TDirectory* inputFolder, const char* FolderName)
+{
+	useTH2f_=true;
+	FolderName_=FolderName;
+	TDirectory* EffFolder = (TDirectory*)inputFolder->Get(FolderName);
+	TList* effList = (TList*)EffFolder->GetListOfKeys();
+	effList->Print();
+	TIter next(EffFolder->GetListOfKeys());
+	TKey *key;
+	int count =0;
+	while ( (key = (TKey*)next()) )
+	{
+		TObject *object = key->ReadObj();
+		if(object->IsA()->InheritsFrom( TH2::Class() ) )
+		{
+// 			std::cout<<"object: "<<object->GetName()<<" is a th2f\n";
+			refTH2F_ = (TH2F*)object;
+		}
+		if(object->IsA()->InheritsFrom( TGraphAsymmErrors::Class() ) )
+		{
+// 			std::cout<<"object: "<<object->GetName()<<" is a TGraphAsymmErrors\n";
+			TGraphAsymmErrorsVec_.push_back( (TGraphAsymmErrors*)object  );
+		}
+		count++;
+	}
+// 	for(unsigned int i=0; i<TGraphAsymmErrorsVec_.size();i++)
+// 	{
+// 		std::cout<<"TGraph["<<i<<"]: "<<TGraphAsymmErrorsVec_[i]->GetTitle()<<std::endl;
+// 	}
+	xMax_=0; xMin_=0; yMax_=0; yMin_=0;
+	xMax_= refTH2F_->GetXaxis()->GetXmax();
+	xMin_=refTH2F_->GetXaxis()->GetXmin();
+	yMax_= refTH2F_->GetYaxis()->GetXmax();
+	yMin_=refTH2F_->GetYaxis()->GetXmin();
+// 	std::cout<<"Eff: "<<refTH2F_->GetName()<<" range: ["<<xMin_<<","<<xMax_<<"],["<<yMin_<<","<<yMax_<<"]\n"; 
+}
+THFeff::THFeff(TGraphAsymmErrors* inputGraph)
+{
+	useTH2f_=false; 
+	TGraphAsymmErrorsRef_=inputGraph; 
+	const unsigned int points = TGraphAsymmErrorsRef_->GetN();
+	std::vector<Double_t> values(TGraphAsymmErrorsRef_->GetX(),TGraphAsymmErrorsRef_->GetX() + points);
+	xMax_=-999;
+	xMin_=99999;
+	for(unsigned int i=0; i<values.size();i++)
+	{
+		if(xMax_<values[i]+TGraphAsymmErrorsRef_->GetErrorXhigh(i))xMax_=values[i]+TGraphAsymmErrorsRef_->GetErrorXhigh(i);
+		if(xMin_>values[i]-TGraphAsymmErrorsRef_->GetErrorXlow(i))xMin_=values[i]-TGraphAsymmErrorsRef_->GetErrorXlow(i);
+	}
+
+	std::cout<<"TEff1D: xMax: "<<xMax_<<" xMin: "<<xMin_<<std::endl;
+	
+}
+double THFeff::GetEff(double xValue, double yValue)
+{
+	if(!useTH2f_)
+	{
+		std::cout<<"THFeff::ERROR: Wrong use of THFeff trying to retrieve 2d eff from a 1d map!!!!!! crash...."<<std::endl;
+		return -99999;
+	}
+	double result =0;
+ 	if(xValue>xMax_)
+	{
+		std::cout<<"THFeff::Warning xValue: "<<xValue<<" is bigger than maximum of histo: "<<refTH2F_->GetName()<<" which is: "<<xMax_;
+		xValue= xMax_-0.001;
+		std::cout<<" Setting xValue to: "<<xValue<<std::endl;
+	}
+	if(xValue<xMin_)
+	{
+		std::cout<<"THFeff::Warning xValue: "<<xValue<<" is smaller than min of histo: "<<refTH2F_->GetName()<<" which is: "<<xMin_;
+		xValue= xMin_+0.001;
+		std::cout<<" Setting xValue to: "<<xValue<<std::endl;
+	}
+	if(yValue>yMax_)
+	{
+		std::cout<<"THFeff::Warning yValue: "<<yValue<<" is bigger than maximum of histo: "<<refTH2F_->GetName()<<" which is: "<<yMax_;
+		yValue= yMax_-0.001;
+		std::cout<<" Setting xValue to: "<<yValue<<std::endl;
+	}
+	if(yValue<yMin_)
+	{
+		std::cout<<"THFeff::Warning yValue: "<<yValue<<" is smaller than min of histo: "<<refTH2F_->GetName()<<" which is: "<<yMin_;
+		yValue= yMin_+0.001;
+		std::cout<<" Setting yValue to: "<<yValue<<std::endl;
+	}
+	unsigned int yHistoIndex =refTH2F_->GetYaxis()->FindBin(yValue);
+	if(yHistoIndex<1 || yHistoIndex>(TGraphAsymmErrorsVec_.size()+1))
+	{
+		std::cout<<"THFeff::Error selected HistoIndex for refTH2F: "<<refTH2F_->GetName()<<" is out of bounce: "<<yHistoIndex<<std::endl;
+	}
+	result = TGraphAsymmErrorsVec_[yHistoIndex-1]->Eval(xValue);
+	if(result<0.01)
+	{
+		std::cout<<"THFeff::Warning efficiency is: "<<result<<" is smaller than 1% for histo: "<<refTH2F_->GetName()<<std::endl;
+		result =0.01;
+	}
+	if(result>1)
+	{
+		std::cout<<"THFeff::Warning efficiency is: "<<result<<" is bigger than 1 for histo: "<<refTH2F_->GetName()<<std::endl;
+		result =0.99;
+	}
+	
+	return result;
+}
+
+double THFeff::GetEff(double xValue)
+{
+	if(useTH2f_)
+	{
+		std::cout<<"ERROR: Wrong use of THFeff trying to retrieve 1d eff from a 2d map!!!!!! crash...."<<std::endl;
+		return -99999;
+	}
+	double result=0;
+	if(xValue>xMax_)
+	{
+		std::cout<<"THFeff::Warning xValue: "<<xValue<<" is bigger than maximum of histo: "<<TGraphAsymmErrorsRef_->GetName()<<" which is: "<<xMax_;
+		xValue= xMax_-0.001;
+		std::cout<<" Setting xValue to: "<<xValue<<std::endl;
+	}
+	if(xValue<xMin_)
+	{
+		std::cout<<"THFeff::Warning xValue: "<<xValue<<" is smaller than min of histo: "<<TGraphAsymmErrorsRef_->GetName()<<" which is: "<<xMin_;
+		xValue= xMin_+0.001;
+		std::cout<<" Setting xValue to: "<<xValue<<std::endl;
+	}
+	result = TGraphAsymmErrorsRef_->Eval(xValue);
+	if(result<0.01)
+	{
+		std::cout<<"THFeff::Warning efficiency is: "<<result<<" is smaller than 1% for histo: "<<TGraphAsymmErrorsRef_->GetName()<<std::endl;
+		result =0.01;
+	}
+	if(result>1)
+	{
+		std::cout<<"THFeff::Warning efficiency is: "<<result<<" is bigger than 1 for histo: "<<TGraphAsymmErrorsRef_->GetName()<<std::endl;
+		result =0.99;
+	}
+	return result;
 }

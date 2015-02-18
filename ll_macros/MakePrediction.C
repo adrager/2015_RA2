@@ -4,11 +4,11 @@
 //#include "EffMaker.h"
 void MakePrediction()
 {
-	//TString connect = gSystem->GetFromPipe("pod-info -c");
+// 	TString connect = gSystem->GetFromPipe("pod-info -c");
 	//TProof *proof = TProof::Open("adraeger@nafhh-cms03.desy.de:21001");
- 	TProof *proof = TProof::Open("workers=20");
+    	TProof *proof = TProof::Open("workers=10");
 	//TProof *proof = TProof::Open("");
-	//TProof *proof = TProof::Open(connect);
+// 	TProof *proof = TProof::Open(connect);
 	// analyse the trees
 // 	TChain *Effchain = new TChain("TreeMaker2/PreSelection");
 	// 	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/*root");
@@ -36,10 +36,10 @@ void MakePrediction()
 // 	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/QCD_HT_250To500_13TeV-madgraph_v1_ext1/*root");
 // 	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/QCD_HT-500To1000_13TeV-madgraph_v1/*root");
 // 	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/QCD_HT-500To1000_13TeV-madgraph_v1_ext1/*root");
-  	Effchain->SetProof();
+     	Effchain->SetProof();
 	//	Effchain->Process("EffMaker.C+g",0,800000);
 	Effchain->Process("/afs/desy.de/user/a/adraeger/xxl-af-cms/2015/2015_RA2/ll_macros/Prediction.C+");
 	//Effchain->Process("EffMaker.C+",0,800000);
-  	Effchain->SetProof(0);
-  	delete proof;
+     	Effchain->SetProof(0);
+     	delete proof;
 }
